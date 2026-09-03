@@ -102,7 +102,6 @@
   .pulse{width:10px; height:10px; border-radius:50%; background:var(--bad); animation:pulse 1.6s infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,107,.6)} 60%{box-shadow:0 0 0 8px rgba(255,107,107,0)}}
   @media (max-width:900px){ .hero-wrap{grid-template-columns:1fr} .console{display:none} }
-  @media (max-width:720px){ .hero-wrap{padding-top:44px!important} .hero h1{font-size:clamp(30px,9vw,40px)} .hero p{font-size:16px} .page > .wrap{padding-top:44px; padding-bottom:64px} .page h2{font-size:clamp(24px,7vw,32px)} .actions .btn{width:100%} .strip{grid-template-columns:1fr} .kpis{grid-template-columns:1fr 1fr} .dtabs{margin-left:0; width:100%} .dtab{flex:1; text-align:center; padding:9px 8px} .rep-h{grid-template-columns:1fr; row-gap:4px} .rep-h .p{text-align:left} .grid-cat{grid-template-columns:repeat(2,1fr)} .wiz-body{padding:20px 14px} .wiz-foot{flex-wrap:wrap} .wiz-foot .sum{display:none} .cap{display:none} }
 
   .widgets{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px}
   .wg{position:relative; display:flex; flex-direction:column; gap:12px; min-height:230px; padding:20px; background:var(--panel); border:1px solid var(--line); border-radius:18px; text-decoration:none; color:var(--ink); overflow:hidden; transition:transform .25s var(--ease), border-color .25s, box-shadow .25s}
@@ -115,7 +114,6 @@
   .wg h3{font-size:17px; font-weight:500}
   .wg p{margin:0; font-size:13.5px; color:var(--ink-2)}
   @media (max-width:900px){ .widgets{grid-template-columns:repeat(2,1fr)} }
-  @media (max-width:560px){ .widgets{grid-template-columns:1fr} }
   /* widget 1: carosello icone */
   .viz-icons{position:relative; width:100%; height:92px}
   .viz-icons svg{position:absolute; left:50%; top:50%; width:52px; height:52px; transform:translate(-50%,-50%) scale(.6); opacity:0; color:var(--neon); filter:drop-shadow(0 0 12px var(--neon-glow)); transition:opacity .5s var(--ease), transform .5s var(--ease)}
@@ -299,10 +297,15 @@
   .avatar{width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,var(--neon),var(--neon-deep)); color:#03202a; font-family:var(--display); font-weight:700; font-size:15px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 16px var(--neon-glow); flex:none}
   .dash-head .who b{display:block; font-size:16px}
   .dash-head .who span{font-family:var(--mono); font-size:12px; color:var(--ink-3)}
-  .dtabs{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap}
-  .dtab{background:transparent; border:1px solid var(--line-2); color:var(--ink-2); border-radius:999px; padding:9px 16px; font-weight:600; font-size:13.5px; min-height:40px; transition:all .2s}
-  .dtab:hover{color:#fff; border-color:var(--neon-2)}
+  .dash-head .who{flex:1; min-width:160px}
+  .logout{display:inline-flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--line-2); color:var(--ink-3); border-radius:999px; padding:7px 12px; font-weight:600; font-size:12.5px; min-height:36px; transition:all .2s; order:3}
+  .logout svg{width:14px; height:14px}
+  .logout:hover{color:#fff; border-color:var(--bad)}
+  .dtabs{display:flex; gap:4px; padding:4px; background:rgba(4,11,22,.7); border:1px solid var(--line); border-radius:999px; flex-basis:100%; order:4}
+  .dtab{flex:1; background:transparent; border:1px solid transparent; color:var(--ink-2); border-radius:999px; padding:9px 14px; font-weight:600; font-size:13.5px; min-height:40px; white-space:nowrap; transition:all .2s}
+  .dtab:hover{color:#fff}
   .dtab.on{background:var(--neon-soft); color:#fff; border-color:var(--neon); box-shadow:0 0 14px rgba(46,241,237,.35)}
+  @media (min-width:1000px){ .dtabs{flex-basis:auto; margin-left:auto; order:2} .logout{order:3} }
   .dpane{display:none; margin-top:18px}
   .dpane.on{display:block; animation:fade .3s var(--ease)}
   .kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px}
@@ -401,6 +404,8 @@
   .drawer .ph-top h3{font-size:18px; font-weight:500}
   .drawer .close{margin-left:auto; width:44px; height:44px; border-radius:10px; border:1px solid var(--line-2); background:var(--panel-solid); color:var(--ink)}
   .drawer .wiz{margin-top:0; box-shadow:none}
+  /* ===== MOBILE (in fondo: deve vincere su tutte le regole precedenti) ===== */
+  @media (max-width:720px){ .hero-wrap{padding-top:44px!important} .hero h1{font-size:clamp(30px,9vw,40px)} .hero p{font-size:16px} .page > .wrap{padding-top:44px; padding-bottom:64px} .page h2{font-size:clamp(24px,7vw,32px)} .actions .btn{width:100%} .strip{grid-template-columns:1fr 1fr; gap:8px} .strip .item{padding:12px; flex-direction:column; gap:8px} .strip b{font-size:13px} .strip span{font-size:11.5px} .kpis{grid-template-columns:1fr 1fr} .widgets{grid-template-columns:1fr 1fr; gap:10px; margin-top:22px} .wg{min-height:0; padding:14px 12px; gap:8px; border-radius:14px} .wg .top .open{display:none} .wg .viz{min-height:64px} .wg h3{font-size:13.5px; line-height:1.25} .wg p{display:none} .viz-icons{height:64px} .viz-icons svg{width:36px; height:36px} .viz-icons .lbl{font-size:9.5px; bottom:-4px} .radar{width:64px; height:64px} .radar::before{inset:15px} .stepsviz i{height:40px} .stepsviz i::after{font-size:10px} .trk .pts{font-size:8.5px} .tk-card{font-size:10px; padding:8px 10px} .ticker .it{font-size:10.5px; padding:6px 8px} .dtabs{display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:6px; border-radius:16px} .dtab{padding:10px 8px; font-size:13px; text-align:center} .logout{margin-left:auto} .rep-h{grid-template-columns:1fr; row-gap:4px} .rep-h .p{text-align:left} .grid-cat{grid-template-columns:repeat(2,1fr)} .wiz-body{padding:20px 14px} .wiz-foot{flex-wrap:wrap} .wiz-foot .sum{display:none} .cap{display:none} }
   @media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
 </style>
 
@@ -649,12 +654,12 @@
         <div class="dash-head">
           <div class="avatar" id="dAvatar">MR</div>
           <div class="who"><b id="dName">Mario Rossi</b><span id="dMail">mario.rossi@example.it</span></div>
-          <div class="dtabs">
-            <button class="dtab on" type="button" data-t="over">Panoramica</button>
-            <button class="dtab" type="button" data-t="dev">Dispositivi</button>
-            <button class="dtab" type="button" data-t="rep">Riparazioni</button>
-            <button class="dtab" type="button" data-t="dl">Download</button>
-            <button class="dtab" type="button" id="logout">Esci</button>
+          <button class="logout" type="button" id="logout" aria-label="Esci dall'area cliente"><svg><use href="#i-lock"/></svg><span>Esci</span></button>
+          <div class="dtabs" role="tablist">
+            <button class="dtab on" type="button" data-t="over" role="tab">Panoramica</button>
+            <button class="dtab" type="button" data-t="dev" role="tab">Dispositivi</button>
+            <button class="dtab" type="button" data-t="rep" role="tab">Riparazioni</button>
+            <button class="dtab" type="button" data-t="dl" role="tab">Download</button>
           </div>
         </div>
         <div class="dpane on" data-t="over" id="pOver"></div>
