@@ -41,12 +41,6 @@
   .btn-gold:hover{animation:none; transform:translateY(-2px); box-shadow:0 8px 0 #9a6c02, 0 16px 26px rgba(0,0,0,.55), 0 0 24px rgba(249,183,24,.9), 0 0 70px rgba(249,183,24,.45), inset 0 1px 0 rgba(255,255,255,.7)}
   .btn-gold:active{animation:none; transform:translateY(4px); box-shadow:0 2px 0 #9a6c02, 0 4px 10px rgba(0,0,0,.45), 0 0 14px rgba(249,183,24,.6)}
   .hero .actions .btn-primary, .fab{animation:neonBreath 2.8s ease-in-out infinite}
-  /* Modalità "rich" (attivata dal JS solo su dispositivi veloci): estetica completa, vetro sfocato e bagliori animati su tutti i bottoni */
-  html.rich .btn-primary{animation:neonBreath 2.8s ease-in-out infinite}
-  html.rich .btn-ghost{animation:neonBreathGhost 3.2s ease-in-out infinite}
-  html.rich .btn-gold{animation:goldBreath 3s ease-in-out infinite}
-  html.rich .btn:hover{animation:none}
-  html.rich .console, html.rich .wg, html.rich .step, html.rich .sv, html.rich .rc, html.rich .card, html.rich .wiz, html.rich .dash-head, html.rich .dd{backdrop-filter:blur(8px)}
   .btn-sm{min-height:42px; padding:0 16px; font-size:14px}
   .btn[disabled]{opacity:.4; animation:none; transform:none; box-shadow:0 3px 0 #0f2a3a; cursor:not-allowed; filter:grayscale(.4)}
   .btn[disabled]::after{display:none}
@@ -56,7 +50,7 @@
   @keyframes goldBreath{0%,100%{box-shadow:0 6px 0 #9a6c02, 0 10px 18px rgba(0,0,0,.5), 0 0 14px rgba(249,183,24,.55), 0 0 34px rgba(249,183,24,.25), inset 0 1px 0 rgba(255,255,255,.6)} 50%{box-shadow:0 6px 0 #9a6c02, 0 10px 18px rgba(0,0,0,.5), 0 0 22px rgba(249,183,24,.85), 0 0 56px rgba(249,183,24,.4), inset 0 1px 0 rgba(255,255,255,.6)}}
 
   /* ===== NAV con menu a tendina + WhatsApp ===== */
-  nav.top{position:sticky; top:0; z-index:50; background:rgba(4,11,22,.78); backdrop-filter:blur(14px); border-bottom:1px solid var(--line)}
+  nav.top{position:sticky; top:0; z-index:50; background:rgba(4,11,22,.94); border-bottom:1px solid var(--line)}
   nav.top .wrap{display:flex; align-items:center; gap:12px; height:72px}
   .logo{display:flex; align-items:center; gap:10px; text-decoration:none; margin-right:auto}
   .logo svg{width:38px; height:38px; filter:drop-shadow(0 0 8px var(--neon-glow))}
@@ -396,7 +390,7 @@
   @media (max-width:720px){ .fab{padding:0; width:56px; justify-content:center; right:14px; bottom:14px} .fab .lbl{display:none} }
   .drawer{position:fixed; inset:0; z-index:70; display:none}
   .drawer.open{display:block}
-  .drawer .bg{position:absolute; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(4px)}
+  .drawer .bg{position:absolute; inset:0; background:rgba(0,0,0,.72)}
   .drawer .panel{position:absolute; top:0; right:0; bottom:0; width:min(680px,100%); background:var(--ground); border-left:1px solid var(--line-2); overflow:auto; padding:18px; animation:slide .4s var(--ease); box-shadow:-20px 0 80px rgba(46,241,237,.08)}
   @keyframes slide{from{transform:translateX(40px); opacity:0} to{transform:none; opacity:1}}
   .drawer .ph-top{display:flex; align-items:center; gap:12px; margin-bottom:12px}
@@ -966,7 +960,7 @@ const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const g=b.createRadialGradient(w*.7,h*.2,0,w*.7,h*.2,w*.8); g.addColorStop(0,'rgba(21,49,134,.28)'); g.addColorStop(1,'rgba(4,11,22,0)'); b.fillStyle=g; b.fillRect(0,0,w,h);
     const g2=b.createRadialGradient(w*.15,h*.85,0,w*.15,h*.85,w*.6); g2.addColorStop(0,'rgba(4,106,108,.22)'); g2.addColorStop(1,'rgba(4,11,22,0)'); b.fillStyle=g2; b.fillRect(0,0,w,h); }
   size(); let rt; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(size,150); });
-  const N=45; const P=Array.from({length:N},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0005,vy:(Math.random()-.5)*.0005,r:Math.random()*1.4+.8}));
+  const N=36; const P=Array.from({length:N},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0005,vy:(Math.random()-.5)*.0005,r:Math.random()*1.4+.8}));
   const buckets=[[],[],[]];
   function draw(){ ctx.drawImage(bg,0,0);
     P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>1) p.vx*=-1; if(p.y<0||p.y>1) p.vy*=-1; });
@@ -977,12 +971,7 @@ const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
     ctx.fillStyle='rgba(46,241,237,.85)'; ctx.beginPath(); P.forEach(p=>{ ctx.moveTo(p.x*w+p.r,p.y*h); ctx.arc(p.x*w,p.y*h,p.r,0,7); }); ctx.fill();
     const sy=((t*.00006)%1)*h; const sg=ctx.createLinearGradient(0,sy-140,0,sy+20); sg.addColorStop(0,'rgba(46,241,237,0)'); sg.addColorStop(1,'rgba(46,241,237,.09)'); ctx.fillStyle=sg; ctx.fillRect(0,sy-140,w,160); ctx.fillStyle='rgba(46,241,237,.3)'; ctx.fillRect(0,sy,w,1); }
   document.addEventListener('visibilitychange',()=>{ if(!document.hidden) size(); });
-  /* Sonda prestazioni: effetti completi (classe "rich") su desktop capaci; se i frame risultano lenti, si torna alla versione leggera. */
-  (function(){ const coarse=matchMedia('(pointer:coarse)').matches; const cores=navigator.hardwareConcurrency||4; const mem=navigator.deviceMemory||4;
-    let rich=!REDUCE && !coarse && cores>=6 && mem>=4; document.documentElement.classList.toggle('rich',rich); if(!rich) return;
-    let frames=[], last=0, n=0; function probe(now){ if(last) frames.push(now-last); last=now; if(++n<75){ requestAnimationFrame(probe); return; } const s=frames.slice(15).sort((a,b)=>a-b); const med=s[Math.floor(s.length/2)]||16; if(med>26){ document.documentElement.classList.remove('rich'); } }
-    const start=()=>{ if(document.hidden){ document.addEventListener('visibilitychange',start,{once:true}); return; } setTimeout(()=>requestAnimationFrame(probe),1200); }; start(); })();
-  draw(); if(!REDUCE) setInterval(()=>{ if(document.hidden) return; const k=Math.min(1, 1280/Math.max(1,innerWidth)); if(Math.abs(Math.floor(innerWidth*k)-w)>40 && innerWidth>0) size(); t+=42; draw(); },42);
+  draw(); if(!REDUCE) setInterval(()=>{ if(document.hidden) return; const k=Math.min(1, 1280/Math.max(1,innerWidth)); if(Math.abs(Math.floor(innerWidth*k)-w)>40 && innerWidth>0) size(); t+=50; draw(); },50);
 })();
 refresh(); route();
 </script>
