@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preventivo · HEHE CAR</title>
+<meta name="robots" content="index,follow">
+<meta name="description" content="Trasporto privato con autista-accompagnatore, in Campania. Autista-accompagnatore per anziani, persone con mobilità ridotta e turisti: visite mediche, aeroporto, Pompei e Costiera. Prezzo fisso prima di partire, nessun pagamento anticipato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/hehecar/assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F6E7A'/%3E%3Cpath d='M14 38l5-12h26l5 12v10H14z' fill='%23fff'/%3E%3Ccircle cx='22' cy='48' r='5' fill='%23E0A32E'/%3E%3Ccircle cx='42' cy='48' r='5' fill='%23E0A32E'/%3E%3C/svg%3E">
+<script>window.HC_API="https:\/\/mycrovision.alwaysdata.net\/hehecar";window.HC_BASE="\/hehecar";</script>
+</head>
+<body data-gkey="" data-base="https://mycrovision.alwaysdata.net/hehecar" data-static="1">
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/hehecar/" aria-label="HEHE CAR">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F6E7A"/><path d="M14 38l5-12h26l5 12v10H14z" fill="#fff"/><circle cx="22" cy="48" r="5" fill="#E0A32E"/><circle cx="42" cy="48" r="5" fill="#E0A32E"/></svg>
+      <span>HEHE <b>CAR</b></span>
+    </a>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="main" aria-label="Principale">
+      <a href="/hehecar/servizi/">Servizi</a>
+      <a href="/hehecar/prezzi/">Prezzi</a>
+      <a href="/hehecar/autisti/">Chi guida</a>
+      <a href="/hehecar/#come-funziona">Come funziona</a>
+      <a href="https://mycrovision.alwaysdata.net/hehecar/accedi">Area clienti</a>      <a class="btn sm" href="/hehecar/preventivo/">Calcola e prenota</a>
+    </nav>
+    <div class="call">
+      <a class="phone" href="tel:+390000000000">+39 000 000 0000</a>
+    </div>
+  </div>
+</header>
+<main>
+<section class="band">
+  <div class="wrap two">
+    <div>
+      <div class="eyebrow">Preventivo</div>
+      <h1>Calcola il prezzo</h1>
+            <form class="widget" method="get" action="/hehecar/preventivo/" data-quote>
+  <h2>Quanto costa? Calcolalo subito</h2>
+  <div class="tabs" role="radiogroup" aria-label="Tipo di servizio">
+          <input type="radio" name="service_id" id="svc1" value="1" data-mode="oneway" data-min-hours="0" >
+      <label for="svc1">Trasferimento</label>
+          <input type="radio" name="service_id" id="svc2" value="2" data-mode="roundtrip" data-min-hours="0" >
+      <label for="svc2">Accompagnamento a visita o terapia</label>
+          <input type="radio" name="service_id" id="svc3" value="3" data-mode="hourly" data-min-hours="2" >
+      <label for="svc3">Autista a ore</label>
+          <input type="radio" name="service_id" id="svc4" value="4" data-mode="hourly" data-min-hours="4" >
+      <label for="svc4">Giornata turistica accompagnata</label>
+      </div>
+  <div class="field">
+    <label for="pickup">Da dove partiamo</label>
+    <input id="pickup" name="pickup" data-address required placeholder="Via, città o struttura (es. Aversa, via Roma 10)" value="">
+  </div>
+  <div class="field" data-dropoff>
+    <label for="dropoff">Dove andiamo</label>
+    <input id="dropoff" name="dropoff" data-address placeholder="Ospedale, aeroporto, indirizzo (es. Ospedale Cardarelli, Napoli)" value="">
+  </div>
+  <div class="row3">
+    <div class="field">
+      <label for="date">Giorno</label>
+      <input id="date" type="date" name="date" required data-min-today value="2026-09-05">
+    </div>
+    <div class="field">
+      <label for="time">Ora di partenza</label>
+      <input id="time" type="time" name="time" required value="09:00" step="300">
+    </div>
+    <div class="field">
+      <label for="pax">Passeggeri</label>
+      <select id="pax" name="passengers"><option value="1" selected>1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option></select>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="field" data-hours>
+      <label for="hours" data-hours-label>Durata prevista (ore)</label>
+      <input id="hours" type="number" name="hours" min="0" step="0.5" value="0" placeholder="es. 2">
+      <span class="hint">L'autista resta con voi e aspetta: l'attesa è nel prezzo.</span>
+    </div>
+    <div class="field">
+      <label for="veh">Veicolo</label>
+      <select id="veh" name="vehicle_id">
+        <option value="1" >Berlina comfort</option><option value="2" >Van 7 posti</option><option value="3" >Van con rampa carrozzina · rampa carrozzina</option>      </select>
+    </div>
+  </div>
+      <div class="field"><span class="lbl">Serve altro?</span>
+              <label class="check"><input type="checkbox" name="extras[]" value="1" ><span><b>Secondo accompagnatore</b><span class="small muted">Una seconda persona formata a bordo, utile per chi ha bisogno di aiuto continuo.</span></span><span class="price">+18 €/ora</span></label>
+              <label class="check"><input type="checkbox" name="extras[]" value="2" ><span><b>Fermata intermedia</b><span class="small muted">Farmacia, ritiro referti, un parente da prendere lungo il tragitto.</span></span><span class="price">+8 €</span></label>
+              <label class="check"><input type="checkbox" name="extras[]" value="3" ><span><b>Animale domestico</b><span class="small muted">Cane o gatto in trasportino o con telo.</span></span><span class="price">+5 €</span></label>
+              <label class="check"><input type="checkbox" name="extras[]" value="4" ><span><b>Sedia a rotelle a noleggio</b><span class="small muted">Se non ne avete una, la portiamo noi.</span></span><span class="price">+10 €</span></label>
+          </div>
+    <div class="live-quote hidden" data-live aria-live="polite"></div>
+  <button class="btn amber block" type="submit" style="margin-top:.8rem">Vedi il preventivo e prenota</button>
+  <p class="small muted" style="margin:.6rem 0 0">Nessun pagamento anticipato. Il prezzo che vedi è quello che paghi a fine servizio.</p>
+</form>
+    </div>
+    <div>
+              <div class="card">
+          <h3>Come leggere il preventivo</h3>
+          <p>Vedrai ogni voce: chilometri, tariffa, fascia oraria, attesa, veicolo, extra. Il totale è quello che paghi a fine servizio.</p>
+          <h3 style="margin-top:1rem">Preferisci parlare con una persona?</h3>
+          <p>Chiama il <a href="tel:+390000000000">+39 000 000 0000</a> o scrivi su <a href="https://wa.me/39000000000">WhatsApp</a>: facciamo il preventivo insieme.</p>
+        </div>
+          </div>
+  </div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <b>HEHE CAR</b><br>Trasporto privato con autista-accompagnatore, in Campania<br>Aversa (CE), Campania      <p class="small" style="margin-top:.6rem">Zona servita: Napoli, Caserta, Salerno, Costiera, isole del Golfo</p>
+    </div>
+    <div>
+      <b>Contatti</b><br>
+      <a href="tel:+390000000000">+39 000 000 0000</a><br>
+      <a href="https://wa.me/39000000000">WhatsApp</a><br>
+      <a href="mailto:info@example.com">info@example.com</a>
+    </div>
+    <div>
+      <b>Prenotazioni</b><br>
+      <a href="/hehecar/preventivo/">Calcola il prezzo</a><br>
+      <a href="/hehecar/prezzi/">Tariffe e fasce orarie</a><br>
+      <a href="https://mycrovision.alwaysdata.net/hehecar/accedi">Area clienti</a>
+      <p class="small" style="margin-top:.6rem">Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio. Annullamento gratuito fino a 12 ore prima del servizio.</p>
+    </div>
+  </div>
+</footer>
+<script src="/hehecar/assets/js/site.js"></script>
+<script src="/hehecar/assets/js/static.js"></script>
+</body>
+</html>

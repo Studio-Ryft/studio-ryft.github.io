@@ -1,0 +1,27 @@
+body.admin{display:grid;grid-template-columns:240px 1fr;min-height:100vh;font-size:16px;background:#F3F4F2}
+.side{background:#1E2A32;color:#CBD3D8;padding:1.2rem 1rem;display:flex;flex-direction:column;gap:.15rem;position:sticky;top:0;height:100vh;overflow:auto}
+.side .logo{color:#fff;font-size:1.2rem;margin-bottom:1rem}
+.side a{color:#CBD3D8;text-decoration:none;padding:.45rem .7rem;border-radius:8px;font-weight:600}
+.side a:hover{background:#2A3942;color:#fff}
+.side-sec{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:#7C8790;margin:1rem .7rem .3rem}
+.content{padding:1.6rem clamp(1rem,3vw,2.4rem)}
+.content h1{font-size:1.7rem;margin-bottom:1rem}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.kpis{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:1.5rem}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+.kpi .v{font-family:Nunito,sans-serif;font-weight:800;font-size:1.9rem;line-height:1.1}
+.kpi .l{color:var(--muted);font-size:.85rem}
+.panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem}
+.panel h2{font-size:1.15rem;margin-bottom:.8rem}
+.form-grid{display:grid;gap:.9rem 1.2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.form-grid .field.full{grid-column:1/-1}
+.actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:1rem}
+.weekdays{display:flex;gap:.4rem;flex-wrap:wrap}
+.weekdays label{border:1.5px solid var(--line);border-radius:8px;padding:.4rem .7rem;cursor:pointer;font-weight:600}
+.weekdays input{margin-right:.3rem}
+td .btn.sm{margin-right:.3rem}
+.help{color:var(--ink-2);background:var(--brand-soft);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem;font-size:.95rem}
+.filters a{display:inline-block;margin-right:.5rem;padding:.3rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink-2);font-weight:600;font-size:.9rem}
+.filters a.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.inline{display:inline}
+@media(max-width:820px){body.admin{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.side-sec{display:none}}
