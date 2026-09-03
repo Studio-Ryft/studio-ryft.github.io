@@ -1,4 +1,6 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#040b16">
 <title>HiVinz Assistenza</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
@@ -71,7 +73,7 @@
   @media (max-width:720px){ .logo span{display:none} .btn .lbl{display:none} .btn-sm{padding:0 12px} .cta{display:none} }
 
   /* ===== PAGINE + SFONDI VIDEO ===== */
-  .page{display:none; position:relative; min-height:calc(100vh - 72px); overflow:hidden}
+  .page{display:none; position:relative; min-height:calc(100vh - 72px); min-height:calc(100svh - 72px); overflow:hidden}
   .page.on{display:block; animation:pagein .5s var(--ease)}
   @keyframes pagein{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
   .pagebg{position:absolute; inset:0; z-index:0; overflow:hidden}
@@ -100,6 +102,7 @@
   .pulse{width:10px; height:10px; border-radius:50%; background:var(--bad); animation:pulse 1.6s infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,107,.6)} 60%{box-shadow:0 0 0 8px rgba(255,107,107,0)}}
   @media (max-width:900px){ .hero-wrap{grid-template-columns:1fr} .console{display:none} }
+  @media (max-width:720px){ .hero-wrap{padding-top:44px!important} .hero h1{font-size:clamp(30px,9vw,40px)} .hero p{font-size:16px} .page > .wrap{padding-top:44px; padding-bottom:64px} .page h2{font-size:clamp(24px,7vw,32px)} .actions .btn{width:100%} .strip{grid-template-columns:1fr} .kpis{grid-template-columns:1fr 1fr} .dtabs{margin-left:0; width:100%} .dtab{flex:1; text-align:center; padding:9px 8px} .rep-h{grid-template-columns:1fr; row-gap:4px} .rep-h .p{text-align:left} .grid-cat{grid-template-columns:repeat(2,1fr)} .wiz-body{padding:20px 14px} .wiz-foot{flex-wrap:wrap} .wiz-foot .sum{display:none} .cap{display:none} }
 
   .widgets{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px}
   .wg{position:relative; display:flex; flex-direction:column; gap:12px; min-height:230px; padding:20px; background:var(--panel); border:1px solid var(--line); border-radius:18px; text-decoration:none; color:var(--ink); overflow:hidden; transition:transform .25s var(--ease), border-color .25s, box-shadow .25s}
@@ -207,7 +210,8 @@
   /* ===== WIZARD ===== */
   .wiz{background:rgba(4,11,22,.88); border:1px solid var(--line-2); border-radius:18px; margin-top:34px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.55), 0 0 60px rgba(46,241,237,.08)}
   .wiz-head{display:flex; align-items:center; gap:16px; padding:16px 22px; border-bottom:1px solid var(--line); background:rgba(8,19,36,.9)}
-  .wiz-head .title{font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+  .wiz-head .title{font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap}
+  @media (max-width:720px){ .prog i{width:16px} .wiz-head{gap:10px; padding:14px 16px} }
   .prog{display:flex; gap:6px; margin-left:auto}
   .prog i{width:34px; height:4px; border-radius:2px; background:var(--line-2); transition:background .3s, box-shadow .3s}
   .prog i.on{background:var(--neon); box-shadow:0 0 10px var(--neon-glow)}
