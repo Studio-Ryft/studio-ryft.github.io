@@ -1,0 +1,651 @@
+{
+    "generated_at": "2026-09-04T02:58:27+02:00",
+    "settings": {
+        "site_name": "HEHE CAR",
+        "tagline": "Trasporto privato con autista-accompagnatore, in Campania",
+        "hero_title": "Ti veniamo a prendere, ti accompagniamo dentro, ti aspettiamo.",
+        "hero_subtitle": "Autista formato per chi non si muove da solo: visite mediche, terapie, aeroporto, Pompei e Costiera. Prezzo fisso prima di partire, nessun pagamento anticipato.",
+        "phone": "+39 000 000 0000",
+        "whatsapp": "39000000000",
+        "email": "info@example.com",
+        "address": "Aversa (CE), Campania",
+        "service_area": "Napoli, Caserta, Salerno, Costiera, isole del Golfo",
+        "google_browser_key": "",
+        "road_factor": "1.3",
+        "unknown_km": "25",
+        "rounding": "1",
+        "vat_note": "Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio.",
+        "min_lead_hours": "3",
+        "max_advance_days": "180",
+        "cancellation_text": "Annullamento gratuito fino a 12 ore prima del servizio."
+    },
+    "services": [
+        {
+            "id": 1,
+            "slug": "trasferimento",
+            "name": "Trasferimento",
+            "description": "Da un indirizzo a un altro, in Campania e oltre. Aeroporto, porto, stazione, casa di cura, casa di parenti.",
+            "mode": "oneway",
+            "base_fee": 8,
+            "km_rate": 1.6,
+            "hour_rate": 25,
+            "included_wait_min": 15,
+            "min_fare": 25,
+            "min_hours": 0,
+            "escort_included": 0,
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "slug": "visita-medica",
+            "name": "Accompagnamento a visita o terapia",
+            "description": "Andata, accompagnamento dentro la struttura, attesa durante la visita e ritorno a casa. Dialisi, fisioterapia, esami, day hospital.",
+            "mode": "roundtrip",
+            "base_fee": 10,
+            "km_rate": 1.5,
+            "hour_rate": 22,
+            "included_wait_min": 30,
+            "min_fare": 45,
+            "min_hours": 0,
+            "escort_included": 1,
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "slug": "a-ore",
+            "name": "Autista a ore",
+            "description": "Un autista-accompagnatore a disposizione: commissioni, farmacia, banca, parrucchiere, visita a un parente. Minimo 2 ore.",
+            "mode": "hourly",
+            "base_fee": 0,
+            "km_rate": 0.5,
+            "hour_rate": 28,
+            "included_wait_min": 0,
+            "min_fare": 56,
+            "min_hours": 2,
+            "escort_included": 1,
+            "sort_order": 3,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "slug": "tour",
+            "name": "Giornata turistica accompagnata",
+            "description": "Pompei, Ercolano, Costiera Amalfitana, Reggia di Caserta, Napoli con autista che accompagna e assiste. Percorsi accessibili, ritmo lento. Minimo 4 ore.",
+            "mode": "hourly",
+            "base_fee": 0,
+            "km_rate": 0.6,
+            "hour_rate": 38,
+            "included_wait_min": 0,
+            "min_fare": 152,
+            "min_hours": 4,
+            "escort_included": 1,
+            "sort_order": 4,
+            "active": 1
+        }
+    ],
+    "time_bands": [
+        {
+            "id": 3,
+            "name": "Notturna",
+            "start_time": "23:00",
+            "end_time": "07:00",
+            "weekdays": "1,2,3,4,5,6,7",
+            "km_multiplier": 1.3,
+            "hour_multiplier": 1.25,
+            "surcharge": 10,
+            "priority": 2,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Domenica diurna",
+            "start_time": "07:00",
+            "end_time": "20:00",
+            "weekdays": "7",
+            "km_multiplier": 1.15,
+            "hour_multiplier": 1.1,
+            "surcharge": 5,
+            "priority": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Serale",
+            "start_time": "20:00",
+            "end_time": "23:00",
+            "weekdays": "1,2,3,4,5,6,7",
+            "km_multiplier": 1.15,
+            "hour_multiplier": 1.1,
+            "surcharge": 5,
+            "priority": 1,
+            "active": 1
+        },
+        {
+            "id": 1,
+            "name": "Diurna",
+            "start_time": "07:00",
+            "end_time": "20:00",
+            "weekdays": "1,2,3,4,5,6,7",
+            "km_multiplier": 1,
+            "hour_multiplier": 1,
+            "surcharge": 0,
+            "priority": 0,
+            "active": 1
+        }
+    ],
+    "holidays": [
+        {
+            "id": 1,
+            "name": "Capodanno",
+            "day": "01-01",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Epifania",
+            "day": "01-06",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Liberazione",
+            "day": "04-25",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Festa del Lavoro",
+            "day": "05-01",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 5,
+            "name": "Festa della Repubblica",
+            "day": "06-02",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 6,
+            "name": "Ferragosto",
+            "day": "08-15",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 11,
+            "name": "San Gennaro (Napoli)",
+            "day": "09-19",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 7,
+            "name": "Ognissanti",
+            "day": "11-01",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 8,
+            "name": "Immacolata",
+            "day": "12-08",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 9,
+            "name": "Natale",
+            "day": "12-25",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 10,
+            "name": "Santo Stefano",
+            "day": "12-26",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        }
+    ],
+    "km_bands": [
+        {
+            "id": 1,
+            "service_id": 1,
+            "name": "Corsa breve in città",
+            "from_km": 0,
+            "to_km": 8,
+            "mode": "flat",
+            "value": 14,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "service_id": 0,
+            "name": "Media distanza",
+            "from_km": 8,
+            "to_km": 60,
+            "mode": "rate",
+            "value": 0,
+            "active": 0
+        },
+        {
+            "id": 3,
+            "service_id": 0,
+            "name": "Lunga distanza",
+            "from_km": 60,
+            "to_km": 0,
+            "mode": "rate",
+            "value": 1.2,
+            "active": 1
+        }
+    ],
+    "vehicles": [
+        {
+            "id": 1,
+            "name": "Berlina comfort",
+            "description": "Fino a 3 passeggeri, bagagliaio per deambulatore o carrozzina pieghevole.",
+            "seats": 3,
+            "wheelchair": 0,
+            "multiplier": 1,
+            "surcharge": 0,
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Van 7 posti",
+            "description": "Famiglie e gruppi, bagagli, carrozzina pieghevole.",
+            "seats": 7,
+            "wheelchair": 0,
+            "multiplier": 1.25,
+            "surcharge": 10,
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Van con rampa carrozzina",
+            "description": "Si sale restando in carrozzina. Ancoraggi omologati, 1 carrozzina + 3 accompagnatori.",
+            "seats": 4,
+            "wheelchair": 1,
+            "multiplier": 1.35,
+            "surcharge": 15,
+            "sort_order": 3,
+            "active": 1
+        }
+    ],
+    "extras": [
+        {
+            "id": 1,
+            "name": "Secondo accompagnatore",
+            "description": "Una seconda persona formata a bordo, utile per chi ha bisogno di aiuto continuo.",
+            "price": 18,
+            "unit": "hour",
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Fermata intermedia",
+            "description": "Farmacia, ritiro referti, un parente da prendere lungo il tragitto.",
+            "price": 8,
+            "unit": "flat",
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Animale domestico",
+            "description": "Cane o gatto in trasportino o con telo.",
+            "price": 5,
+            "unit": "flat",
+            "sort_order": 3,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Sedia a rotelle a noleggio",
+            "description": "Se non ne avete una, la portiamo noi.",
+            "price": 10,
+            "unit": "flat",
+            "sort_order": 4,
+            "active": 1
+        }
+    ],
+    "zone_rules": [
+        {
+            "id": 1,
+            "name": "Aeroporto di Capodichino",
+            "keyword": "aeroporto",
+            "applies_to": "any",
+            "surcharge": 6,
+            "note": "Parcheggio e attesa arrivi.",
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Costiera Amalfitana",
+            "keyword": "positano|amalfi|ravello|praiano|maiori|minori",
+            "applies_to": "any",
+            "surcharge": 15,
+            "note": "Strada lenta e parcheggi difficili.",
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Porto e imbarco isole",
+            "keyword": "porto|molo beverello|calata di massa|imbarco|porto di napoli|porto di salerno",
+            "applies_to": "any",
+            "surcharge": 5,
+            "note": "",
+            "active": 1
+        }
+    ],
+    "places": [
+        {
+            "id": 30,
+            "name": "Amalfi",
+            "aliases": "amalfi",
+            "lat": 40.634,
+            "lng": 14.6027
+        },
+        {
+            "id": 36,
+            "name": "Avellino",
+            "aliases": "avellino",
+            "lat": 40.914,
+            "lng": 14.79
+        },
+        {
+            "id": 12,
+            "name": "Aversa",
+            "aliases": "aversa",
+            "lat": 40.973,
+            "lng": 14.207
+        },
+        {
+            "id": 37,
+            "name": "Benevento",
+            "aliases": "benevento",
+            "lat": 41.13,
+            "lng": 14.778
+        },
+        {
+            "id": 20,
+            "name": "Capua",
+            "aliases": "capua",
+            "lat": 41.105,
+            "lng": 14.213
+        },
+        {
+            "id": 13,
+            "name": "Caserta",
+            "aliases": "caserta",
+            "lat": 41.074,
+            "lng": 14.332
+        },
+        {
+            "id": 15,
+            "name": "Caserta, Ospedale Sant'Anna e San Sebastiano",
+            "aliases": "sant'anna|san sebastiano",
+            "lat": 41.067,
+            "lng": 14.318
+        },
+        {
+            "id": 14,
+            "name": "Caserta, Reggia",
+            "aliases": "reggia",
+            "lat": 41.073,
+            "lng": 14.327
+        },
+        {
+            "id": 16,
+            "name": "Castel Volturno, Pineta Grande",
+            "aliases": "pineta grande|castel volturno",
+            "lat": 41.01,
+            "lng": 13.96
+        },
+        {
+            "id": 26,
+            "name": "Castellammare di Stabia",
+            "aliases": "castellammare",
+            "lat": 40.694,
+            "lng": 14.48
+        },
+        {
+            "id": 23,
+            "name": "Ercolano, Scavi",
+            "aliases": "ercolano|herculaneum",
+            "lat": 40.806,
+            "lng": 14.348
+        },
+        {
+            "id": 17,
+            "name": "Giugliano in Campania",
+            "aliases": "giugliano",
+            "lat": 40.931,
+            "lng": 14.195
+        },
+        {
+            "id": 18,
+            "name": "Marcianise",
+            "aliases": "marcianise",
+            "lat": 41.034,
+            "lng": 14.3
+        },
+        {
+            "id": 2,
+            "name": "Napoli, Aeroporto di Capodichino",
+            "aliases": "aeroporto|capodichino|nap",
+            "lat": 40.886,
+            "lng": 14.2908
+        },
+        {
+            "id": 1,
+            "name": "Napoli, Centro",
+            "aliases": "napoli",
+            "lat": 40.8518,
+            "lng": 14.2681
+        },
+        {
+            "id": 5,
+            "name": "Napoli, Ospedale Cardarelli",
+            "aliases": "cardarelli",
+            "lat": 40.8688,
+            "lng": 14.2247
+        },
+        {
+            "id": 8,
+            "name": "Napoli, Ospedale Monaldi",
+            "aliases": "monaldi",
+            "lat": 40.872,
+            "lng": 14.227
+        },
+        {
+            "id": 7,
+            "name": "Napoli, Ospedale del Mare",
+            "aliases": "ospedale del mare",
+            "lat": 40.856,
+            "lng": 14.341
+        },
+        {
+            "id": 9,
+            "name": "Napoli, Pascale",
+            "aliases": "pascale",
+            "lat": 40.868,
+            "lng": 14.23
+        },
+        {
+            "id": 6,
+            "name": "Napoli, Policlinico Federico II",
+            "aliases": "policlinico|federico ii",
+            "lat": 40.863,
+            "lng": 14.203
+        },
+        {
+            "id": 4,
+            "name": "Napoli, Porto Molo Beverello",
+            "aliases": "molo beverello|porto di napoli",
+            "lat": 40.8397,
+            "lng": 14.2529
+        },
+        {
+            "id": 11,
+            "name": "Napoli, Posillipo",
+            "aliases": "posillipo",
+            "lat": 40.806,
+            "lng": 14.195
+        },
+        {
+            "id": 3,
+            "name": "Napoli, Stazione Centrale (Piazza Garibaldi)",
+            "aliases": "stazione centrale|garibaldi",
+            "lat": 40.8528,
+            "lng": 14.2727
+        },
+        {
+            "id": 10,
+            "name": "Napoli, Vomero",
+            "aliases": "vomero",
+            "lat": 40.844,
+            "lng": 14.23
+        },
+        {
+            "id": 34,
+            "name": "Nocera Inferiore",
+            "aliases": "nocera",
+            "lat": 40.744,
+            "lng": 14.642
+        },
+        {
+            "id": 35,
+            "name": "Nola",
+            "aliases": "nola",
+            "lat": 40.926,
+            "lng": 14.528
+        },
+        {
+            "id": 38,
+            "name": "Paestum",
+            "aliases": "paestum",
+            "lat": 40.423,
+            "lng": 15.005
+        },
+        {
+            "id": 25,
+            "name": "Pompei, Scavi",
+            "aliases": "pompei|pompeii",
+            "lat": 40.751,
+            "lng": 14.485
+        },
+        {
+            "id": 22,
+            "name": "Portici",
+            "aliases": "portici",
+            "lat": 40.819,
+            "lng": 14.341
+        },
+        {
+            "id": 29,
+            "name": "Positano",
+            "aliases": "positano",
+            "lat": 40.6281,
+            "lng": 14.485
+        },
+        {
+            "id": 21,
+            "name": "Pozzuoli",
+            "aliases": "pozzuoli",
+            "lat": 40.823,
+            "lng": 14.122
+        },
+        {
+            "id": 31,
+            "name": "Ravello",
+            "aliases": "ravello",
+            "lat": 40.649,
+            "lng": 14.611
+        },
+        {
+            "id": 39,
+            "name": "Roma, Fiumicino Aeroporto",
+            "aliases": "fiumicino|roma",
+            "lat": 41.8003,
+            "lng": 12.2389
+        },
+        {
+            "id": 32,
+            "name": "Salerno",
+            "aliases": "salerno",
+            "lat": 40.6824,
+            "lng": 14.7681
+        },
+        {
+            "id": 33,
+            "name": "Salerno, Ospedale Ruggi",
+            "aliases": "ruggi",
+            "lat": 40.682,
+            "lng": 14.76
+        },
+        {
+            "id": 19,
+            "name": "Santa Maria Capua Vetere",
+            "aliases": "santa maria capua vetere|capua vetere",
+            "lat": 41.081,
+            "lng": 14.257
+        },
+        {
+            "id": 28,
+            "name": "Sorrento",
+            "aliases": "sorrento",
+            "lat": 40.6263,
+            "lng": 14.3758
+        },
+        {
+            "id": 24,
+            "name": "Torre del Greco",
+            "aliases": "torre del greco",
+            "lat": 40.788,
+            "lng": 14.368
+        },
+        {
+            "id": 27,
+            "name": "Vico Equense",
+            "aliases": "vico equense",
+            "lat": 40.662,
+            "lng": 14.426
+        }
+    ],
+    "drivers": [
+        {
+            "id": 1,
+            "name": "Salvatore Bove",
+            "role": "Autista accompagnatore principale",
+            "bio": "Ex militare dell'Esercito Italiano (in servizio fino all'estate 2026) ed esperto di arti marziali e autodifesa: cintura nera di Kickboxing e cintura nera di Taekwondo. Dalla divisa ha preso disciplina, puntualità e lucidità sotto pressione; dal tatami autocontrollo e capacità di gestire con calma qualsiasi situazione di tensione, per garantire sicurezza a chi accompagna. Di Aversa, appassionato ed esperto di auto. Prima della divisa ha lavorato per anni nell'accoglienza, come responsabile di sala e bartender: sa mettere a proprio agio le persone, ascoltare e tenere il ritmo anche quando c'è fretta. Disponibile di giorno, di notte, nei weekend e nei giorni festivi.",
+            "badges": "Ex militare Esercito Italiano|Cintura nera Kickboxing|Cintura nera Taekwondo|Esperto di autodifesa|Esperienza in accoglienza|Turni notturni e festivi|Patente B, automunito",
+            "languages": "Italiano madrelingua, Inglese base",
+            "photo": "salvatore.jpg",
+            "featured": 1,
+            "active": 1,
+            "sort_order": 1
+        }
+    ]
+}

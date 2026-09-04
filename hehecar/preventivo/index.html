@@ -4,20 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Preventivo · HEHE CAR</title>
-<meta name="robots" content="index,follow">
 <meta name="description" content="Trasporto privato con autista-accompagnatore, in Campania. Autista-accompagnatore per anziani, persone con mobilità ridotta e turisti: visite mediche, aeroporto, Pompei e Costiera. Prezzo fisso prima di partire, nessun pagamento anticipato.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="/hehecar/assets/css/site.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F6E7A'/%3E%3Cpath d='M14 38l5-12h26l5 12v10H14z' fill='%23fff'/%3E%3Ccircle cx='22' cy='48' r='5' fill='%23E0A32E'/%3E%3Ccircle cx='42' cy='48' r='5' fill='%23E0A32E'/%3E%3C/svg%3E">
-<script>window.HC_API="https:\/\/mycrovision.alwaysdata.net\/hehecar";window.HC_BASE="\/hehecar";</script>
+<script>window.HC_BASE="\/hehecar";</script>
 </head>
-<body data-gkey="" data-base="https://mycrovision.alwaysdata.net/hehecar" data-static="1">
+<body data-gkey="" data-base="/hehecar" data-static="1">
 <header class="top">
   <div class="wrap">
     <a class="logo" href="/hehecar/" aria-label="HEHE CAR">
       <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F6E7A"/><path d="M14 38l5-12h26l5 12v10H14z" fill="#fff"/><circle cx="22" cy="48" r="5" fill="#E0A32E"/><circle cx="42" cy="48" r="5" fill="#E0A32E"/></svg>
-      <span>HEHE <b>CAR</b></span>
+      <span data-hydrate="site-name">HEHE <b>CAR</b></span>
     </a>
     <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
     <nav class="main" aria-label="Principale">
@@ -25,10 +24,10 @@
       <a href="/hehecar/prezzi/">Prezzi</a>
       <a href="/hehecar/autisti/">Chi guida</a>
       <a href="/hehecar/#come-funziona">Come funziona</a>
-      <a href="https://mycrovision.alwaysdata.net/hehecar/accedi">Area clienti</a>      <a class="btn sm" href="/hehecar/preventivo/">Calcola e prenota</a>
+      <a class="btn sm" href="/hehecar/preventivo/">Calcola e prenota</a>
     </nav>
     <div class="call">
-      <a class="phone" href="tel:+390000000000">+39 000 000 0000</a>
+      <a class="phone" data-hydrate="phone" href="tel:+390000000000">+39 000 000 0000</a>
     </div>
   </div>
 </header>
@@ -38,7 +37,7 @@
     <div>
       <div class="eyebrow">Preventivo</div>
       <h1>Calcola il prezzo</h1>
-            <form class="widget" method="get" action="/hehecar/preventivo/" data-quote>
+            <form class="widget" method="get" action="/hehecar/preventivo/" data-quote data-compact="0">
   <h2>Quanto costa? Calcolalo subito</h2>
   <div class="tabs" role="radiogroup" aria-label="Tipo di servizio">
           <input type="radio" name="service_id" id="svc1" value="1" data-mode="oneway" data-min-hours="0" >
@@ -84,7 +83,7 @@
         <option value="1" >Berlina comfort</option><option value="2" >Van 7 posti</option><option value="3" >Van con rampa carrozzina · rampa carrozzina</option>      </select>
     </div>
   </div>
-      <div class="field"><span class="lbl">Serve altro?</span>
+      <div class="field" data-hydrate="extras"><span class="lbl">Serve altro?</span>
               <label class="check"><input type="checkbox" name="extras[]" value="1" ><span><b>Secondo accompagnatore</b><span class="small muted">Una seconda persona formata a bordo, utile per chi ha bisogno di aiuto continuo.</span></span><span class="price">+18 €/ora</span></label>
               <label class="check"><input type="checkbox" name="extras[]" value="2" ><span><b>Fermata intermedia</b><span class="small muted">Farmacia, ritiro referti, un parente da prendere lungo il tragitto.</span></span><span class="price">+8 €</span></label>
               <label class="check"><input type="checkbox" name="extras[]" value="3" ><span><b>Animale domestico</b><span class="small muted">Cane o gatto in trasportino o con telo.</span></span><span class="price">+5 €</span></label>
@@ -109,24 +108,24 @@
 <footer class="site">
   <div class="wrap cols">
     <div>
-      <b>HEHE CAR</b><br>Trasporto privato con autista-accompagnatore, in Campania<br>Aversa (CE), Campania      <p class="small" style="margin-top:.6rem">Zona servita: Napoli, Caserta, Salerno, Costiera, isole del Golfo</p>
+      <b data-hydrate="text" data-key="site_name">HEHE CAR</b><br><span data-hydrate="text" data-key="tagline">Trasporto privato con autista-accompagnatore, in Campania</span><br><span data-hydrate="text" data-key="address">Aversa (CE), Campania</span>
+      <p class="small" style="margin-top:.6rem">Zona servita: <span data-hydrate="text" data-key="service_area">Napoli, Caserta, Salerno, Costiera, isole del Golfo</span></p>
     </div>
     <div>
       <b>Contatti</b><br>
-      <a href="tel:+390000000000">+39 000 000 0000</a><br>
-      <a href="https://wa.me/39000000000">WhatsApp</a><br>
-      <a href="mailto:info@example.com">info@example.com</a>
+      <a data-hydrate="phone" href="tel:+390000000000">+39 000 000 0000</a><br>
+      <a data-hydrate="whatsapp" href="https://wa.me/39000000000">WhatsApp</a><br>
+      <a data-hydrate="email" href="mailto:info@example.com">info@example.com</a>
     </div>
     <div>
       <b>Prenotazioni</b><br>
       <a href="/hehecar/preventivo/">Calcola il prezzo</a><br>
       <a href="/hehecar/prezzi/">Tariffe e fasce orarie</a><br>
-      <a href="https://mycrovision.alwaysdata.net/hehecar/accedi">Area clienti</a>
       <p class="small" style="margin-top:.6rem">Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio. Annullamento gratuito fino a 12 ore prima del servizio.</p>
     </div>
   </div>
 </footer>
 <script src="/hehecar/assets/js/site.js"></script>
-<script src="/hehecar/assets/js/static.js"></script>
+<script src="/hehecar/assets/js/pricing.js"></script><script src="/hehecar/assets/js/static.js"></script>
 </body>
 </html>

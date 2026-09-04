@@ -2,6 +2,7 @@
 (function () {
   'use strict';
   var BASE = (document.body && document.body.getAttribute('data-base')) || '';
+  var STATIC = !!(document.body && document.body.getAttribute('data-static')); // su GitHub Pages: niente API, calcoli in static.js
 
   // Menu mobile
   var tg = document.querySelector('.menu-toggle');
@@ -42,7 +43,7 @@
     });
 
     function scheduleQuote() {
-      if (!live) return;
+      if (!live || STATIC) return;
       clearTimeout(timer);
       timer = setTimeout(fetchQuote, 450);
     }
@@ -105,7 +106,10 @@
         var q = inp.value.trim();
         if (q.length < 2) { ul.classList.add('hidden'); return; }
         t = setTimeout(function () {
-          fetch(BASE + '/api/localita?q=' + encodeURIComponent(q)).then(function (r) { return r.json(); }).then(function (list) {
+          var source = STATIC
+            ? Promise.resolve(((window.HC_RULES && window.HC_RULES.places) || []).map(function (p) { return p.name; }).filter(function (name) { return name.toLowerCase().indexOf(q.toLowerCase()) >= 0; }).slice(0, 12))
+            : fetch(BASE + '/api/localita?q=' + encodeURIComponent(q)).then(function (r) { return r.json(); });
+          source.then(function (list) {
             ul.innerHTML = '';
             if (!list.length) { ul.classList.add('hidden'); return; }
             list.forEach(function (name) {
