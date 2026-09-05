@@ -323,20 +323,63 @@ td .btn.sm,td form.inline .btn.sm{vertical-align:middle}
 /* Ritratto dell'autista come sfondo trasparente della hero */
 .hero{position:relative;overflow:hidden}
 .hero>.wrap{position:relative;z-index:1}
-.hero::before{
-  content:"";position:absolute;z-index:0;left:0;bottom:0;
-  width:min(36vw,400px);height:100%;
+/* Il ritratto è agganciato alla colonna del testo, non al bordo dello schermo, e sfuma su due lati:
+   così non resta un ritaglio netto sospeso nel margine. */
+.hero>.wrap::before{
+  content:"";position:absolute;z-index:-1;pointer-events:none;
+  left:clamp(-96px,-3vw,-28px);bottom:-3.5rem;
+  width:min(30vw,340px);height:calc(100% + 3.5rem);
   background:url("../img/salvatore-hero.webp") left bottom/contain no-repeat;
-  opacity:.13;filter:grayscale(.55) contrast(1.05);pointer-events:none;
-  -webkit-mask-image:linear-gradient(to top,#000 40%,rgba(0,0,0,.35) 78%,transparent 97%);
-          mask-image:linear-gradient(to top,#000 40%,rgba(0,0,0,.35) 78%,transparent 97%);
+  opacity:.13;filter:grayscale(.55) contrast(1.05);
+  -webkit-mask-image:linear-gradient(to top,#000 38%,rgba(0,0,0,.4) 78%,transparent 97%),linear-gradient(to right,#000 45%,rgba(0,0,0,.25) 82%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to top,#000 38%,rgba(0,0,0,.4) 78%,transparent 97%),linear-gradient(to right,#000 45%,rgba(0,0,0,.25) 82%,transparent 100%);
+  mask-composite:intersect;
 }
 @media(max-width:959px){
-  .hero::before{
-    left:auto;right:-4%;top:0;bottom:auto;width:52vw;height:46%;
+  .hero>.wrap::before{
+    left:auto;right:-6%;top:0;bottom:auto;width:50vw;height:42%;
     background-position:right top;opacity:.10;
     -webkit-mask-image:linear-gradient(to bottom,#000 45%,transparent 95%);
             mask-image:linear-gradient(to bottom,#000 45%,transparent 95%);
   }
   .photo-gallery .thumb{width:52px;height:65px}
 }
+
+/* ============================================================
+   Livelli di aiuto: schede cliccabili e pagine dedicate con video di sfondo
+   ============================================================ */
+.levels .lv{display:flex;flex-direction:column;gap:.25rem;text-decoration:none;color:inherit}
+.levels a.lv:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(30,42,50,.14);border-color:rgba(15,110,122,.45)}
+.levels a.lv:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.levels .lv .lv-go{margin-top:auto;padding-top:.7rem;font-weight:700;font-size:.9rem;color:var(--brand-dark)}
+.levels .lv .lv-go::after{content:" →"}
+.levels .lv.ours .lv-go{color:var(--brand-dark)}
+.levels .lv.is-current{opacity:.72}
+.levels .lv.is-current .lv-go::after{content:""}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.crumbs{font-size:.85rem;color:rgba(255,255,255,.72);margin-bottom:1rem}
+.crumbs a{color:rgba(255,255,255,.9)}
+
+.level-hero{position:relative;overflow:hidden;padding:3rem 0 3.2rem;color:#fff;background:linear-gradient(160deg,var(--brand-dark) 0%,var(--brand) 72%,#2A8A96 100%)}
+.level-hero.ours{background:linear-gradient(160deg,#0A4750 0%,var(--brand-dark) 60%,var(--brand) 100%)}
+.level-hero>.wrap{position:relative;z-index:2;max-width:900px}
+.level-hero h1{color:#fff;font-size:clamp(1.9rem,4vw,2.9rem)}
+.level-hero .lede{font-size:1.15rem;color:#E4F1F2;max-width:60ch;margin-bottom:0}
+.level-hero .eyebrow{color:var(--amber)}
+.level-video{position:absolute;inset:0;z-index:0;pointer-events:none}
+.level-video video{width:100%;height:100%;object-fit:cover;opacity:.34;filter:grayscale(.35) contrast(1.05)}
+.level-video::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(11,85,96,.88) 0%,rgba(11,85,96,.55) 52%,rgba(11,85,96,.22) 100%)}
+
+.prose p{max-width:65ch}
+.ticks,.dashes{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}
+.ticks li,.dashes li{display:flex;gap:.55rem;color:var(--ink-2);line-height:1.45}
+.ticks li::before{content:"✓";color:var(--brand);font-weight:800;flex:none}
+.dashes li::before{content:"–";color:var(--muted);font-weight:800;flex:none}
+.card-ours{border-color:var(--brand);background:var(--brand-soft)}
+.card-limits{background:var(--ground)}
+
+@media(prefers-reduced-motion:reduce){.level-video video{display:none}
+  .level-video{background:var(--brand-dark)}}
+@media(max-width:700px){.level-video video{opacity:.24}}

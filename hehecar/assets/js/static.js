@@ -110,6 +110,47 @@
     $all('[data-hydrate="driver-featured"]').forEach(function (el) { if (drivers[0]) el.innerHTML = driverHtml(drivers[0], true); });
     $all('[data-hydrate="drivers-list"]').forEach(function (el) { el.innerHTML = drivers.map(function (d) { return '<div class="driver" style="margin-bottom:2.5rem">' + driverHtml(d, false) + '</div>'; }).join(''); });
 
+    // livelli di aiuto: schede della home e pagine dedicate
+    var levels = active(R.help_levels).sort(byOrder);
+    function levelCard(lv, corrente) {
+      return '<a class="lv' + (Number(lv.ours) ? ' ours' : '') + (corrente ? ' is-current' : '') + '" href="' + BASE + '/aiuto/' + esc(lv.slug) + '/">' +
+        '<span class="eyebrow">' + esc(lv.eyebrow) + '</span><b>' + esc(lv.card_title) + '</b>' +
+        '<p class="small' + (Number(lv.ours) ? '' : ' muted') + '">' + esc(lv.card_text) + '</p>' +
+        '<span class="lv-go">' + (corrente ? 'Sei qui' : 'Vedi come funziona') + '</span></a>';
+    }
+    $all('[data-hydrate="levels-cards"]').forEach(function (el) {
+      if (levels.length) el.innerHTML = levels.map(function (lv) { return levelCard(lv, false); }).join('');
+    });
+    var heroLv = $('[data-hydrate="level-hero"]');
+    if (heroLv && levels.length) {
+      var slug = heroLv.getAttribute('data-slug');
+      var lv = levels.filter(function (x) { return x.slug === slug; })[0];
+      if (lv) {
+        var punti = function (s) { return String(s || '').split('|').map(function (t) { return t.trim(); }).filter(Boolean); };
+        heroLv.classList.toggle('ours', Number(lv.ours) === 1);
+        var eyebrow = $('.eyebrow', heroLv), h1 = $('h1', heroLv), lede = $('.lede', heroLv), alt = $('.sr-only', heroLv);
+        if (eyebrow) eyebrow.textContent = lv.eyebrow;
+        if (h1) h1.textContent = lv.title;
+        if (lede) lede.textContent = lv.subtitle;
+        if (alt) alt.textContent = lv.video_alt;
+        document.title = lv.title + ' · ' + (S.site_name || 'HEHE CAR');
+        var body = $('[data-hydrate="level-body"]');
+        if (body) body.innerHTML = String(lv.body || '').split(/\n\s*\n/).map(function (p) { return '<p>' + esc(p.trim()) + '</p>'; }).join('');
+        var fits = $('[data-hydrate="level-fits"]');
+        if (fits) fits.innerHTML = '<h3>' + esc(lv.fits_title) + '</h3><ul class="ticks">' + punti(lv.fits).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
+        var lim = $('[data-hydrate="level-limits"]');
+        if (lim) {
+          lim.className = 'card ' + (Number(lv.ours) ? 'card-ours' : 'card-limits');
+          lim.style.marginTop = '1rem';
+          lim.innerHTML = '<h3>' + esc(lv.limits_title) + '</h3><ul class="' + (Number(lv.ours) ? 'ticks' : 'dashes') + '">' + punti(lv.limits).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
+        }
+        var altri = $('[data-hydrate="level-others"]');
+        if (altri) altri.innerHTML = levels.map(function (o) { return levelCard(o, o.slug === lv.slug); }).join('');
+        var chiusura = $('[data-hydrate="level-closing"]');
+        if (chiusura) chiusura.textContent = lv.closing;
+      }
+    }
+
     // pagina prezzi
     var t = function (head, rowsHtml) { return '<table><thead><tr>' + head.map(function (h) { return '<th' + (h.num ? ' class="num"' : '') + '>' + esc(h.l) + '</th>'; }).join('') + '</tr></thead><tbody>' + rowsHtml + '</tbody></table>'; };
     var td = function (v, num) { return '<td' + (num ? ' class="num"' : '') + '>' + v + '</td>'; };
