@@ -171,6 +171,27 @@
     window.addEventListener('scroll', updateWaVisibility, { passive: true });
   }
 
+  // Sfondi video che entrano scorrendo: partono quando la sezione è in vista e si fermano quando esce.
+  var sfondi = document.querySelectorAll('.scroll-video');
+  if (sfondi.length && 'IntersectionObserver' in window) {
+    var ridotto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var osservatore = new IntersectionObserver(function (voci) {
+      voci.forEach(function (v) {
+        var box = v.target, vid = box.querySelector('video');
+        if (v.isIntersecting) {
+          box.classList.add('is-on');
+          if (vid && !ridotto) { if (vid.preload === 'none') vid.preload = 'auto'; var pr = vid.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        } else {
+          box.classList.remove('is-on');
+          if (vid && !vid.paused) vid.pause();
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.18 });
+    sfondi.forEach(function (b) { osservatore.observe(b); });
+  } else {
+    sfondi.forEach(function (b) { b.classList.add('is-on'); });
+  }
+
   // Data minima nei campi data
   document.querySelectorAll('input[type="date"][data-min-today]').forEach(function (d) {
     var today = new Date(); var iso = today.toISOString().slice(0, 10);

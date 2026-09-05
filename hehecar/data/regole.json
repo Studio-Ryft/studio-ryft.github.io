@@ -1,733 +1,769 @@
 {
-  "generated_at": "2026-09-04T02:58:27+02:00",
-  "settings": {
-    "site_name": "HEHE CAR",
-    "tagline": "Trasporto privato con autista-accompagnatore, in Campania",
-    "hero_title": "Ti veniamo a prendere, ti accompagniamo dentro, ti aspettiamo.",
-    "hero_subtitle": "Autista formato per chi non si muove da solo: visite mediche, terapie, aeroporto, Pompei e Costiera. Prezzo fisso prima di partire, nessun pagamento anticipato.",
-    "phone": "+39 347 063 8947",
-    "whatsapp": "393470638947",
-    "email": "booking@hehecar.it",
-    "address": "Aversa (CE), Campania",
-    "service_area": "Napoli, Caserta, Salerno, Costiera, isole del Golfo",
-    "google_browser_key": "",
-    "road_factor": "1.3",
-    "unknown_km": "25",
-    "rounding": "1",
-    "vat_note": "Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio.",
-    "min_lead_hours": "3",
-    "max_advance_days": "180",
-    "cancellation_text": "Annullamento gratuito fino a 12 ore prima del servizio.",
-    "custom_quote_note": "Per questo veicolo prepariamo una quotazione su misura in base al percorso e alle esigenze del servizio: ti richiamiamo entro poche ore con il prezzo."
-  },
-  "services": [
-    {
-      "id": 1,
-      "slug": "trasferimento",
-      "name": "Trasferimento",
-      "description": "Da un indirizzo a un altro, in Campania e oltre. Aeroporto, porto, stazione, casa di cura, casa di parenti.",
-      "mode": "oneway",
-      "base_fee": 8,
-      "km_rate": 1.6,
-      "hour_rate": 25,
-      "included_wait_min": 15,
-      "min_fare": 25,
-      "min_hours": 0,
-      "escort_included": 0,
-      "sort_order": 1,
-      "active": 1
-    },
-    {
-      "id": 2,
-      "slug": "visita-medica",
-      "name": "Accompagnamento a visita o terapia",
-      "description": "Andata, accompagnamento dentro la struttura, attesa durante la visita e ritorno a casa. Dialisi, fisioterapia, esami, day hospital.",
-      "mode": "roundtrip",
-      "base_fee": 10,
-      "km_rate": 1.5,
-      "hour_rate": 22,
-      "included_wait_min": 30,
-      "min_fare": 45,
-      "min_hours": 0,
-      "escort_included": 1,
-      "sort_order": 2,
-      "active": 1
-    },
-    {
-      "id": 3,
-      "slug": "a-ore",
-      "name": "Autista a ore",
-      "description": "Un autista-accompagnatore a disposizione: commissioni, farmacia, banca, parrucchiere, visita a un parente. Minimo 2 ore.",
-      "mode": "hourly",
-      "base_fee": 0,
-      "km_rate": 0.5,
-      "hour_rate": 28,
-      "included_wait_min": 0,
-      "min_fare": 56,
-      "min_hours": 2,
-      "escort_included": 1,
-      "sort_order": 3,
-      "active": 1
-    },
-    {
-      "id": 4,
-      "slug": "tour",
-      "name": "Giornata turistica accompagnata",
-      "description": "Pompei, Ercolano, Costiera Amalfitana, Reggia di Caserta, Napoli con autista che accompagna e assiste. Percorsi accessibili, ritmo lento. Minimo 4 ore.",
-      "mode": "hourly",
-      "base_fee": 0,
-      "km_rate": 0.6,
-      "hour_rate": 38,
-      "included_wait_min": 0,
-      "min_fare": 152,
-      "min_hours": 4,
-      "escort_included": 1,
-      "sort_order": 4,
-      "active": 1
-    }
-  ],
-  "time_bands": [
-    {
-      "id": 3,
-      "name": "Notturna",
-      "start_time": "23:00",
-      "end_time": "07:00",
-      "weekdays": "1,2,3,4,5,6,7",
-      "km_multiplier": 1.3,
-      "hour_multiplier": 1.25,
-      "surcharge": 10,
-      "priority": 2,
-      "active": 1
-    },
-    {
-      "id": 4,
-      "name": "Domenica diurna",
-      "start_time": "07:00",
-      "end_time": "20:00",
-      "weekdays": "7",
-      "km_multiplier": 1.15,
-      "hour_multiplier": 1.1,
-      "surcharge": 5,
-      "priority": 1,
-      "active": 1
-    },
-    {
-      "id": 2,
-      "name": "Serale",
-      "start_time": "20:00",
-      "end_time": "23:00",
-      "weekdays": "1,2,3,4,5,6,7",
-      "km_multiplier": 1.15,
-      "hour_multiplier": 1.1,
-      "surcharge": 5,
-      "priority": 1,
-      "active": 1
-    },
-    {
-      "id": 1,
-      "name": "Diurna",
-      "start_time": "07:00",
-      "end_time": "20:00",
-      "weekdays": "1,2,3,4,5,6,7",
-      "km_multiplier": 1,
-      "hour_multiplier": 1,
-      "surcharge": 0,
-      "priority": 0,
-      "active": 1
-    }
-  ],
-  "holidays": [
-    {
-      "id": 1,
-      "name": "Capodanno",
-      "day": "01-01",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 2,
-      "name": "Epifania",
-      "day": "01-06",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 3,
-      "name": "Liberazione",
-      "day": "04-25",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 4,
-      "name": "Festa del Lavoro",
-      "day": "05-01",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 5,
-      "name": "Festa della Repubblica",
-      "day": "06-02",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 6,
-      "name": "Ferragosto",
-      "day": "08-15",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 11,
-      "name": "San Gennaro (Napoli)",
-      "day": "09-19",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 7,
-      "name": "Ognissanti",
-      "day": "11-01",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 8,
-      "name": "Immacolata",
-      "day": "12-08",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 9,
-      "name": "Natale",
-      "day": "12-25",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    },
-    {
-      "id": 10,
-      "name": "Santo Stefano",
-      "day": "12-26",
-      "km_multiplier": 1.25,
-      "surcharge": 10,
-      "active": 1
-    }
-  ],
-  "km_bands": [
-    {
-      "id": 1,
-      "service_id": 1,
-      "name": "Corsa breve in città",
-      "from_km": 0,
-      "to_km": 8,
-      "mode": "flat",
-      "value": 14,
-      "active": 1
-    },
-    {
-      "id": 2,
-      "service_id": 0,
-      "name": "Media distanza",
-      "from_km": 8,
-      "to_km": 60,
-      "mode": "rate",
-      "value": 0,
-      "active": 0
-    },
-    {
-      "id": 3,
-      "service_id": 0,
-      "name": "Lunga distanza",
-      "from_km": 60,
-      "to_km": 0,
-      "mode": "rate",
-      "value": 1.2,
-      "active": 1
-    }
-  ],
-  "vehicles": [
-    {
-      "id": 4,
-      "name": "City car",
-      "description": "Utilitaria compatta, per una o due persone con pochi bagagli. Ideale in città, tariffa più leggera.",
-      "seats": 3,
-      "wheelchair": 0,
-      "multiplier": 0.85,
-      "surcharge": 0,
-      "custom_quote": 0,
-      "sort_order": 1,
-      "active": 1
-    },
-    {
-      "id": 1,
-      "name": "Berlina comfort",
-      "description": "Fino a 3 passeggeri, bagagliaio per deambulatore o carrozzina pieghevole.",
-      "seats": 3,
-      "wheelchair": 0,
-      "multiplier": 1,
-      "surcharge": 0,
-      "sort_order": 2,
-      "active": 1,
-      "custom_quote": 0
-    },
-    {
-      "id": 2,
-      "name": "Van 7 posti",
-      "description": "Famiglie e gruppi, bagagli, carrozzina pieghevole.",
-      "seats": 7,
-      "wheelchair": 0,
-      "multiplier": 1.25,
-      "surcharge": 10,
-      "sort_order": 3,
-      "active": 1,
-      "custom_quote": 1
-    },
-    {
-      "id": 3,
-      "name": "Van con rampa carrozzina",
-      "description": "Si sale restando in carrozzina. Ancoraggi omologati, 1 carrozzina + 3 accompagnatori.",
-      "seats": 4,
-      "wheelchair": 1,
-      "multiplier": 1.35,
-      "surcharge": 15,
-      "sort_order": 4,
-      "active": 1,
-      "custom_quote": 1
-    }
-  ],
-  "extras": [
-    {
-      "id": 1,
-      "name": "Secondo accompagnatore",
-      "description": "Una seconda persona formata a bordo, utile per chi ha bisogno di aiuto continuo.",
-      "price": 18,
-      "unit": "hour",
-      "sort_order": 1,
-      "active": 1
-    },
-    {
-      "id": 2,
-      "name": "Fermata intermedia",
-      "description": "Farmacia, ritiro referti, un parente da prendere lungo il tragitto.",
-      "price": 8,
-      "unit": "flat",
-      "sort_order": 2,
-      "active": 1
-    },
-    {
-      "id": 3,
-      "name": "Animale domestico",
-      "description": "Cane o gatto in trasportino o con telo.",
-      "price": 5,
-      "unit": "flat",
-      "sort_order": 3,
-      "active": 1
-    },
-    {
-      "id": 4,
-      "name": "Sedia a rotelle a noleggio",
-      "description": "Se non ne avete una, la portiamo noi.",
-      "price": 10,
-      "unit": "flat",
-      "sort_order": 4,
-      "active": 1
-    }
-  ],
-  "zone_rules": [
-    {
-      "id": 1,
-      "name": "Aeroporto di Capodichino",
-      "keyword": "aeroporto",
-      "applies_to": "any",
-      "surcharge": 6,
-      "note": "Parcheggio e attesa arrivi.",
-      "active": 1
-    },
-    {
-      "id": 2,
-      "name": "Costiera Amalfitana",
-      "keyword": "positano|amalfi|ravello|praiano|maiori|minori",
-      "applies_to": "any",
-      "surcharge": 15,
-      "note": "Strada lenta e parcheggi difficili.",
-      "active": 1
-    },
-    {
-      "id": 3,
-      "name": "Porto e imbarco isole",
-      "keyword": "porto|molo beverello|calata di massa|imbarco|porto di napoli|porto di salerno",
-      "applies_to": "any",
-      "surcharge": 5,
-      "note": "",
-      "active": 1
-    }
-  ],
-  "places": [
-    {
-      "id": 30,
-      "name": "Amalfi",
-      "aliases": "amalfi",
-      "lat": 40.634,
-      "lng": 14.6027
-    },
-    {
-      "id": 36,
-      "name": "Avellino",
-      "aliases": "avellino",
-      "lat": 40.914,
-      "lng": 14.79
-    },
-    {
-      "id": 12,
-      "name": "Aversa",
-      "aliases": "aversa",
-      "lat": 40.973,
-      "lng": 14.207
-    },
-    {
-      "id": 37,
-      "name": "Benevento",
-      "aliases": "benevento",
-      "lat": 41.13,
-      "lng": 14.778
-    },
-    {
-      "id": 20,
-      "name": "Capua",
-      "aliases": "capua",
-      "lat": 41.105,
-      "lng": 14.213
-    },
-    {
-      "id": 13,
-      "name": "Caserta",
-      "aliases": "caserta",
-      "lat": 41.074,
-      "lng": 14.332
-    },
-    {
-      "id": 15,
-      "name": "Caserta, Ospedale Sant'Anna e San Sebastiano",
-      "aliases": "sant'anna|san sebastiano",
-      "lat": 41.067,
-      "lng": 14.318
-    },
-    {
-      "id": 14,
-      "name": "Caserta, Reggia",
-      "aliases": "reggia",
-      "lat": 41.073,
-      "lng": 14.327
-    },
-    {
-      "id": 16,
-      "name": "Castel Volturno, Pineta Grande",
-      "aliases": "pineta grande|castel volturno",
-      "lat": 41.01,
-      "lng": 13.96
-    },
-    {
-      "id": 26,
-      "name": "Castellammare di Stabia",
-      "aliases": "castellammare",
-      "lat": 40.694,
-      "lng": 14.48
-    },
-    {
-      "id": 23,
-      "name": "Ercolano, Scavi",
-      "aliases": "ercolano|herculaneum",
-      "lat": 40.806,
-      "lng": 14.348
-    },
-    {
-      "id": 17,
-      "name": "Giugliano in Campania",
-      "aliases": "giugliano",
-      "lat": 40.931,
-      "lng": 14.195
-    },
-    {
-      "id": 18,
-      "name": "Marcianise",
-      "aliases": "marcianise",
-      "lat": 41.034,
-      "lng": 14.3
-    },
-    {
-      "id": 2,
-      "name": "Napoli, Aeroporto di Capodichino",
-      "aliases": "aeroporto|capodichino|nap",
-      "lat": 40.886,
-      "lng": 14.2908
-    },
-    {
-      "id": 1,
-      "name": "Napoli, Centro",
-      "aliases": "napoli",
-      "lat": 40.8518,
-      "lng": 14.2681
-    },
-    {
-      "id": 5,
-      "name": "Napoli, Ospedale Cardarelli",
-      "aliases": "cardarelli",
-      "lat": 40.8688,
-      "lng": 14.2247
-    },
-    {
-      "id": 8,
-      "name": "Napoli, Ospedale Monaldi",
-      "aliases": "monaldi",
-      "lat": 40.872,
-      "lng": 14.227
-    },
-    {
-      "id": 7,
-      "name": "Napoli, Ospedale del Mare",
-      "aliases": "ospedale del mare",
-      "lat": 40.856,
-      "lng": 14.341
-    },
-    {
-      "id": 9,
-      "name": "Napoli, Pascale",
-      "aliases": "pascale",
-      "lat": 40.868,
-      "lng": 14.23
-    },
-    {
-      "id": 6,
-      "name": "Napoli, Policlinico Federico II",
-      "aliases": "policlinico|federico ii",
-      "lat": 40.863,
-      "lng": 14.203
-    },
-    {
-      "id": 4,
-      "name": "Napoli, Porto Molo Beverello",
-      "aliases": "molo beverello|porto di napoli",
-      "lat": 40.8397,
-      "lng": 14.2529
-    },
-    {
-      "id": 11,
-      "name": "Napoli, Posillipo",
-      "aliases": "posillipo",
-      "lat": 40.806,
-      "lng": 14.195
-    },
-    {
-      "id": 3,
-      "name": "Napoli, Stazione Centrale (Piazza Garibaldi)",
-      "aliases": "stazione centrale|garibaldi",
-      "lat": 40.8528,
-      "lng": 14.2727
-    },
-    {
-      "id": 10,
-      "name": "Napoli, Vomero",
-      "aliases": "vomero",
-      "lat": 40.844,
-      "lng": 14.23
-    },
-    {
-      "id": 34,
-      "name": "Nocera Inferiore",
-      "aliases": "nocera",
-      "lat": 40.744,
-      "lng": 14.642
-    },
-    {
-      "id": 35,
-      "name": "Nola",
-      "aliases": "nola",
-      "lat": 40.926,
-      "lng": 14.528
-    },
-    {
-      "id": 38,
-      "name": "Paestum",
-      "aliases": "paestum",
-      "lat": 40.423,
-      "lng": 15.005
-    },
-    {
-      "id": 25,
-      "name": "Pompei, Scavi",
-      "aliases": "pompei|pompeii",
-      "lat": 40.751,
-      "lng": 14.485
-    },
-    {
-      "id": 22,
-      "name": "Portici",
-      "aliases": "portici",
-      "lat": 40.819,
-      "lng": 14.341
-    },
-    {
-      "id": 29,
-      "name": "Positano",
-      "aliases": "positano",
-      "lat": 40.6281,
-      "lng": 14.485
-    },
-    {
-      "id": 21,
-      "name": "Pozzuoli",
-      "aliases": "pozzuoli",
-      "lat": 40.823,
-      "lng": 14.122
-    },
-    {
-      "id": 31,
-      "name": "Ravello",
-      "aliases": "ravello",
-      "lat": 40.649,
-      "lng": 14.611
-    },
-    {
-      "id": 39,
-      "name": "Roma, Fiumicino Aeroporto",
-      "aliases": "fiumicino|roma",
-      "lat": 41.8003,
-      "lng": 12.2389
-    },
-    {
-      "id": 32,
-      "name": "Salerno",
-      "aliases": "salerno",
-      "lat": 40.6824,
-      "lng": 14.7681
-    },
-    {
-      "id": 33,
-      "name": "Salerno, Ospedale Ruggi",
-      "aliases": "ruggi",
-      "lat": 40.682,
-      "lng": 14.76
-    },
-    {
-      "id": 19,
-      "name": "Santa Maria Capua Vetere",
-      "aliases": "santa maria capua vetere|capua vetere",
-      "lat": 41.081,
-      "lng": 14.257
-    },
-    {
-      "id": 28,
-      "name": "Sorrento",
-      "aliases": "sorrento",
-      "lat": 40.6263,
-      "lng": 14.3758
-    },
-    {
-      "id": 24,
-      "name": "Torre del Greco",
-      "aliases": "torre del greco",
-      "lat": 40.788,
-      "lng": 14.368
-    },
-    {
-      "id": 27,
-      "name": "Vico Equense",
-      "aliases": "vico equense",
-      "lat": 40.662,
-      "lng": 14.426
-    }
-  ],
-  "drivers": [
-    {
-      "id": 1,
-      "name": "Salvatore Bove",
-      "role": "Autista accompagnatore principale",
-      "bio": "Ex militare dell'Esercito Italiano (in servizio fino all'estate 2026) ed esperto di arti marziali e autodifesa: cintura nera di Kickboxing e cintura nera di Taekwondo. Dalla divisa ha preso disciplina, puntualità e lucidità sotto pressione; dal tatami autocontrollo e capacità di gestire con calma qualsiasi situazione di tensione, per garantire sicurezza a chi accompagna. Di Aversa, appassionato ed esperto di auto. Prima della divisa ha lavorato per anni nell'accoglienza, come responsabile di sala e bartender: sa mettere a proprio agio le persone, ascoltare e tenere il ritmo anche quando c'è fretta. Disponibile di giorno, di notte, nei weekend e nei giorni festivi.",
-      "badges": "Ex militare Esercito Italiano|Cintura nera Kickboxing|Cintura nera Taekwondo|Esperto di autodifesa|Esperienza in accoglienza|Turni notturni e festivi|Patente B, automunito",
-      "languages": "Italiano madrelingua, Inglese base",
-      "photo": "salvatore-ritratto.jpg",
-      "featured": 1,
-      "active": 1,
-      "sort_order": 1,
-      "photos": "salvatore-ritratto.jpg|salvatore.jpg|salvatore-alt.jpg"
-    }
-  ],
-  "help_levels": [
-    {
-      "id": 1,
-      "slug": "marciapiede-a-marciapiede",
-      "eyebrow": "Come un taxi",
-      "card_title": "Marciapiede a marciapiede",
-      "card_text": "Ti aspettiamo in strada e ti lasciamo davanti all'ingresso.",
-      "title": "Marciapiede a marciapiede: il passaggio, senza sorprese",
-      "subtitle": "Ti aspettiamo in strada e ti lasciamo davanti all'ingresso, con il prezzo detto prima di partire e nessun anticipo da versare.",
-      "body": "È il livello base, quello che fa anche un taxi, e per una parte delle corse basta. All'ora concordata l'auto è davanti al portone: sali, ti portiamo dove hai detto, scendi davanti all'ingresso.\n\nFunziona quando chi viaggia cammina bene e conosce il posto dove sta andando: il controllo dal cardiologo dove va da anni, il ritiro di un referto, la corsa all'aeroporto con una valigia sola. Funziona anche quando all'arrivo c'è già qualcuno che aspetta, perché la parte dentro la copre lui.\n\nQuello che cambia rispetto a una corsa qualsiasi sta prima di partire. Il prezzo lo sai quando prenoti, calcolato sui chilometri reali e sulla fascia oraria, e resta quello anche se troviamo coda sull'Asse Mediano. Non paghi in anticipo e non lasci una carta. Prenoti su WhatsApp o al telefono, senza installare applicazioni, e paghi alla fine del servizio.\n\nSali di livello quando la persona che viaggia ha bisogno di un braccio per uscire di casa, quando le scale del palazzo sono ripide, quando c'è un deambulatore o due borse da caricare. Se tua madre esce con il bastone e il portone dà su una strada dove l'auto non può fermarsi, lasciarla sul marciapiede risolve poco. E se all'arrivo bisogna trovare il reparto, prendere il numero e aspettare che la visita finisca, allora il livello da guardare è il terzo.",
-      "fits_title": "Quando basta questo livello",
-      "fits": "Chi viaggia cammina senza appoggio e sale in auto da solo.|Il posto dove si va è già conosciuto, oppure all'ingresso c'è qualcuno che accoglie.|Conta soprattutto l'orario: un aereo, un treno, un appuntamento con l'ora fissa.|Vuoi sapere quanto spendi prima di salire, senza tassametro che gira.",
-      "limits_title": "Cosa non comprende",
-      "limits": "Nessun aiuto per uscire di casa o per salire e scendere dall'auto: per quello c'è il porta a porta.|Le borse restano a chi viaggia, e non saliamo le scale del palazzo.|Non entriamo nella struttura e non aspettiamo la fine della visita: quello è il terzo livello.",
-      "closing": "Calcola il prezzo del tragitto in trenta secondi, oppure scrivi su WhatsApp partenza, destinazione e orario e ti mandiamo la cifra.",
-      "video": "livello-marciapiede.mp4",
-      "poster": "livello-marciapiede.jpg",
-      "video_alt": "La strada vista dal posto di guida, in una giornata di sole.",
-      "ours": 0,
-      "sort_order": 1,
-      "active": 1
-    },
-    {
-      "id": 2,
-      "slug": "porta-a-porta",
-      "eyebrow": "Come i servizi \"assist\"",
-      "card_title": "Porta a porta",
-      "card_text": "Ti aiutiamo fino alla porta, ma non entriamo con te.",
-      "title": "Porta a porta: fino all'ingresso, borse comprese",
-      "subtitle": "Veniamo a prenderti al portone, ti aiutiamo a salire e a scendere, portiamo le borse e ti lasciamo davanti alla porta della struttura.",
-      "body": "Qui l'autista scende dall'auto. Ti aspetta al portone, ti dà il braccio se serve, apre la portiera dal lato buono del marciapiede e sistema il bastone o il deambulatore nel bagagliaio. All'arrivo ripete tutto al contrario, fino alla porta d'ingresso.\n\nÈ il livello dei servizi di accompagnamento internazionali, quelli che le compagnie aeree chiamano assist. Copre il tratto scoperto: i venti metri fra la macchina e la soglia, dove succedono le cadute e dove chi ha una certa età si sente più esposto.\n\nHa senso per la terapia settimanale in un centro che tua madre conosce già, per il prelievo del mattino, per il volo da Capodichino quando la valigia pesa. Vale soprattutto al ritorno: dopo tre ore in sala d'attesa la stanchezza è un'altra cosa rispetto all'andata.\n\nDalla soglia in poi, però, chi viaggia prosegue da solo. Non facciamo l'accettazione, non cerchiamo l'ambulatorio al secondo piano, non restiamo lì durante la visita. Se tuo padre si perde nei corridoi di un ospedale grande, oppure ha bisogno di qualcuno seduto accanto mentre aspetta il turno, il porta a porta lo lascia solo proprio nel momento in cui servirebbe di più. In quel caso conviene salire al terzo livello, dove entriamo con lui e lo riportiamo fino dentro casa.",
-      "fits_title": "Quando basta questo livello",
-      "fits": "Chi viaggia cammina, ma negli ultimi metri è più sicuro con un braccio a cui appoggiarsi.|Ci sono borse, una valigia, un bastone o un deambulatore da caricare.|Dentro la struttura c'è già chi accoglie: un familiare, il personale del centro, il banco del check-in.|La visita o la terapia è breve e chi viaggia se la gestisce da solo.",
-      "limits_title": "Cosa non comprende",
-      "limits": "Non entriamo nella struttura: niente accettazione, niente ricerca del reparto, niente numero da prendere.|L'attesa durante la visita non è compresa: ci accordiamo su un orario per il ritorno, oppure ci chiami quando hai finito.|Non saliamo in casa a prendere la persona; se ci sono scale o serve un aiuto già dall'appartamento, guarda il terzo livello.",
-      "closing": "Metti partenza e destinazione nel preventivo e vedi subito quanto costa; se preferisci raccontare la situazione a voce, scrivi su WhatsApp e ti diciamo quale livello conviene.",
-      "video": "livello-porta.mp4",
-      "poster": "livello-porta.jpg",
-      "video_alt": "Una mano apre la portiera di un'auto dal lato del marciapiede.",
-      "ours": 0,
-      "sort_order": 2,
-      "active": 1
-    },
-    {
-      "id": 3,
-      "slug": "porta-a-porta-dentro",
-      "eyebrow": "HEHE CAR",
-      "card_title": "Porta a porta, passando dentro",
-      "card_text": "Entriamo in casa se serve, facciamo le scale, entriamo in ambulatorio, aspettiamo durante la visita, ti riportiamo fino in casa.",
-      "title": "Porta a porta, passando dentro: fino in ambulatorio",
-      "subtitle": "Saliamo le scale, entriamo con te dal medico, aspettiamo che la visita finisca e ti riportiamo dentro casa, non davanti al portone.",
-      "body": "È il livello per cui HEHE CAR esiste. L'autista suona al citofono, sale, aspetta che tu abbia preso borsa, chiavi e documenti, e scende con te anche se il palazzo non ha ascensore. All'arrivo non ti lascia sulla soglia: entra, si occupa dell'accettazione se glielo chiedi, ti accompagna fino all'ambulatorio o al reparto e resta lì.\n\nL'attesa è il punto delicato. Una visita che sulla carta dura venti minuti spesso ne prende novanta fra ritardi e code, e in quel tempo tuo padre resta seduto con qualcuno accanto invece che da solo in un corridoio. Alla fine si torna insieme, con le carte in mano, e la porta che si chiude dietro è quella di casa sua.\n\nServe nelle situazioni che si ripetono: la dialisi tre volte a settimana, un ciclo di terapie, il controllo dopo l'operazione, la commissione alla posta per chi non se la sente più di uscire da solo. Serve anche a te che stai lontano, perché ricevi il messaggio alla partenza e al ritorno e sai com'è andata senza telefonare a nessuno.\n\nUna cosa la diciamo chiara: l'autista accompagna, non cura. Niente medicazioni, niente farmaci, nessuna assistenza infermieristica. Quando durante la prestazione serve un professionista sanitario, quello resta un altro mestiere e va chiamato a parte.",
-      "fits_title": "Quando serve questo livello",
-      "fits": "Chi viaggia ha bisogno di un aiuto già dentro casa: le scale, la porta, quello che deve portare con sé.|L'appuntamento è in una struttura grande, con accettazione, piani e reparti da trovare.|L'attesa è lunga o imprevedibile, e restare seduti da soli in un corridoio non è una buona idea.|Tu sei lontano e vuoi sapere quando è partito e quando è rientrato, senza rincorrere telefonate.",
-      "limits_title": "Fin dove arriviamo",
-      "limits": "Arriviamo dentro casa, all'andata e al ritorno, scale comprese anche quando non c'è l'ascensore.|Restiamo per tutta la visita: il tempo di attesa è calcolato a ore e compare nel preventivo prima della partenza, quindi alla fine non c'è nessun conteggio a sorpresa.|Ci fermiamo davanti alle prestazioni sanitarie: accompagniamo, non curiamo. Per medicazioni, farmaci o assistenza infermieristica serve personale sanitario.",
-      "closing": "Fai il preventivo con l'indirizzo di casa e quello della struttura, così vedi la cifra completa con l'attesa già dentro. Se è più comodo spiegarlo a voce, scrivi su WhatsApp e organizziamo la giornata insieme.",
-      "video": "livello-dentro.mp4",
-      "poster": "livello-dentro.jpg",
-      "video_alt": "Le mani di una persona anziana appoggiate all'impugnatura del bastone.",
-      "ours": 1,
-      "sort_order": 3,
-      "active": 1
-    }
-  ]
+    "generated_at": "2026-09-05T17:50:34+02:00",
+    "settings": {
+        "site_name": "HEHE CAR",
+        "tagline": "Trasporto privato con autista-accompagnatore, in Campania",
+        "hero_title": "Ti veniamo a prendere, entriamo con te e aspettiamo che la visita finisca.",
+        "hero_subtitle": "Un autista che accompagna chi non se la sente di uscire da solo: visite, terapie, aeroporto, e le giornate a Pompei o in Costiera per chi cammina poco.",
+        "phone": "+39 347 063 8947",
+        "whatsapp": "393470638947",
+        "email": "booking@hehecar.it",
+        "address": "Aversa (CE), Campania",
+        "service_area": "Napoli, Caserta, Salerno, Costiera, isole del Golfo",
+        "google_browser_key": "",
+        "road_factor": "1.30",
+        "unknown_km": "",
+        "rounding": "1",
+        "vat_note": "Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio.",
+        "min_lead_hours": "3",
+        "max_advance_days": "180",
+        "cancellation_text": "Annullamento gratuito fino a 12 ore prima del servizio.",
+        "custom_quote_note": "Per questo veicolo il prezzo lo calcoliamo a mano, sul tragitto e su quello che serve durante il servizio. Lasciaci un recapito e ti richiamiamo con la cifra."
+    },
+    "services": [
+        {
+            "id": 1,
+            "slug": "trasferimento",
+            "name": "Trasferimento",
+            "description": "Da un indirizzo a un altro, in Campania e oltre. Aeroporto, porto, stazione, casa di cura, casa di parenti.",
+            "mode": "oneway",
+            "base_fee": 8,
+            "km_rate": 1.6,
+            "hour_rate": 25,
+            "included_wait_min": 15,
+            "min_fare": 25,
+            "min_hours": 0,
+            "escort_included": 0,
+            "page_title": "Sola andata, con ora e prezzo già fissati",
+            "page_subtitle": "Ti portiamo da un indirizzo all'altro, in Campania e oltre, con quindici minuti di attesa compresi e la cifra detta prima di partire.",
+            "page_body": "Ci sono spostamenti che non hanno bisogno di nessuno che entri dentro con te: un volo la mattina presto da Capodichino, il rientro a casa dopo una dimissione, un parente da portare alla stazione. Serve solo che l'auto ci sia all'ora giusta e che il conto sia chiaro.\n\nIl trasferimento copre questo, da un indirizzo a un altro, sola andata. Prenoti su WhatsApp o al telefono dicendo dove sei, dove vai, il giorno e l'ora; ricevi il prezzo e, quando confermi, il nome dell'autista che verrà. Il giorno del servizio l'autista suona, ti aiuta a salire e sistema le borse. All'arrivo ti lascia davanti all'ingresso e paghi lì, in contanti o con carta.\n\nUn taxi lo chiami quando ti serve e scopri la cifra alla fine, con il tassametro che gira anche mentre siete fermi sull'Asse Mediano. Qui il prezzo lo conosci prima e resta quello, perché è calcolato sui chilometri da fare e sulla fascia oraria, non sul traffico che troviamo per strada. Non lasci una carta di credito e non anticipi niente.\n\nI quindici minuti di attesa compresi servono per i ritardi normali: il documento dimenticato, l'ascensore occupato, la valigia che non entra nel bagagliaio al primo tentativo. Se invece prevedi di aspettare più a lungo, per una visita o per una pratica allo sportello, il trasferimento non è il servizio giusto e conviene guardare gli altri tre.",
+            "steps": "Scrivi su WhatsApp o chiami e dici partenza, destinazione, giorno e ora.|Ricevi il prezzo fisso e, alla conferma, il nome dell'autista.|L'autista arriva all'orario concordato, ti aiuta a salire e carica le borse.|Ti lascia davanti all'ingresso e paghi lì, in contanti o con carta.",
+            "included": "Il tragitto di sola andata da un indirizzo all'altro, in Campania e oltre.|Quindici minuti di attesa alla partenza, già dentro il prezzo.|L'aiuto per salire, per scendere e per caricare borse o valigie.|Il messaggio a chi ha prenotato quando si parte e quando si arriva.",
+            "notes": "È una corsa di sola andata: se serve anche il rientro conviene dirlo subito, così finisce nello stesso preventivo.|L'autista non sale in casa a prendere chi viaggia e non entra nella struttura di arrivo; si parte dal portone e si finisce davanti all'ingresso.|Fuori dalla Campania ci andiamo, ma il preventivo va chiesto a parte perché il calcolo cambia.",
+            "page_closing": "Scrivi su WhatsApp partenza, destinazione e orario: ti torna indietro la cifra, e da lì decidi con calma.",
+            "image": "trasferimento.jpg",
+            "image_alt": "Una valigia trascinata nel terminal di un aeroporto.",
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "slug": "visita-medica",
+            "name": "Accompagnamento a visita o terapia",
+            "description": "Andata, accompagnamento dentro la struttura, attesa durante la visita e ritorno a casa. Dialisi, fisioterapia, esami, day hospital.",
+            "mode": "roundtrip",
+            "base_fee": 10,
+            "km_rate": 1.5,
+            "hour_rate": 22,
+            "included_wait_min": 30,
+            "min_fare": 45,
+            "min_hours": 0,
+            "escort_included": 1,
+            "page_title": "Ti accompagniamo dentro e aspettiamo la visita",
+            "page_subtitle": "Andata, ingresso in struttura, attesa durante la visita e ritorno a casa, per dialisi, fisioterapia, esami e day hospital.",
+            "page_body": "La parte difficile di una visita raramente è il viaggio. È l'ora e mezza in sala d'attesa quando il turno slitta, è l'accettazione al piano terra con l'ambulatorio al secondo, è il ritorno con le gambe pesanti e la testa piena di quello che ha detto il medico.\n\nQuesto servizio copre l'intera mattinata. L'autista viene a prendere chi deve andare, entra con lui nella struttura, si occupa dell'accettazione se glielo chiedi, lo accompagna fino all'ambulatorio e resta. Non aspetta in macchina: aspetta lì, seduto accanto, così quando la porta si apre c'è qualcuno che si alza. Poi si torna a casa insieme, con i referti e le prescrizioni al loro posto.\n\nUn taxi lascia sul marciapiede e riparte, e al ritorno ne cerchi un altro con la stanchezza addosso. Un noleggio dà l'auto e chi la guida, però chi la guida resta al posto di guida. La differenza sta nei metri fatti a piedi dentro l'edificio, che sono pochi e sono quelli che pesano.\n\nTrenta minuti di attesa sono compresi. Quando la visita dura di più, e capita spesso, l'attesa si calcola a ore e la vedi già nel preventivo prima di partire, quindi alla fine non c'è nessun conteggio a sorpresa.\n\nUna cosa la diciamo chiara: l'autista accompagna, non cura. Sta accanto, porta la cartella, ricorda l'orario del prossimo controllo. Per medicazioni, farmaci o assistenza infermieristica serve personale sanitario, che è un altro mestiere.",
+            "steps": "Racconti su WhatsApp o al telefono dove si va, per quale visita e a che ora.|Ricevi il preventivo con l'attesa già calcolata e il nome dell'autista.|L'autista passa a prendere chi viaggia, entra nella struttura e resta fino alla fine.|Si torna a casa insieme, paghi lì, e chi ha prenotato riceve il messaggio del rientro.",
+            "included": "Andata e ritorno dentro lo stesso servizio, senza prenotare due corse.|L'ingresso nella struttura insieme a chi viaggia, accettazione compresa se serve.|Trenta minuti di attesa; oltre si conta a ore, scritto nel preventivo prima di partire.|Gli aggiornamenti a chi ha prenotato, alla partenza e al rientro.",
+            "notes": "L'autista accompagna e assiste, non svolge prestazioni sanitarie di nessun tipo.|Se la struttura chiede una delega o un documento per l'accettazione, va preparato prima, perché noi non possiamo firmare al posto di chi viaggia.|Quando l'orario di uscita è imprevedibile, come in dialisi o in day hospital, il preventivo indica quanto costa ogni ora in più, così il conto finale non sorprende nessuno.",
+            "page_closing": "Dicci la struttura, il giorno e l'ora dell'appuntamento: ti mandiamo il preventivo con l'attesa già dentro, su WhatsApp o al telefono se preferisci spiegarlo a voce.",
+            "image": "visita-medica.jpg",
+            "image_alt": "Il corridoio luminoso di una struttura sanitaria.",
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "slug": "a-ore",
+            "name": "Autista a ore",
+            "description": "Un autista-accompagnatore a disposizione: commissioni, farmacia, banca, parrucchiere, visita a un parente. Minimo 2 ore.",
+            "mode": "hourly",
+            "base_fee": 0,
+            "km_rate": 0.5,
+            "hour_rate": 28,
+            "included_wait_min": 0,
+            "min_fare": 56,
+            "min_hours": 2,
+            "escort_included": 1,
+            "page_title": "Le commissioni della mattina, tutte in una volta",
+            "page_subtitle": "Prenoti un autista-accompagnatore per due ore o più e in quel tempo fai le tappe che ti servono, nell'ordine che ti conviene.",
+            "page_body": "Ci sono giornate che sulla carta non contengono niente di grave e si mangiano comunque una mattina intera. La ricetta da ritirare in farmacia, il bollettino alla posta, il libretto da aggiornare in banca, mezz'ora dal parrucchiere, un salto da una sorella che sta dall'altra parte del paese. Presa una per una, nessuna di queste cose giustifica una corsa. Tutte insieme, sì.\n\nL'autista a ore si prenota a blocchi di tempo, minimo due ore, e per tutta la durata l'auto e la persona restano con te. Le tappe le decidi mentre andate, l'ordine cambia se la fila alla posta è più lunga del previsto, e nessuno guarda l'orologio a ogni fermata.\n\nChi guida non aspetta seduto al volante. Scende, ti dà il braccio dove il marciapiede è alto, porta le buste, ti tiene il posto in fila se glielo chiedi. Salvatore ha lavorato per anni in sala prima di indossare la divisa, e chi viene da quel mestiere sa stare accanto a una persona senza metterle fretta.\n\nRispetto a un noleggio qualsiasi la differenza è tutta qui: lì paghi un mezzo con chi lo guida, qui paghi qualcuno che ti accompagna e che nel frattempo guida. Il prezzo si calcola sulle ore e sulla fascia oraria, lo conosci quando prenoti e non lo scopri alla fine.",
+            "steps": "Dici quante ore ti servono, il giorno, l'ora di inizio e da dove si parte.|Ricevi il prezzo del blocco di ore e il nome dell'autista.|L'autista arriva e resta con te per tutta la durata, tappa dopo tappa.|Vi salutate all'indirizzo di rientro e paghi lì, in contanti o con carta.",
+            "included": "Due ore minime di autista e auto, usate come conviene a te.|Le fermate che servono, anche se cambiate ordine durante il giro.|L'aiuto a scendere, a salire e a portare buste, pacchi o sacchetti della spesa.|Le attese davanti agli sportelli, dentro le ore prenotate.",
+            "notes": "Il minimo resta di due ore, anche quando le commissioni ne prendono una sola.|Se serve più tempo di quello prenotato lo si concorda sul momento, e le ore in più entrano nel conto finale.|L'autista non entra al posto tuo agli sportelli e non gestisce denaro o documenti di chi accompagna.",
+            "page_closing": "Raccontaci che giro devi fare e quanto tempo pensi ti serva: ti diciamo quante ore prenotare e quanto costano, su WhatsApp o al telefono.",
+            "image": "a-ore.jpg",
+            "image_alt": "La strada di un centro storico con le vetrine dei negozi.",
+            "sort_order": 3,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "slug": "tour",
+            "name": "Giornata turistica accompagnata",
+            "description": "Pompei, Ercolano, Costiera Amalfitana, Reggia di Caserta, Napoli, con un autista che accompagna anche a piedi. Il giro si adatta a quanto si riesce a camminare, con le soste decise strada facendo. Minimo 4 ore.",
+            "mode": "hourly",
+            "base_fee": 0,
+            "km_rate": 0.6,
+            "hour_rate": 38,
+            "included_wait_min": 0,
+            "min_fare": 152,
+            "min_hours": 4,
+            "escort_included": 1,
+            "page_title": "Pompei e la Costiera, al tuo passo",
+            "page_subtitle": "Una giornata fra Pompei, Ercolano, la Reggia di Caserta, Napoli o la Costiera, con un autista che accompagna, aiuta e non mette fretta a nessuno.",
+            "page_body": "Il pullman parte all'alba, ferma dove decide lui e riparte quando l'ultimo passeggero è risalito. Per chi cammina con il bastone, o si stanca dopo un'ora di scavi, quel formato è il modo più rapido per tornare in hotel con le caviglie gonfie e la sensazione di aver visto poco.\n\nUna giornata accompagnata parte dal contrario. Si concorda prima dove si va e quanto ci si ferma, poi il ritmo lo detta chi viaggia. Se dopo due ore a Pompei basta così, si esce e si va a pranzo. Se la Costiera si guarda meglio da fermi, ci si ferma. L'autista viene a prenderti in hotel, al porto o all'aeroporto, entra nei siti insieme al gruppo, tiene le borse e i biglietti e resta a portata di voce.\n\nIl minimo è di quattro ore, perché sotto quella soglia una giornata così non regge: fra spostamenti, code agli ingressi e soste per riposare, il tempo va lasciato largo.\n\nPrima di partire chiediamo com'è la mobilità di chi viene, dato che da quella dipende tutto il resto del programma. Alcuni percorsi hanno ingressi accessibili e superfici percorribili; altri hanno gradini e basolato antico che una carrozzina non perdona. Meglio saperlo il giorno prima e cambiare tappa, che scoprirlo davanti al cancello.",
+            "steps": "Racconti chi viaggia, quanti siete e quali posti vorreste vedere.|Concordiamo il giro, le ore e il punto di partenza: hotel, porto, aeroporto o casa.|Ricevi il preventivo con le ore comprese e il nome dell'autista.|Il giorno stesso si parte, si visita al ritmo del gruppo e si paga alla fine.",
+            "included": "Autista e auto per tutta la durata concordata, con un minimo di quattro ore.|L'accompagnamento dentro i siti, con aiuto a scendere, a salire e a camminare.|La presa in hotel, al porto o all'aeroporto, e il rientro allo stesso indirizzo.|Le soste per il pranzo, per riposare o per le fotografie, dentro le ore concordate.",
+            "notes": "L'autista accompagna e assiste, non fa da guida: il racconto storico dei siti è mestiere di una guida turistica autorizzata e si prenota a parte.|I biglietti d'ingresso ai siti e i pasti restano fuori dal prezzo del servizio.|Salvatore parla italiano e un inglese di base; se nel gruppo si parla un'altra lingua, dillo quando prenoti così ci organizziamo.",
+            "page_closing": "Scrivi su WhatsApp dove alloggi, in quanti siete e cosa vorreste vedere: ti rimandiamo il giro possibile con le ore e il prezzo.",
+            "image": "tour.jpg",
+            "image_alt": "Una strada che corre lungo la costa fra il verde e il mare.",
+            "sort_order": 4,
+            "active": 1
+        }
+    ],
+    "time_bands": [
+        {
+            "id": 3,
+            "name": "Notturna",
+            "start_time": "23:00",
+            "end_time": "07:00",
+            "weekdays": "1,2,3,4,5,6,7",
+            "km_multiplier": 1.3,
+            "hour_multiplier": 1.25,
+            "surcharge": 10,
+            "priority": 2,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Domenica diurna",
+            "start_time": "07:00",
+            "end_time": "20:00",
+            "weekdays": "7",
+            "km_multiplier": 1.15,
+            "hour_multiplier": 1.1,
+            "surcharge": 5,
+            "priority": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Serale",
+            "start_time": "20:00",
+            "end_time": "23:00",
+            "weekdays": "1,2,3,4,5,6,7",
+            "km_multiplier": 1.15,
+            "hour_multiplier": 1.1,
+            "surcharge": 5,
+            "priority": 1,
+            "active": 1
+        },
+        {
+            "id": 1,
+            "name": "Diurna",
+            "start_time": "07:00",
+            "end_time": "20:00",
+            "weekdays": "1,2,3,4,5,6,7",
+            "km_multiplier": 1,
+            "hour_multiplier": 1,
+            "surcharge": 0,
+            "priority": 0,
+            "active": 1
+        }
+    ],
+    "holidays": [
+        {
+            "id": 1,
+            "name": "Capodanno",
+            "day": "01-01",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Epifania",
+            "day": "01-06",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Liberazione",
+            "day": "04-25",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Festa del Lavoro",
+            "day": "05-01",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 5,
+            "name": "Festa della Repubblica",
+            "day": "06-02",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 6,
+            "name": "Ferragosto",
+            "day": "08-15",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 11,
+            "name": "San Gennaro (Napoli)",
+            "day": "09-19",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 7,
+            "name": "Ognissanti",
+            "day": "11-01",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 8,
+            "name": "Immacolata",
+            "day": "12-08",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 9,
+            "name": "Natale",
+            "day": "12-25",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        },
+        {
+            "id": 10,
+            "name": "Santo Stefano",
+            "day": "12-26",
+            "km_multiplier": 1.25,
+            "surcharge": 10,
+            "active": 1
+        }
+    ],
+    "km_bands": [
+        {
+            "id": 1,
+            "service_id": 1,
+            "name": "Corsa breve in città",
+            "from_km": 0,
+            "to_km": 8,
+            "mode": "flat",
+            "value": 14,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "service_id": 0,
+            "name": "Media distanza",
+            "from_km": 8,
+            "to_km": 60,
+            "mode": "rate",
+            "value": 0,
+            "active": 0
+        },
+        {
+            "id": 3,
+            "service_id": 0,
+            "name": "Lunga distanza",
+            "from_km": 60,
+            "to_km": 0,
+            "mode": "rate",
+            "value": 1.2,
+            "active": 1
+        }
+    ],
+    "vehicles": [
+        {
+            "id": 1,
+            "name": "City car",
+            "description": "Utilitaria compatta, per una o due persone con pochi bagagli. In città costa meno e accosta dove le altre non entrano.",
+            "seats": 3,
+            "wheelchair": 0,
+            "multiplier": 0.85,
+            "surcharge": 0,
+            "custom_quote": 0,
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Berlina comfort",
+            "description": "Fino a 3 passeggeri, bagagliaio per deambulatore o carrozzina pieghevole.",
+            "seats": 3,
+            "wheelchair": 0,
+            "multiplier": 1,
+            "surcharge": 0,
+            "custom_quote": 0,
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Van 7 posti",
+            "description": "Famiglie e gruppi, con bagagli e carrozzina pieghevole. Il prezzo lo calcoliamo sui chilometri e su quante persone salgono.",
+            "seats": 7,
+            "wheelchair": 0,
+            "multiplier": 1.25,
+            "surcharge": 10,
+            "custom_quote": 1,
+            "sort_order": 3,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Van con rampa carrozzina",
+            "description": "Si sale restando in carrozzina. Ancoraggi omologati, una carrozzina più tre accompagnatori. Il prezzo lo calcoliamo sul percorso e sul tipo di servizio.",
+            "seats": 4,
+            "wheelchair": 1,
+            "multiplier": 1.35,
+            "surcharge": 15,
+            "custom_quote": 1,
+            "sort_order": 4,
+            "active": 1
+        }
+    ],
+    "extras": [
+        {
+            "id": 1,
+            "name": "Secondo accompagnatore",
+            "description": "Una seconda persona formata a bordo, utile per chi ha bisogno di aiuto continuo.",
+            "price": 18,
+            "unit": "hour",
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Fermata intermedia",
+            "description": "Farmacia, ritiro referti, un parente da prendere lungo il tragitto.",
+            "price": 8,
+            "unit": "flat",
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Animale domestico",
+            "description": "Cane o gatto in trasportino o con telo.",
+            "price": 5,
+            "unit": "flat",
+            "sort_order": 3,
+            "active": 1
+        },
+        {
+            "id": 4,
+            "name": "Sedia a rotelle a noleggio",
+            "description": "Se in casa non c'è, la portiamo noi.",
+            "price": 10,
+            "unit": "flat",
+            "sort_order": 4,
+            "active": 1
+        }
+    ],
+    "zone_rules": [
+        {
+            "id": 1,
+            "name": "Aeroporto di Capodichino",
+            "keyword": "aeroporto",
+            "applies_to": "any",
+            "surcharge": 6,
+            "note": "Parcheggio e attesa arrivi.",
+            "active": 1
+        },
+        {
+            "id": 2,
+            "name": "Costiera Amalfitana",
+            "keyword": "positano|amalfi|ravello|praiano|maiori|minori",
+            "applies_to": "any",
+            "surcharge": 15,
+            "note": "Strada lenta e parcheggi difficili.",
+            "active": 1
+        },
+        {
+            "id": 3,
+            "name": "Porto e imbarco isole",
+            "keyword": "porto|molo beverello|calata di massa|imbarco|porto di napoli|porto di salerno",
+            "applies_to": "any",
+            "surcharge": 5,
+            "note": "",
+            "active": 1
+        }
+    ],
+    "places": [
+        {
+            "id": 30,
+            "name": "Amalfi",
+            "aliases": "amalfi",
+            "lat": 40.634,
+            "lng": 14.6027
+        },
+        {
+            "id": 36,
+            "name": "Avellino",
+            "aliases": "avellino",
+            "lat": 40.914,
+            "lng": 14.79
+        },
+        {
+            "id": 12,
+            "name": "Aversa",
+            "aliases": "aversa",
+            "lat": 40.973,
+            "lng": 14.207
+        },
+        {
+            "id": 37,
+            "name": "Benevento",
+            "aliases": "benevento",
+            "lat": 41.13,
+            "lng": 14.778
+        },
+        {
+            "id": 20,
+            "name": "Capua",
+            "aliases": "capua",
+            "lat": 41.105,
+            "lng": 14.213
+        },
+        {
+            "id": 13,
+            "name": "Caserta",
+            "aliases": "caserta",
+            "lat": 41.074,
+            "lng": 14.332
+        },
+        {
+            "id": 15,
+            "name": "Caserta, Ospedale Sant'Anna e San Sebastiano",
+            "aliases": "sant'anna|san sebastiano",
+            "lat": 41.067,
+            "lng": 14.318
+        },
+        {
+            "id": 14,
+            "name": "Caserta, Reggia",
+            "aliases": "reggia",
+            "lat": 41.073,
+            "lng": 14.327
+        },
+        {
+            "id": 16,
+            "name": "Castel Volturno, Pineta Grande",
+            "aliases": "pineta grande|castel volturno",
+            "lat": 41.01,
+            "lng": 13.96
+        },
+        {
+            "id": 26,
+            "name": "Castellammare di Stabia",
+            "aliases": "castellammare",
+            "lat": 40.694,
+            "lng": 14.48
+        },
+        {
+            "id": 23,
+            "name": "Ercolano, Scavi",
+            "aliases": "ercolano|herculaneum",
+            "lat": 40.806,
+            "lng": 14.348
+        },
+        {
+            "id": 17,
+            "name": "Giugliano in Campania",
+            "aliases": "giugliano",
+            "lat": 40.931,
+            "lng": 14.195
+        },
+        {
+            "id": 18,
+            "name": "Marcianise",
+            "aliases": "marcianise",
+            "lat": 41.034,
+            "lng": 14.3
+        },
+        {
+            "id": 2,
+            "name": "Napoli, Aeroporto di Capodichino",
+            "aliases": "aeroporto|capodichino|nap",
+            "lat": 40.886,
+            "lng": 14.2908
+        },
+        {
+            "id": 1,
+            "name": "Napoli, Centro",
+            "aliases": "napoli",
+            "lat": 40.8518,
+            "lng": 14.2681
+        },
+        {
+            "id": 5,
+            "name": "Napoli, Ospedale Cardarelli",
+            "aliases": "cardarelli",
+            "lat": 40.8688,
+            "lng": 14.2247
+        },
+        {
+            "id": 8,
+            "name": "Napoli, Ospedale Monaldi",
+            "aliases": "monaldi",
+            "lat": 40.872,
+            "lng": 14.227
+        },
+        {
+            "id": 7,
+            "name": "Napoli, Ospedale del Mare",
+            "aliases": "ospedale del mare",
+            "lat": 40.856,
+            "lng": 14.341
+        },
+        {
+            "id": 9,
+            "name": "Napoli, Pascale",
+            "aliases": "pascale",
+            "lat": 40.868,
+            "lng": 14.23
+        },
+        {
+            "id": 6,
+            "name": "Napoli, Policlinico Federico II",
+            "aliases": "policlinico|federico ii",
+            "lat": 40.863,
+            "lng": 14.203
+        },
+        {
+            "id": 4,
+            "name": "Napoli, Porto Molo Beverello",
+            "aliases": "molo beverello|porto di napoli",
+            "lat": 40.8397,
+            "lng": 14.2529
+        },
+        {
+            "id": 11,
+            "name": "Napoli, Posillipo",
+            "aliases": "posillipo",
+            "lat": 40.806,
+            "lng": 14.195
+        },
+        {
+            "id": 3,
+            "name": "Napoli, Stazione Centrale (Piazza Garibaldi)",
+            "aliases": "stazione centrale|garibaldi",
+            "lat": 40.8528,
+            "lng": 14.2727
+        },
+        {
+            "id": 10,
+            "name": "Napoli, Vomero",
+            "aliases": "vomero",
+            "lat": 40.844,
+            "lng": 14.23
+        },
+        {
+            "id": 34,
+            "name": "Nocera Inferiore",
+            "aliases": "nocera",
+            "lat": 40.744,
+            "lng": 14.642
+        },
+        {
+            "id": 35,
+            "name": "Nola",
+            "aliases": "nola",
+            "lat": 40.926,
+            "lng": 14.528
+        },
+        {
+            "id": 38,
+            "name": "Paestum",
+            "aliases": "paestum",
+            "lat": 40.423,
+            "lng": 15.005
+        },
+        {
+            "id": 25,
+            "name": "Pompei, Scavi",
+            "aliases": "pompei|pompeii",
+            "lat": 40.751,
+            "lng": 14.485
+        },
+        {
+            "id": 22,
+            "name": "Portici",
+            "aliases": "portici",
+            "lat": 40.819,
+            "lng": 14.341
+        },
+        {
+            "id": 29,
+            "name": "Positano",
+            "aliases": "positano",
+            "lat": 40.6281,
+            "lng": 14.485
+        },
+        {
+            "id": 21,
+            "name": "Pozzuoli",
+            "aliases": "pozzuoli",
+            "lat": 40.823,
+            "lng": 14.122
+        },
+        {
+            "id": 31,
+            "name": "Ravello",
+            "aliases": "ravello",
+            "lat": 40.649,
+            "lng": 14.611
+        },
+        {
+            "id": 39,
+            "name": "Roma, Fiumicino Aeroporto",
+            "aliases": "fiumicino|roma",
+            "lat": 41.8003,
+            "lng": 12.2389
+        },
+        {
+            "id": 32,
+            "name": "Salerno",
+            "aliases": "salerno",
+            "lat": 40.6824,
+            "lng": 14.7681
+        },
+        {
+            "id": 33,
+            "name": "Salerno, Ospedale Ruggi",
+            "aliases": "ruggi",
+            "lat": 40.682,
+            "lng": 14.76
+        },
+        {
+            "id": 19,
+            "name": "Santa Maria Capua Vetere",
+            "aliases": "santa maria capua vetere|capua vetere",
+            "lat": 41.081,
+            "lng": 14.257
+        },
+        {
+            "id": 28,
+            "name": "Sorrento",
+            "aliases": "sorrento",
+            "lat": 40.6263,
+            "lng": 14.3758
+        },
+        {
+            "id": 24,
+            "name": "Torre del Greco",
+            "aliases": "torre del greco",
+            "lat": 40.788,
+            "lng": 14.368
+        },
+        {
+            "id": 27,
+            "name": "Vico Equense",
+            "aliases": "vico equense",
+            "lat": 40.662,
+            "lng": 14.426
+        }
+    ],
+    "help_levels": [
+        {
+            "id": 1,
+            "slug": "marciapiede-a-marciapiede",
+            "eyebrow": "Come un taxi",
+            "card_title": "Marciapiede a marciapiede",
+            "card_text": "Ti aspettiamo in strada e ti lasciamo davanti all'ingresso.",
+            "title": "Marciapiede a marciapiede: il passaggio, senza sorprese",
+            "subtitle": "Ti aspettiamo in strada e ti lasciamo davanti all'ingresso, con il prezzo detto prima di partire e nessun anticipo da versare.",
+            "body": "È il livello base, quello che fa anche un taxi, e per una parte delle corse basta. All'ora concordata l'auto è davanti al portone: sali, ti portiamo dove hai detto, scendi davanti all'ingresso.\n\nFunziona quando chi viaggia cammina bene e conosce il posto dove sta andando: il controllo dal cardiologo dove va da anni, il ritiro di un referto, la corsa all'aeroporto con una valigia sola. Funziona anche quando all'arrivo c'è già qualcuno che aspetta, perché la parte dentro la copre lui.\n\nQuello che cambia rispetto a una corsa qualsiasi sta prima di partire. Il prezzo lo sai quando prenoti, calcolato sui chilometri reali e sulla fascia oraria, e resta quello anche se troviamo coda sull'Asse Mediano. Non paghi in anticipo e non lasci una carta. Prenoti su WhatsApp o al telefono, senza installare applicazioni, e paghi alla fine del servizio.\n\nSali di livello quando la persona che viaggia ha bisogno di un braccio per uscire di casa, quando le scale del palazzo sono ripide, quando c'è un deambulatore o due borse da caricare. Se la persona di cui ti occupi esce con il bastone e il portone dà su una strada dove l'auto non può fermarsi, lasciarla sul marciapiede risolve poco. E se all'arrivo bisogna trovare il reparto, prendere il numero e aspettare che la visita finisca, allora il livello da guardare è il terzo.",
+            "fits_title": "Quando basta questo livello",
+            "fits": "Chi viaggia cammina senza appoggio e sale in auto da solo.|Il posto dove si va è già conosciuto, oppure all'ingresso c'è qualcuno che accoglie.|Conta soprattutto l'orario: un aereo, un treno, un appuntamento con l'ora fissa.|Vuoi sapere quanto spendi prima di salire, senza tassametro che gira.",
+            "limits_title": "Cosa non comprende",
+            "limits": "Nessun aiuto per uscire di casa o per salire e scendere dall'auto: per quello c'è il porta a porta.|Le borse restano a chi viaggia, e non saliamo le scale del palazzo.|Non entriamo nella struttura e non aspettiamo la fine della visita: quello è il terzo livello.",
+            "closing": "Il preventivo ti dà la cifra prima che tu decida, e non chiede né registrazione né carta. Su WhatsApp bastano partenza, destinazione e orario.",
+            "video": "livello-marciapiede.mp4",
+            "poster": "livello-marciapiede.jpg",
+            "video_alt": "La strada vista dal posto di guida, in una giornata di sole.",
+            "ours": 0,
+            "sort_order": 1,
+            "active": 1
+        },
+        {
+            "id": 2,
+            "slug": "porta-a-porta",
+            "eyebrow": "Come i servizi \"assist\"",
+            "card_title": "Porta a porta",
+            "card_text": "Ti aiutiamo fino alla porta, ma non entriamo con te.",
+            "title": "Porta a porta: fino all'ingresso, borse comprese",
+            "subtitle": "Veniamo a prenderti al portone, ti aiutiamo a salire e a scendere, portiamo le borse e ti lasciamo davanti alla porta della struttura.",
+            "body": "Qui l'autista scende dall'auto. Ti aspetta al portone, ti dà il braccio se serve, apre la portiera dal lato buono del marciapiede e sistema il bastone o il deambulatore nel bagagliaio. All'arrivo ripete tutto al contrario, fino alla porta d'ingresso.\n\nÈ il livello dei servizi di accompagnamento internazionali, quello che negli aeroporti si chiama meet and assist. Copre il tratto scoperto: i venti metri fra la macchina e la soglia, dove succedono le cadute e dove chi ha una certa età si sente più esposto.\n\nHa senso per la terapia settimanale nel centro che un tuo caro frequenta da mesi, per il prelievo del mattino, per il volo da Capodichino quando la valigia pesa. Vale soprattutto al ritorno: dopo tre ore in sala d'attesa la stanchezza è un'altra cosa rispetto all'andata.\n\nDalla soglia in poi, però, chi viaggia prosegue da solo. Non facciamo l'accettazione, non cerchiamo l'ambulatorio al secondo piano, non restiamo lì durante la visita. Se la persona che accompagni si perde nei corridoi di un ospedale grande, oppure ha bisogno di qualcuno seduto accanto mentre aspetta il turno, il porta a porta la lascia sola proprio nel momento in cui servirebbe di più. In quel caso conviene salire al terzo livello, dove entriamo con lei e la riportiamo fino dentro casa.",
+            "fits_title": "Quando basta questo livello",
+            "fits": "Chi viaggia cammina, ma negli ultimi metri è più sicuro con un braccio a cui appoggiarsi.|Ci sono borse, una valigia, un bastone o un deambulatore da caricare.|Dentro la struttura c'è già chi accoglie: un familiare, il personale del centro, il banco del check-in.|La visita o la terapia è breve e chi viaggia se la gestisce da solo.",
+            "limits_title": "Cosa non comprende",
+            "limits": "Non entriamo nella struttura: niente accettazione, niente ricerca del reparto, niente numero da prendere.|L'attesa durante la visita non è compresa: ci accordiamo su un orario per il ritorno, oppure ci chiami quando hai finito.|Non saliamo in casa a prendere la persona; se ci sono scale o serve un aiuto già dall'appartamento, guarda il terzo livello.",
+            "closing": "Nel preventivo scegli il servizio con l'accompagnamento incluso e la cifra compare intera. Se la situazione è più complicata di quello che entra in un modulo, raccontala su WhatsApp e ti diciamo quale livello conviene.",
+            "video": "livello-porta.mp4",
+            "poster": "livello-porta.jpg",
+            "video_alt": "Una mano apre la portiera di un'auto dal lato del marciapiede.",
+            "ours": 0,
+            "sort_order": 2,
+            "active": 1
+        },
+        {
+            "id": 3,
+            "slug": "porta-a-porta-dentro",
+            "eyebrow": "HEHE CAR",
+            "card_title": "Porta a porta, passando dentro",
+            "card_text": "Saliamo a prenderti, entriamo in ambulatorio, aspettiamo che la visita finisca e ti riportiamo dentro casa.",
+            "title": "Porta a porta, passando dentro: fino in ambulatorio",
+            "subtitle": "Saliamo le scale, entriamo con te dal medico, aspettiamo che la visita finisca e ti riportiamo dentro casa, non davanti al portone.",
+            "body": "È il livello per cui HEHE CAR esiste. L'autista suona al citofono, sale, aspetta che tu abbia preso borsa, chiavi e documenti, e scende con te anche se il palazzo non ha ascensore. All'arrivo non ti lascia sulla soglia: entra, si occupa dell'accettazione se glielo chiedi, ti accompagna fino all'ambulatorio o al reparto e resta lì.\n\nL'attesa è il punto delicato. Una visita che sulla carta dura venti minuti spesso ne prende novanta fra ritardi e code, e in quel tempo chi ti sta a cuore resta seduto con qualcuno accanto invece che da solo in un corridoio. Si esce quando la visita è chiusa davvero: referto ritirato, ricetta in borsa, la data del prossimo controllo segnata e non affidata alla memoria. Poi l'ultima porta della giornata è quella di casa sua.\n\nServe nelle situazioni che si ripetono: la dialisi tre volte a settimana, un ciclo di terapie, il controllo dopo l'operazione, la commissione alla posta per chi non se la sente più di uscire da solo. Serve anche a te che stai lontano, perché ricevi il messaggio alla partenza e al ritorno e sai com'è andata senza telefonare a nessuno.\n\nUna cosa la diciamo chiara: l'autista accompagna, non cura. Niente medicazioni, niente farmaci, nessuna assistenza infermieristica. Quando durante la prestazione serve un professionista sanitario, quello resta un altro mestiere e va chiamato a parte.",
+            "fits_title": "Quando serve questo livello",
+            "fits": "Chi viaggia ha bisogno di un aiuto già dentro casa: le scale, la porta, quello che deve portare con sé.|L'appuntamento è in una struttura grande, con accettazione, piani e reparti da trovare.|L'attesa è lunga o imprevedibile, e restare da soli in un corridoio pesa più della visita.|Tu sei lontano e vuoi sapere quando è partito e quando è rientrato, senza rincorrere telefonate.",
+            "limits_title": "Fin dove arriviamo",
+            "limits": "Arriviamo dentro casa, all'andata e al ritorno, scale comprese anche quando non c'è l'ascensore.|Restiamo per tutta la visita: il tempo di attesa è calcolato a ore e compare nel preventivo prima della partenza, quindi alla fine non c'è nessun conteggio a sorpresa.|Ci fermiamo davanti alle prestazioni sanitarie: accompagniamo, non curiamo. Per medicazioni, farmaci o assistenza infermieristica serve personale sanitario.",
+            "closing": "Fai il preventivo con l'indirizzo di casa e quello della struttura, così vedi la cifra completa con l'attesa già dentro. Se è più comodo spiegarlo a voce, scrivi su WhatsApp e organizziamo la giornata insieme.",
+            "video": "livello-dentro.mp4",
+            "poster": "livello-dentro.jpg",
+            "video_alt": "Le mani di una persona anziana appoggiate all'impugnatura del bastone.",
+            "ours": 1,
+            "sort_order": 3,
+            "active": 1
+        }
+    ],
+    "drivers": [
+        {
+            "id": 1,
+            "name": "Salvatore Bove",
+            "role": "Autista accompagnatore principale",
+            "bio": "Ex militare dell'Esercito Italiano, in servizio fino all'estate 2026, esperto di autodifesa, cintura nera di kickboxing e di taekwondo. Dalla divisa si è portato dietro gli orari rispettati e la testa ferma quando qualcosa va storto; dal tatami la capacità di restare calmo mentre gli altri si agitano, che è poi quello che serve quando accompagni una persona spaventata dentro un ospedale. Prima dell'Esercito ha lavorato per anni nell'accoglienza, come responsabile di sala e bartender: da lì gli è rimasto l'orecchio per capire chi è a disagio prima che lo dica, e l'abitudine a tenere il ritmo anche quando c'è fretta. È di Aversa e di auto se ne intende da sempre. Lavora di giorno e di notte, nei fine settimana e nei giorni festivi.",
+            "badges": "Ex militare Esercito Italiano|Cintura nera Kickboxing|Cintura nera Taekwondo|Esperto di autodifesa|Esperienza in accoglienza|Turni notturni e festivi|Patente B, automunito",
+            "languages": "Italiano madrelingua, Inglese base",
+            "photo": "salvatore-ritratto.jpg",
+            "photos": "salvatore-ritratto.jpg|salvatore.jpg|salvatore-alt.jpg",
+            "featured": 1,
+            "active": 1,
+            "sort_order": 1
+        }
+    ]
 }

@@ -77,8 +77,8 @@
           if (Number(s.escort_included)) li.push('Accompagnamento dentro la struttura incluso');
           list = '<ul class="small muted" style="padding-left:1.1rem;margin:0 0 .8rem">' + li.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
         }
-        return '<div class="card"><h3>' + esc(s.name) + '</h3><p>' + esc(s.description) + '</p>' + list + (full ? '' : '<div class="from">' + esc(price) + '</div>') +
-          '<a class="btn sm' + (full ? '' : ' ghost') + '" href="' + BASE + '/preventivo/?service_id=' + s.id + '">' + (full ? 'Calcola il prezzo' : 'Calcola') + '</a></div>';
+        return '<a class="card card-link" href="' + BASE + '/servizi/' + esc(s.slug) + '/"><h3>' + esc(s.name) + '</h3><p>' + esc(s.description) + '</p>' + list + (full ? '' : '<div class="from">' + esc(price) + '</div>') +
+          '<span class="lv-go">Vedi il servizio</span></a>';
       }).join('');
     });
     $all('[data-hydrate="vehicles-grid"]').forEach(function (grid) {
@@ -109,6 +109,45 @@
     var drivers = active(R.drivers).sort(function (a, b) { return Number(b.featured) - Number(a.featured) || byOrder(a, b); });
     $all('[data-hydrate="driver-featured"]').forEach(function (el) { if (drivers[0]) el.innerHTML = driverHtml(drivers[0], true); });
     $all('[data-hydrate="drivers-list"]').forEach(function (el) { el.innerHTML = drivers.map(function (d) { return '<div class="driver" style="margin-bottom:2.5rem">' + driverHtml(d, false) + '</div>'; }).join(''); });
+
+    // pagina dedicata di un servizio
+    var heroSv = $('[data-hydrate="service-hero"]');
+    if (heroSv) {
+      var sslug = heroSv.getAttribute('data-slug');
+      var sv = services.filter(function (x) { return x.slug === sslug; })[0];
+      if (sv) {
+        var pnt = function (t) { return String(t || '').split('|').map(function (x) { return x.trim(); }).filter(Boolean); };
+        var h1s = $('h1', heroSv), leds = $('.lede', heroSv), img = $('.service-photo img', heroSv);
+        if (h1s) h1s.textContent = sv.page_title || sv.name;
+        if (leds) leds.textContent = sv.page_subtitle || sv.description;
+        if (img && sv.image) { img.src = BASE + '/assets/img/servizi/' + sv.image; img.alt = sv.image_alt || ''; }
+        document.title = (sv.page_title || sv.name) + ' · ' + (S.site_name || 'HEHE CAR');
+        var facts = $('[data-hydrate="service-facts"]');
+        if (facts) {
+          var f = [];
+          if (sv.mode === 'hourly') { f.push(fmt(sv.hour_rate) + " € all'ora"); if (parseFloat(sv.min_hours) > 0) f.push('minimo ' + fmt(sv.min_hours, 1) + ' ore'); }
+          else { f.push('da ' + fmt(sv.min_fare, 0) + ' €'); f.push(fmt(sv.km_rate) + ' € al km'); if (parseInt(sv.included_wait_min, 10) > 0) f.push(parseInt(sv.included_wait_min, 10) + ' minuti di attesa inclusi'); }
+          f.push('prezzo fisso, si paga alla fine');
+          facts.innerHTML = f.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+        }
+        var sbody = $('[data-hydrate="service-body"]');
+        if (sbody) {
+          var html = String(sv.page_body || sv.description).split(/\n\s*\n/).map(function (t) { return '<p>' + esc(t.trim()) + '</p>'; }).join('');
+          if (sv.steps) html += '<h2 style="font-size:1.35rem;margin-top:1.6rem">Come si svolge</h2><ol class="numbered">' + pnt(sv.steps).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol>';
+          sbody.innerHTML = html;
+        }
+        var inc = $('[data-hydrate="service-included"]');
+        if (inc) { inc.hidden = !sv.included; if (sv.included) inc.innerHTML = '<h3>Cosa è compreso</h3><ul class="ticks">' + pnt(sv.included).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'; }
+        var nts = $('[data-hydrate="service-notes"]');
+        if (nts) { nts.hidden = !sv.notes; if (sv.notes) nts.innerHTML = '<h3>Da sapere prima</h3><ul class="dashes">' + pnt(sv.notes).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'; }
+        var scl = $('[data-hydrate="service-closing"]');
+        if (scl && sv.page_closing) scl.textContent = sv.page_closing;
+        var soth = $('[data-hydrate="service-others"]');
+        if (soth) soth.innerHTML = services.map(function (o) {
+          return '<a class="card card-link' + (o.slug === sv.slug ? ' is-current' : '') + '" href="' + BASE + '/servizi/' + esc(o.slug) + '/"><h3>' + esc(o.name) + '</h3><p>' + esc(o.description) + '</p><span class="lv-go">' + (o.slug === sv.slug ? 'Sei qui' : 'Vedi il servizio') + '</span></a>';
+        }).join('');
+      }
+    }
 
     // livelli di aiuto: schede della home e pagine dedicate
     var levels = active(R.help_levels).sort(byOrder);
