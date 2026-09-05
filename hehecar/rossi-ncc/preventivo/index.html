@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preventivo · Rossi NCC</title>
+<meta name="description" content="Trasporto privato con autista-accompagnatore. Autista-accompagnatore per anziani, persone con mobilità ridotta e turisti: visite mediche, aeroporto, gite. Prezzo fisso prima di partire, nessun pagamento anticipato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" data-hydrate="theme-fonts">
+<link rel="stylesheet" href="/rossi-ncc/assets/css/site.css">
+<style data-hydrate="theme-vars">:root{--brand:#0F6E7A;--brand-dark:#0C565F;--brand-soft:#DDEBEC;--brand-rgb:15,110,122;--amber:#E0A32E;--amber-dark:#B88626;--amber-soft:#FBF4E6;--amber-rgb:224,163,46;--ink:#1E2A32;--ink-2:#4B555B;--muted:#797F82;--line:#E1E1DD;--ink-rgb:30,42,50;--font-titoli:"Nunito", system-ui, sans-serif;--font-testo:"Source Sans 3", system-ui, sans-serif}</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%230F6E7A%22%2F%3E%3Cpath%20d%3D%22M14%2038l5-12h26l5%2012v10H14z%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2248%22%20r%3D%225%22%20fill%3D%22%23E0A32E%22%2F%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2248%22%20r%3D%225%22%20fill%3D%22%23E0A32E%22%2F%3E%3C%2Fsvg%3E" data-hydrate="theme-icon">
+<script>window.HC_BASE="\/rossi-ncc";</script>
+</head>
+<body data-gkey="" data-base="/rossi-ncc" data-static="1">
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/rossi-ncc/" aria-label="Rossi NCC">
+      <span class="logo-mark" data-hydrate="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F6E7A"/><path d="M14 38l5-12h26l5 12v10H14z" fill="#fff"/><circle cx="22" cy="48" r="5" fill="#E0A32E"/><circle cx="42" cy="48" r="5" fill="#E0A32E"/></svg></span>
+      <span data-hydrate="site-name">Rossi <b>NCC</b></span>
+    </a>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="main" aria-label="Principale">
+      <a href="/rossi-ncc/servizi/">Servizi</a>
+      <a href="/rossi-ncc/prezzi/">Prezzi</a>
+      <a href="/rossi-ncc/autisti/">Chi guida</a>
+      <a href="/rossi-ncc/#come-funziona">Come funziona</a>
+      <a class="btn sm" href="/rossi-ncc/preventivo/">Calcola e prenota</a>
+    </nav>
+    <div class="call">
+      <a class="phone" data-hydrate="phone" href="tel:+390000000000">+39 000 000 0000</a>
+    </div>
+  </div>
+</header>
+<main>
+<section class="band">
+  <div class="wrap two">
+    <div>
+      <div class="eyebrow">Preventivo</div>
+      <h1>Calcola il prezzo</h1>
+            <form class="widget" method="get" action="/rossi-ncc/preventivo/" data-quote data-compact="0">
+  <h2>Quanto costa? Calcolalo subito</h2>
+  <div class="tabs" role="radiogroup" aria-label="Tipo di servizio">
+          <input type="radio" name="service_id" id="svc1" value="1" data-mode="oneway" data-min-hours="0" >
+      <label for="svc1">Trasferimento</label>
+          <input type="radio" name="service_id" id="svc2" value="2" data-mode="roundtrip" data-min-hours="0" >
+      <label for="svc2">Accompagnamento a visita o terapia</label>
+          <input type="radio" name="service_id" id="svc3" value="3" data-mode="hourly" data-min-hours="2" >
+      <label for="svc3">Autista a ore</label>
+          <input type="radio" name="service_id" id="svc4" value="4" data-mode="hourly" data-min-hours="4" >
+      <label for="svc4">Giornata turistica accompagnata</label>
+      </div>
+  <div class="field">
+    <label for="pickup">Da dove partiamo</label>
+    <input id="pickup" name="pickup" data-address required placeholder="Via, città o struttura" data-hydrate="ph" data-key="placeholder_pickup" value="">
+  </div>
+  <div class="field" data-dropoff>
+    <label for="dropoff">Dove andiamo</label>
+    <input id="dropoff" name="dropoff" data-address placeholder="Ospedale, aeroporto, indirizzo" data-hydrate="ph" data-key="placeholder_dropoff" value="">
+  </div>
+  <div class="row3">
+    <div class="field">
+      <label for="date">Giorno</label>
+      <input id="date" type="date" name="date" required data-min-today value="2026-09-06">
+    </div>
+    <div class="field">
+      <label for="time">Ora di partenza</label>
+      <input id="time" type="time" name="time" required value="09:00" step="300">
+    </div>
+    <div class="field">
+      <label for="pax">Passeggeri</label>
+      <select id="pax" name="passengers"><option value="1" selected>1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option></select>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="field" data-hours>
+      <label for="hours" data-hours-label>Durata prevista (ore)</label>
+      <input id="hours" type="number" name="hours" min="0" step="0.5" value="0" placeholder="es. 2">
+      <span class="hint">L'autista resta con voi e aspetta: l'attesa è nel prezzo.</span>
+    </div>
+    <div class="field">
+      <label for="veh">Veicolo</label>
+      <select id="veh" name="vehicle_id">
+        <option value="1" >City car</option><option value="2" >Berlina comfort</option><option value="3" >Van 7 posti · prezzo su richiesta</option><option value="4" >Van con rampa carrozzina · rampa carrozzina · prezzo su richiesta</option>      </select>
+    </div>
+  </div>
+      <div class="field" data-hydrate="extras"><span class="lbl">Serve altro?</span>
+              <label class="check"><input type="checkbox" name="extras[]" value="1" ><span><b>Secondo accompagnatore</b><span class="small muted">Una seconda persona formata a bordo, utile per chi ha bisogno di aiuto continuo.</span></span><span class="price">+18 €/ora</span></label>
+              <label class="check"><input type="checkbox" name="extras[]" value="2" ><span><b>Fermata intermedia</b><span class="small muted">Farmacia, ritiro referti, un parente da prendere lungo il tragitto.</span></span><span class="price">+8 €</span></label>
+              <label class="check"><input type="checkbox" name="extras[]" value="3" ><span><b>Animale domestico</b><span class="small muted">Cane o gatto in trasportino o con telo.</span></span><span class="price">+5 €</span></label>
+              <label class="check"><input type="checkbox" name="extras[]" value="4" ><span><b>Sedia a rotelle a noleggio</b><span class="small muted">Se in casa non c&#039;è, la portiamo noi.</span></span><span class="price">+10 €</span></label>
+          </div>
+    <div class="live-quote hidden" data-live aria-live="polite"></div>
+  <button class="btn amber block" type="submit" style="margin-top:.8rem">Vedi il preventivo e prenota</button>
+  <p class="small muted" style="margin:.6rem 0 0">Nessun pagamento anticipato. Il prezzo che vedi è quello che paghi a fine servizio.</p>
+</form>
+    </div>
+    <div>
+              <div class="card">
+          <h3>Come leggere il preventivo</h3>
+          <p>Vedrai ogni voce: chilometri, tariffa, fascia oraria, attesa, veicolo, extra. Il totale è quello che paghi a fine servizio.</p>
+          <h3 style="margin-top:1rem">Preferisci parlare con una persona?</h3>
+          <p>Chiama il <a href="tel:+390000000000">+39 000 000 0000</a> o scrivi su <a href="https://wa.me/390000000000">WhatsApp</a>: facciamo il preventivo insieme.</p>
+        </div>
+          </div>
+  </div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <b data-hydrate="text" data-key="site_name">Rossi NCC</b><br><span data-hydrate="text" data-key="tagline">Trasporto privato con autista-accompagnatore</span><br><span data-hydrate="text" data-key="address">Bergamo</span>
+      <p class="small" style="margin-top:.6rem">Zona servita: <span data-hydrate="text" data-key="service_area">Bergamo e provincia</span></p>
+    </div>
+    <div>
+      <b>Contatti</b><br>
+      <a data-hydrate="phone" href="tel:+390000000000">+39 000 000 0000</a><br>
+      <a data-hydrate="whatsapp" href="https://wa.me/390000000000">WhatsApp</a><br>
+      <a data-hydrate="email" href="mailto:prenotazioni@esempio.it">prenotazioni@esempio.it</a>
+    </div>
+    <div>
+      <b>Prenotazioni</b><br>
+      <a href="/rossi-ncc/preventivo/">Calcola il prezzo</a><br>
+      <a href="/rossi-ncc/prezzi/">Tariffe e fasce orarie</a><br>
+      <p class="small" style="margin-top:.6rem">Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio. Annullamento gratuito fino a 12 ore prima del servizio.</p>
+    </div>
+  </div>
+</footer>
+<a class="wa-stick" id="waStick" data-hydrate="whatsapp-stick" href="https://wa.me/390000000000?text=Ciao%20Rossi%20NCC%2C%20vorrei%20un%20preventivo%20per%20un%20trasporto." target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">
+  <span class="wa-badge">1</span>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.42.69 4.68 1.885 6.6L3 29l7.09-2.34a12.44 12.44 0 0 0 5.91 1.5h.005c6.905 0 12.5-5.596 12.5-12.5C28.505 8.596 22.91 3 16.001 3zm0 22.77h-.004a10.28 10.28 0 0 1-5.24-1.435l-.376-.223-3.79 1.25 1.27-3.694-.246-.38a10.24 10.24 0 0 1-1.57-5.79c0-5.663 4.607-10.27 10.27-10.27 2.744 0 5.323 1.07 7.264 3.012a10.2 10.2 0 0 1 3.006 7.267c0 5.663-4.606 10.263-10.263 10.263zm5.63-7.688c-.31-.155-1.833-.905-2.117-1.01-.284-.104-.49-.155-.696.156-.207.31-.8 1.01-.981 1.217-.181.207-.362.233-.672.078-.31-.155-1.31-.483-2.494-1.54-.922-.822-1.545-1.837-1.726-2.147-.181-.31-.02-.478.136-.633.14-.14.31-.362.465-.543.155-.181.207-.31.31-.517.104-.207.052-.388-.026-.543-.078-.155-.696-1.677-.954-2.297-.251-.603-.507-.522-.696-.532l-.593-.01c-.207 0-.543.078-.827.388-.284.31-1.084 1.06-1.084 2.582 0 1.522 1.11 2.994 1.265 3.2.155.207 2.184 3.335 5.293 4.676.74.32 1.317.51 1.767.653.742.236 1.418.203 1.952.123.596-.089 1.833-.75 2.09-1.474.259-.724.259-1.345.181-1.474-.077-.13-.283-.207-.593-.362z"/></svg>
+  <span class="wa-tip">Scrivici su WhatsApp</span>
+</a>
+<script src="/rossi-ncc/assets/js/site.js"></script>
+<script src="/rossi-ncc/assets/js/tema.js"></script><script src="/rossi-ncc/assets/js/pricing.js"></script><script src="/rossi-ncc/assets/js/static.js"></script>
+</body>
+</html>
