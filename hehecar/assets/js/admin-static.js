@@ -18,6 +18,10 @@
       rounding: { label: 'Arrotonda il totale a (€, 0 = nessuno)', type: 'number', step: '1' }, min_lead_hours: { label: 'Preavviso minimo (ore)', type: 'number', step: '0.5' }, max_advance_days: { label: 'Anticipo massimo (giorni)', type: 'number', step: '1' },
       vat_note: { label: 'Nota prezzi (IVA, pagamento)' }, cancellation_text: { label: 'Politica di annullamento' },
       custom_quote_note: { label: 'Testo per i veicoli a prezzo su richiesta (van)', type: 'textarea' } } },
+    identita: { title: 'Identita visiva', kind: 'settings', help: 'Colori, caratteri e logo dell\'attivita. Le tinte derivate (sfondi tenui, ombre, stati al passaggio del mouse) si ricavano da sole dai tre colori: quello che vedi qui sotto e gia come sara il sito. Il logo caricato sostituisce il segno grafico; svuota il campo per tornare a quello predefinito.', fields: {
+      brand_color: { label: 'Colore principale', type: 'color' }, accent_color: { label: 'Colore di richiamo', type: 'color' }, ink_color: { label: 'Colore del testo', type: 'color' },
+      font_titoli: { label: 'Carattere dei titoli', type: 'font' }, font_testo: { label: 'Carattere del testo corrente', type: 'font' },
+      logo: { label: 'Logo', type: 'logo' }, logo_alt: { label: 'Testo alternativo del logo' } } },
     services: { title: 'Servizi e tariffe', kind: 'table', help: 'Ogni servizio ha tariffa al km, tariffa oraria (attesa o servizio a ore), minimo e minuti di attesa inclusi.', fields: {
       name: { label: 'Nome', w: 180 }, slug: { label: 'Slug' }, description: { label: 'Descrizione', type: 'textarea', w: 260 }, mode: { label: 'Modalità', type: 'select', options: { oneway: 'Sola andata', roundtrip: 'Andata, attesa, ritorno', hourly: 'A ore' } },
       base_fee: { label: 'Chiamata €', type: 'number', step: '0.5' }, km_rate: { label: '€/km', type: 'number', step: '0.05' }, hour_rate: { label: '€/ora', type: 'number', step: '0.5' }, included_wait_min: { label: 'Attesa incl. (min)', type: 'number', step: '5' },
@@ -47,7 +51,7 @@
       limits_title: { label: 'Titolo elenco 2', w: 150 }, limits: { label: 'Elenco 2 (a|b|c)', type: 'textarea', w: 300 },
       closing: { label: 'Chiusura', type: 'textarea', w: 260 }, video: { label: 'Video', w: 140 }, poster: { label: 'Poster', w: 140 }, video_alt: { label: 'Descrizione video', type: 'textarea', w: 200 },
       ours: Object.assign({ label: 'Il nostro' }, B), sort_order: { label: 'Ordine', type: 'number', step: '1' }, active: Object.assign({ label: 'Attivo' }, B) } },
-    drivers: { title: 'Autisti', kind: 'table', help: 'La foto si carica con il pulsante nella colonna Foto (viene salvata nel sito). I badge sono separati da |.', fields: {
+    drivers: { title: 'Autisti', kind: 'table', help: 'La foto si carica con il pulsante nella colonna Foto (viene salvata nel sito). I badge sono separati da |. Per partire dal curriculum invece che da un campo vuoto: python scripts/cv_scheda.py <cv.pdf> legge nome, citta, eta, patenti, lingue e titoli e propone una bozza di biografia da rileggere.', fields: {
       name: { label: 'Nome', w: 160 }, role: { label: 'Ruolo', w: 180 }, bio: { label: 'Presentazione', type: 'textarea', w: 320 }, badges: { label: 'Badge (a|b|c)', type: 'textarea', w: 220 }, languages: { label: 'Lingue' }, photo: { label: 'Foto principale', type: 'photo' }, photos: { label: 'Galleria (file separati da |)', type: 'textarea', w: 200 }, featured: Object.assign({ label: 'In home' }, B), sort_order: { label: 'Ordine', type: 'number', step: '1' }, active: Object.assign({ label: 'Attivo' }, B) } },
     bookings: { title: 'Registro prenotazioni', kind: 'table', help: 'Le richieste arrivano su WhatsApp ed email: registrale qui per avere l\'agenda. È un promemoria interno, non compare nel sito.', fields: {
       date: { label: 'Data', type: 'date' }, time: { label: 'Ora', type: 'time' }, customer: { label: 'Cliente', w: 160 }, phone: { label: 'Telefono' }, route: { label: 'Percorso', type: 'textarea', w: 240 }, service: { label: 'Servizio' }, price: { label: 'Prezzo €', type: 'number', step: '0.5' }, driver: { label: 'Autista' }, status: { label: 'Stato', type: 'select', options: { richiesta: 'Richiesta', confermata: 'Confermata', completata: 'Completata', annullata: 'Annullata' } }, notes: { label: 'Note', type: 'textarea', w: 200 } } }
@@ -95,6 +99,9 @@
     if (def.type === 'select') return '<select ' + name + '>' + Object.keys(def.options).map(function (k) { return '<option value="' + k + '"' + (String(val) === k ? ' selected' : '') + '>' + esc(def.options[k]) + '</option>'; }).join('') + '</select>';
     if (def.type === 'service') return '<select ' + name + '><option value="0"' + (Number(val) === 0 ? ' selected' : '') + '>Tutti i servizi</option>' + (state.rules.services || []).map(function (s) { return '<option value="' + s.id + '"' + (Number(val) === Number(s.id) ? ' selected' : '') + '>' + esc(s.name) + '</option>'; }).join('') + '</select>';
     if (def.type === 'textarea') return '<textarea rows="3" ' + name + w + '>' + esc(val) + '</textarea>';
+    if (def.type === 'color') return '<input type="color" ' + name + ' value="' + esc(String(val || '#000000')) + '"><input type="text" data-mirror="' + key + '" value="' + esc(val) + '" style="width:8rem;margin-left:.4rem" aria-label="codice colore">';
+    if (def.type === 'font') { var elenco = (window.HCTema && window.HCTema.fonts) || {}; return '<select ' + name + '>' + Object.keys(elenco).map(function (n) { return '<option value="' + esc(n) + '"' + (String(val) === n ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join('') + '</select>'; }
+    if (def.type === 'logo') return '<div style="display:flex;gap:.4rem;align-items:center">' + (val ? '<img src="../assets/img/' + esc(val) + '" alt="" style="height:34px;width:auto;max-width:120px;object-fit:contain">' : '') + '<input ' + name + ' value="' + esc(val) + '" style="min-width:120px" placeholder="nessun logo"><label class="btn sm ghost" style="cursor:pointer">Carica<input type="file" accept="image/*,.svg" data-photo="0" data-photo-dest="settings.logo" hidden></label></div>';
     if (def.type === 'photo') return '<div style="display:flex;gap:.4rem;align-items:center">' + (val ? '<img src="../assets/img/' + esc(val) + '" alt="" style="width:36px;height:45px;object-fit:cover;border-radius:6px">' : '') + '<input ' + name + ' value="' + esc(val) + '" style="min-width:120px" placeholder="nome file"><label class="btn sm ghost" style="cursor:pointer">Carica<input type="file" accept="image/*" data-photo="' + idx + '" hidden></label></div>';
     return '<input type="' + (def.type === 'number' ? 'number' : def.type === 'time' ? 'time' : def.type === 'date' ? 'date' : 'text') + '" ' + (def.step ? 'step="' + def.step + '" ' : '') + name + w + ' value="' + esc(val) + '">';
   }
@@ -117,14 +124,22 @@
     $('#logout').addEventListener('click', function () { sessionStorage.removeItem('hc_gh'); localStorage.removeItem('hc_gh'); location.reload(); });
     var add = $('#add'); if (add) add.addEventListener('click', function () { var row = { id: nextId(state.section) }; Object.keys(sec.fields).forEach(function (k) { var d = sec.fields[k]; row[k] = d.type === 'bool' ? 1 : d.type === 'number' ? 0 : d.type === 'select' ? Object.keys(d.options)[0] : d.type === 'service' ? 0 : ''; }); (state.rules[state.section] = state.rules[state.section] || []).push(row); state.dirty = true; render(); });
     root.querySelectorAll('[data-del]').forEach(function (b) { b.addEventListener('click', function () { if (!confirm('Eliminare questa riga?')) return; state.rules[state.section].splice(Number(b.getAttribute('data-del')), 1); state.dirty = true; render(); }); });
-    root.querySelectorAll('input[data-photo]').forEach(function (inp) { inp.addEventListener('change', function () { var f = inp.files[0]; if (!f) return; flash('info', 'Caricamento foto…'); uploadImage(f).then(function (name) { state.rules.drivers[Number(inp.getAttribute('data-photo'))].photo = name; state.dirty = true; render(); flash('ok', 'Foto caricata: ricordati di salvare le regole.'); }).catch(function (e) { flash('err', e.message); }); }); });
+    root.querySelectorAll('input[data-photo]').forEach(function (inp) { inp.addEventListener('change', function () { var f = inp.files[0]; if (!f) return; flash('info', 'Caricamento foto…'); uploadImage(f).then(function (name) { if (inp.getAttribute('data-photo-dest') === 'settings.logo') state.rules.settings.logo = name; else state.rules.drivers[Number(inp.getAttribute('data-photo'))].photo = name; state.dirty = true; render(); flash('ok', 'Immagine caricata: ricordati di salvare le regole.'); }).catch(function (e) { flash('err', e.message); }); }); });
   }
   function nextId(sec) { return (state.rules[sec] || []).reduce(function (m, r) { return Math.max(m, Number(r.id) || 0); }, 0) + 1; }
   function onEdit(e) {
-    var el = e.target; if (!el.hasAttribute('data-k')) return;
+    var el = e.target;
+    if (el.hasAttribute('data-mirror')) { var gem = el.parentNode.querySelector('[data-k="' + el.getAttribute('data-mirror') + '"]'); if (gem && /^#[0-9a-fA-F]{6}$/.test(el.value.trim())) { gem.value = el.value.trim(); gem.dispatchEvent(new Event('input', { bubbles: true })); } return; }
+    if (!el.hasAttribute('data-k')) return;
     var k = el.getAttribute('data-k'), i = Number(el.getAttribute('data-i'));
     var v = el.type === 'checkbox' ? (el.checked ? 1 : 0) : el.type === 'number' ? (el.value === '' ? 0 : parseFloat(el.value)) : el.value;
     if (SECTIONS[state.section].kind === 'settings') state.rules.settings[k] = String(v); else state.rules[state.section][i][k] = v;
+    if (SECTIONS[state.section].kind === 'settings') {
+      // il pannello dell'identita si vede subito: il tema viene riapplicato a ogni tocco
+      var gemello = el.parentNode && el.parentNode.querySelector('[data-mirror="' + k + '"]');
+      if (gemello && gemello !== el) gemello.value = String(v);
+      if (state.section === 'identita' && window.HCTema) window.HCTema.applica(state.rules.settings, '..');
+    }
     if (!state.dirty) { state.dirty = true; var s = $('#save'); if (s) s.disabled = false; }
   }
 

@@ -6,6 +6,8 @@
   var BASE = window.HC_BASE || '';
   var RULES_URL = BASE + '/data/regole.json?t=' + Math.floor(Date.now() / 60000);
 
+  function global_HCTema() { return window.HCTema; }
+
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
   function money(v, dec) { return Number(v).toLocaleString('it-IT', { minimumFractionDigits: dec == null ? 2 : dec, maximumFractionDigits: 2 }) + ' €'; }
@@ -21,6 +23,7 @@
   // ------------------------------------------------------------------ idratazione contenuti
   function hydrate(R) {
     var S = R.settings || {};
+    if (global_HCTema()) global_HCTema().applica(S, BASE);
     $all('[data-hydrate="phone"]').forEach(function (a) { a.textContent = S.phone; a.href = telHref(S.phone); });
     $all('[data-hydrate="phone-cta"]').forEach(function (a) { a.textContent = 'Preferisci telefonare? ' + S.phone; a.href = telHref(S.phone); });
     $all('[data-hydrate="whatsapp"]').forEach(function (a) { a.href = 'https://wa.me/' + String(S.whatsapp || '').replace(/\D/g, ''); });
