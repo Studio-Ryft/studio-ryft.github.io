@@ -326,22 +326,33 @@ td .btn.sm,td form.inline .btn.sm{vertical-align:middle}
 /* Il ritratto è agganciato alla colonna del testo, non al bordo dello schermo, e sfuma su due lati:
    così non resta un ritaglio netto sospeso nel margine. */
 .hero>.wrap>div:first-child{position:relative}
-/* Il ritratto riempie tutta la colonna del testo: resta dietro, tenue e sfumato ai bordi. */
-.hero>.wrap>div:first-child::before{
+/* Il ritratto riempie l'area del testo: resta dietro, tenue e sfumato ai bordi.
+   Su schermo largo si aggancia a tutta la sezione, così è alto quanto la hero e non solo quanto il testo. */
+.hero>.wrap>div:first-child::before,
+.hero>.wrap::before{
   content:"";position:absolute;z-index:-1;pointer-events:none;
-  left:50%;transform:translateX(-50%);top:-1.5rem;
-  width:min(130%,820px);height:clamp(360px,66vh,680px);
+  opacity:.12;filter:grayscale(.55) contrast(1.05);
   background:url("../img/salvatore-hero.webp") center bottom/auto 100% no-repeat;
-  opacity:.11;filter:grayscale(.55) contrast(1.05);
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 74%,transparent 99%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 76%,transparent 99%),linear-gradient(to right,transparent 0,#000 12%,#000 88%,transparent 100%);
   -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 74%,transparent 99%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 76%,transparent 99%),linear-gradient(to right,transparent 0,#000 12%,#000 88%,transparent 100%);
   mask-composite:intersect;
 }
+/* schermo largo: la figura copre tutta l'altezza della sezione e la larghezza della colonna di sinistra */
+.hero>.wrap::before{
+  left:0;top:0;bottom:0;width:min(54%,700px);
+  background-size:auto 112%;
+}
+.hero>.wrap>div:first-child::before{display:none}
+/* schermo stretto: la sezione è altissima (testo + modulo), quindi la figura resta legata al testo */
 @media(max-width:959px){
+  .hero>.wrap::before{display:none}
   .hero>.wrap>div:first-child::before{
-    width:132%;height:clamp(320px,52vh,520px);opacity:.10;
+    display:block;left:50%;transform:translateX(-50%);top:-1.5rem;
+    width:min(132%,560px);height:clamp(360px,58vh,560px);
   }
+}
+@media(max-width:959px){
   .photo-gallery .thumb{width:52px;height:65px}
 }
 
