@@ -24,6 +24,7 @@
     $all('[data-hydrate="phone"]').forEach(function (a) { a.textContent = S.phone; a.href = telHref(S.phone); });
     $all('[data-hydrate="phone-cta"]').forEach(function (a) { a.textContent = 'Preferisci telefonare? ' + S.phone; a.href = telHref(S.phone); });
     $all('[data-hydrate="whatsapp"]').forEach(function (a) { a.href = 'https://wa.me/' + String(S.whatsapp || '').replace(/\D/g, ''); });
+    $all('[data-hydrate="whatsapp-stick"]').forEach(function (a) { a.href = 'https://wa.me/' + String(S.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent('Ciao ' + (S.site_name || 'HEHE CAR') + ', vorrei un preventivo per un trasporto.'); });
     $all('[data-hydrate="email"]').forEach(function (a) { a.textContent = S.email; a.href = 'mailto:' + S.email; });
     $all('[data-hydrate="text"]').forEach(function (el) { var k = el.getAttribute('data-key'); if (S[k]) el.textContent = S[k]; });
     $all('[data-hydrate="site-name"]').forEach(function (el) { var parts = String(S.site_name || '').split(' '); el.innerHTML = esc(parts[0]) + (parts[1] ? ' <b>' + esc(parts.slice(1).join(' ')) + '</b>' : ''); });

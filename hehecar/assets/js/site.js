@@ -140,6 +140,19 @@
     });
   }
 
+  // Stick WhatsApp: si nasconde in cima alla pagina, torna dopo un piccolo scroll
+  var waStick = document.getElementById('waStick');
+  if (waStick) {
+    var lastY = window.scrollY;
+    function updateWaVisibility() {
+      var y = window.scrollY;
+      waStick.classList.toggle('hide', y < 80);
+      lastY = y;
+    }
+    updateWaVisibility();
+    window.addEventListener('scroll', updateWaVisibility, { passive: true });
+  }
+
   // Data minima nei campi data
   document.querySelectorAll('input[type="date"][data-min-today]').forEach(function (d) {
     var today = new Date(); var iso = today.toISOString().slice(0, 10);
