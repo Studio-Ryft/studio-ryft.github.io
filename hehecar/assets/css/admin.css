@@ -25,3 +25,8 @@ td .btn.sm{margin-right:.3rem}
 .filters a.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 .inline{display:inline}
 @media(max-width:820px){body.admin{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.side-sec{display:none}}
+
+/* Siti clienti: da qui si vede sempre su quale cliente sta lavorando il pannello */
+.side-tenant{margin:-.4rem .9rem .8rem;padding:.35rem .55rem;border-radius:8px;background:var(--brand-soft);color:var(--brand-dark)}
+tr.is-current{background:var(--brand-soft)}
+.actions-cell{white-space:nowrap;display:flex;gap:.4rem;align-items:center}

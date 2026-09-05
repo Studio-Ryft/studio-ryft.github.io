@@ -17,7 +17,10 @@
       google_browser_key: { label: 'Chiave Google Maps (browser, per km reali e autocompletamento)' }, road_factor: { label: 'Fattore strada senza Google (km aria × fattore)', type: 'number', step: '0.05' }, unknown_km: { label: 'Km predefiniti se località sconosciuta', type: 'number', step: '1' },
       rounding: { label: 'Arrotonda il totale a (€, 0 = nessuno)', type: 'number', step: '1' }, min_lead_hours: { label: 'Preavviso minimo (ore)', type: 'number', step: '0.5' }, max_advance_days: { label: 'Anticipo massimo (giorni)', type: 'number', step: '1' },
       vat_note: { label: 'Nota prezzi (IVA, pagamento)' }, cancellation_text: { label: 'Politica di annullamento' },
-      custom_quote_note: { label: 'Testo per i veicoli a prezzo su richiesta (van)', type: 'textarea' } } },
+      custom_quote_note: { label: 'Testo per i veicoli a prezzo su richiesta (van)', type: 'textarea' },
+      meta_description: { label: 'Descrizione per i motori di ricerca', type: 'textarea' }, hero_eyebrow: { label: 'Sopratitolo della home' },
+      turismo_title: { label: 'Titolo della sezione turistica' }, turismo_text: { label: 'Testo della sezione turistica', type: 'textarea' },
+      area_note: { label: 'Nota sulle tratte fuori zona' }, placeholder_pickup: { label: 'Esempio nel campo "Da dove partiamo"' }, placeholder_dropoff: { label: 'Esempio nel campo "Dove andiamo"' } } },
     identita: { title: 'Identita visiva', kind: 'settings', help: 'Colori, caratteri e logo dell\'attivita. Le tinte derivate (sfondi tenui, ombre, stati al passaggio del mouse) si ricavano da sole dai tre colori: quello che vedi qui sotto e gia come sara il sito. Il logo caricato sostituisce il segno grafico; svuota il campo per tornare a quello predefinito.', fields: {
       brand_color: { label: 'Colore principale', type: 'color' }, accent_color: { label: 'Colore di richiamo', type: 'color' }, ink_color: { label: 'Colore del testo', type: 'color' },
       font_titoli: { label: 'Carattere dei titoli', type: 'font' }, font_testo: { label: 'Carattere del testo corrente', type: 'font' },
@@ -121,7 +124,7 @@
     root.innerHTML = html;
     root.addEventListener('input', onEdit); root.addEventListener('change', onEdit);
     $('#save').addEventListener('click', function () { var b = this; b.disabled = true; b.textContent = 'Salvataggio…'; save().then(function () { flash('ok', 'Salvato. Il sito pubblico si aggiorna entro un minuto circa.'); render(); }).catch(function (e) { flash('err', e.message); b.disabled = false; b.textContent = 'Salva su GitHub'; }); });
-    $('#logout').addEventListener('click', function () { sessionStorage.removeItem('hc_gh'); localStorage.removeItem('hc_gh'); location.reload(); });
+    $('#logout').addEventListener('click', function () { sessionStorage.removeItem('hc_gh'); location.reload(); });
     var add = $('#add'); if (add) add.addEventListener('click', function () { var row = { id: nextId(state.section) }; Object.keys(sec.fields).forEach(function (k) { var d = sec.fields[k]; row[k] = d.type === 'bool' ? 1 : d.type === 'number' ? 0 : d.type === 'select' ? Object.keys(d.options)[0] : d.type === 'service' ? 0 : ''; }); (state.rules[state.section] = state.rules[state.section] || []).push(row); state.dirty = true; render(); });
     root.querySelectorAll('[data-del]').forEach(function (b) { b.addEventListener('click', function () { if (!confirm('Eliminare questa riga?')) return; state.rules[state.section].splice(Number(b.getAttribute('data-del')), 1); state.dirty = true; render(); }); });
     root.querySelectorAll('input[data-photo]').forEach(function (inp) { inp.addEventListener('change', function () { var f = inp.files[0]; if (!f) return; flash('info', 'Caricamento foto…'); uploadImage(f).then(function (name) { if (inp.getAttribute('data-photo-dest') === 'settings.logo') state.rules.settings.logo = name; else state.rules.drivers[Number(inp.getAttribute('data-photo'))].photo = name; state.dirty = true; render(); flash('ok', 'Immagine caricata: ricordati di salvare le regole.'); }).catch(function (e) { flash('err', e.message); }); }); });
@@ -143,11 +146,85 @@
     if (!state.dirty) { state.dirty = true; var s = $('#save'); if (s) s.disabled = false; }
   }
 
+
+  // --------------------------------------------------------------- cassaforte del token
+  // Le pagine di questo sito sono pubbliche: nessuna password puo nasconderle. Quello che
+  // la password protegge davvero e il token di GitHub salvato su questo dispositivo, che
+  // viene cifrato con la password stessa (PBKDF2 + AES-GCM). Senza la password giusta il
+  // token non si apre, e chi legge questo file non ci trova dentro nessun segreto.
+  var CASSA = 'hc_gh_cassa';
+
+  function bytes(s) { return new TextEncoder().encode(s); }
+  function b64(buf) { return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))); }
+  function unb64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+
+  function chiave(password, sale) {
+    return crypto.subtle.importKey('raw', bytes(password), 'PBKDF2', false, ['deriveKey'])
+      .then(function (base) {
+        return crypto.subtle.deriveKey(
+          { name: 'PBKDF2', salt: sale, iterations: 250000, hash: 'SHA-256' },
+          base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+      });
+  }
+
+  function chiudiInCassaforte(utente, password, token) {
+    var sale = crypto.getRandomValues(new Uint8Array(16));
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return chiave(password, sale).then(function (k) {
+      return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, k, bytes(token));
+    }).then(function (cifrato) {
+      localStorage.setItem(CASSA, JSON.stringify({ utente: utente, sale: b64(sale), iv: b64(iv), dato: b64(cifrato) }));
+    });
+  }
+
+  function apriCassaforte(password) {
+    var grezzo = localStorage.getItem(CASSA);
+    if (!grezzo) return Promise.reject(new Error('Nessun token salvato su questo dispositivo.'));
+    var c = JSON.parse(grezzo);
+    return chiave(password, unb64(c.sale)).then(function (k) {
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(c.iv) }, k, unb64(c.dato));
+    }).then(function (chiaro) { return new TextDecoder().decode(chiaro); },
+      function () { throw new Error('Password non corretta.'); });
+  }
+
+  function cassaforteChiusa() { try { return JSON.parse(localStorage.getItem(CASSA) || 'null'); } catch (e) { return null; } }
+
   function loginView(err) {
-    root.innerHTML = '<div class="auth quote-box"><div class="eyebrow">HEHE CAR</div><h1 style="font-size:1.6rem">Back office</h1><p class="muted">Le regole del sito vivono su GitHub. Per modificarle serve un token personale con permesso di scrittura sui contenuti del repository <b>' + esc(CFG.owner + '/' + CFG.repo) + '</b>.</p>' + (err ? '<div class="note err">' + esc(err) + '</div>' : '') +
-      '<form id="login"><div class="field"><label for="tk">Token GitHub</label><input id="tk" type="password" required autocomplete="off" placeholder="github_pat_…"></div><label class="check"><input type="checkbox" id="remember"><span>Ricorda su questo dispositivo</span></label><button class="btn block" type="submit">Entra</button></form>' +
-      '<details style="margin-top:1rem"><summary class="small">Come si crea il token</summary><ol class="small muted" style="padding-left:1.2rem"><li>GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li><li>Resource owner: <b>' + esc(CFG.owner) + '</b>. Repository access: solo <b>' + esc(CFG.repo) + '</b>.</li><li>Permissions → Repository permissions → <b>Contents: Read and write</b>. Scadenza a piacere.</li><li>Copia il token e incollalo qui.</li></ol></details></div>';
-    $('#login').addEventListener('submit', function (e) { e.preventDefault(); state.token = $('#tk').value.trim(); ($('#remember').checked ? localStorage : sessionStorage).setItem('hc_gh', state.token); start(); });
+    var cassa = cassaforteChiusa();
+    var nome = (state.rules && state.rules.settings && state.rules.settings.site_name) || 'Back office';
+    var intro = cassa
+      ? 'Bentornato. La password apre il token di GitHub salvato su questo dispositivo.'
+      : 'Primo accesso da questo dispositivo: servono le tue credenziali e un token GitHub con permesso di scrittura sui contenuti del repository <b>' + esc(CFG.owner + '/' + CFG.repo) + '</b>. Il token resta qui, cifrato con la password che scegli.';
+    root.innerHTML = '<div class="auth quote-box"><div class="eyebrow">' + esc(nome) + '</div><h1 style="font-size:1.6rem">Pannello di personalizzazione</h1>' +
+      '<p class="muted">' + intro + '</p>' + (err ? '<div class="note err">' + esc(err) + '</div>' : '') +
+      '<form id="login">' +
+      '<div class="field"><label for="us">Utente</label><input id="us" required autocomplete="username" value="' + esc(cassa ? cassa.utente : '') + '"></div>' +
+      '<div class="field"><label for="pw">Password</label><input id="pw" type="password" required autocomplete="current-password"></div>' +
+      (cassa ? '' : '<div class="field"><label for="tk">Token GitHub</label><input id="tk" type="password" required autocomplete="off" placeholder="github_pat_..."></div>') +
+      '<button class="btn block" type="submit">Entra</button></form>' +
+      (cassa ? '<p class="small muted" style="margin-top:.8rem"><a href="#" id="scorda">Non ricordo la password: reinserisco il token</a></p>' : '') +
+      '<details style="margin-top:1rem"><summary class="small">Come si crea il token</summary><ol class="small muted" style="padding-left:1.2rem"><li>GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token.</li><li>Resource owner: <b>' + esc(CFG.owner) + '</b>. Repository access: solo <b>' + esc(CFG.repo) + '</b>.</li><li>Permissions, Repository permissions, <b>Contents: Read and write</b>. Scadenza a piacere.</li><li>Copia il token e incollalo qui.</li></ol></details>' +
+      '<p class="small muted" style="margin-top:1rem">Le pagine del sito sono pubbliche per definizione: la password non le nasconde, protegge il token salvato su questo dispositivo. A impedire modifiche non autorizzate e il token stesso.</p></div>';
+
+    var scorda = $('#scorda');
+    if (scorda) scorda.addEventListener('click', function (e) { e.preventDefault(); localStorage.removeItem(CASSA); loginView(); });
+
+    $('#login').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var utente = $('#us').value.trim(), password = $('#pw').value, campoToken = $('#tk');
+      var passo = campoToken
+        ? chiudiInCassaforte(utente, password, campoToken.value.trim()).then(function () { return campoToken.value.trim(); })
+        : apriCassaforte(password).then(function (t) {
+            var c = cassaforteChiusa();
+            if (c && c.utente && c.utente !== utente) throw new Error('Utente non corrispondente.');
+            return t;
+          });
+      passo.then(function (token) {
+        state.token = token;
+        sessionStorage.setItem('hc_gh', token);
+        start();
+      }).catch(function (err2) { loginView(err2.message); });
+    });
   }
   function start() {
     root.innerHTML = '<p class="muted">Caricamento regole…</p>';
@@ -155,10 +232,12 @@
       // verifica che il token abbia davvero accesso in scrittura (chiamata leggera al repository)
       return fetch('https://api.github.com/repos/' + CFG.owner + '/' + CFG.repo, { headers: ghHeaders(false) }).then(function (r) { return r.json(); }).then(function (j) { if (!j.permissions || !j.permissions.push) throw new Error('Il token non ha permesso di scrittura su questo repository.'); });
     }).then(function () { state.section = (location.hash || '#impostazioni').slice(1); if (!SECTIONS[state.section]) state.section = 'impostazioni'; render(); })
-      .catch(function (e) { state.token = null; sessionStorage.removeItem('hc_gh'); localStorage.removeItem('hc_gh'); loginView(e.message); });
+      .catch(function (e) { state.token = null; sessionStorage.removeItem('hc_gh'); loginView(e.message); });
   }
   window.addEventListener('hashchange', function () { if (!state.rules) return; if (state.dirty && !confirm('Hai modifiche non salvate: cambiare sezione senza salvare?')) { return; } state.section = location.hash.slice(1) || 'impostazioni'; if (!SECTIONS[state.section]) state.section = 'impostazioni'; render(); });
   window.addEventListener('beforeunload', function (e) { if (state.dirty) { e.preventDefault(); e.returnValue = ''; } });
-  state.token = sessionStorage.getItem('hc_gh') || localStorage.getItem('hc_gh');
+  // Il token vive nella sessione del browser; su disco resta solo cifrato nella cassaforte.
+  if (localStorage.getItem('hc_gh')) localStorage.removeItem('hc_gh'); // prima si salvava in chiaro
+  state.token = sessionStorage.getItem('hc_gh');
   if (state.token) start(); else loginView();
 })();

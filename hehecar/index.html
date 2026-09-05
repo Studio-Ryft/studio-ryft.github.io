@@ -26,7 +26,7 @@
       <a href="/hehecar/prezzi/">Prezzi</a>
       <a href="/hehecar/autisti/">Chi guida</a>
       <a href="/hehecar/#come-funziona">Come funziona</a>
-      <a class="btn sm" href="/hehecar/preventivo/">Calcola e prenota</a>
+      <a href="/hehecar/admin/">Area riservata</a>      <a class="btn sm" href="/hehecar/preventivo/">Calcola e prenota</a>
     </nav>
     <div class="call">
       <a class="phone" data-hydrate="phone" href="tel:+393470638947">+39 347 063 8947</a>
@@ -37,7 +37,7 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <div class="eyebrow" style="color:var(--amber)">Trasporto privato con autista-accompagnatore · Campania</div>
+      <div class="eyebrow" style="color:var(--amber)" data-hydrate="text" data-key="hero_eyebrow">Trasporto privato con autista-accompagnatore · Campania</div>
       <h1 data-hydrate="text" data-key="hero_title">Ti veniamo a prendere, entriamo con te e aspettiamo che la visita finisca.</h1>
       <p class="lede" data-hydrate="text" data-key="hero_subtitle">Un autista che accompagna chi non se la sente di uscire da solo: visite, terapie, aeroporto, e le giornate a Pompei o in Costiera per chi cammina poco.</p>
       <ul class="promises">
@@ -62,11 +62,11 @@
       </div>
   <div class="field">
     <label for="pickupc">Da dove partiamo</label>
-    <input id="pickupc" name="pickup" data-address required placeholder="Via, città o struttura (es. Aversa, via Roma 10)" value="">
+    <input id="pickupc" name="pickup" data-address required placeholder="Via, città o struttura (es. Aversa, via Roma 10)" data-hydrate="ph" data-key="placeholder_pickup" value="">
   </div>
   <div class="field" data-dropoff>
     <label for="dropoffc">Dove andiamo</label>
-    <input id="dropoffc" name="dropoff" data-address placeholder="Ospedale, aeroporto, indirizzo (es. Ospedale Cardarelli, Napoli)" value="">
+    <input id="dropoffc" name="dropoff" data-address placeholder="Ospedale, aeroporto, indirizzo (es. Ospedale Cardarelli, Napoli)" data-hydrate="ph" data-key="placeholder_dropoff" value="">
   </div>
   <div class="row3">
     <div class="field">
@@ -145,12 +145,12 @@
 </section>
 
 <section class="band alt has-video" id="come-funziona">
-  <div class="scroll-video" aria-hidden="true" data-video="sfondo-guida">
+    <div class="scroll-video" aria-hidden="true" data-video="sfondo-guida">
     <video muted loop playsinline preload="none" poster="/hehecar/assets/video/sfondo-guida.jpg">
       <source src="/hehecar/assets/video/sfondo-guida.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="wrap">
+    <div class="wrap">
     <div class="sec-head"><div class="eyebrow">Come funziona</div><h2>Tre passaggi, nessuna app da installare</h2></div>
     <div class="steps">
       <div class="step"><h3>Chiedi il prezzo</h3><p>Dal sito o al telefono: partenza, destinazione, giorno e ora. La cifra compare intera, con l'attesa già dentro.</p></div>
@@ -205,16 +205,16 @@
 </section>
 
 <section class="band alt has-video" id="turisti">
-  <div class="scroll-video" aria-hidden="true" data-video="sfondo-costiera">
+    <div class="scroll-video" aria-hidden="true" data-video="sfondo-costiera">
     <video muted loop playsinline preload="none" poster="/hehecar/assets/video/sfondo-costiera.jpg">
       <source src="/hehecar/assets/video/sfondo-costiera.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="wrap two">
+    <div class="wrap two">
     <div>
       <div class="eyebrow">Per chi viaggia</div>
-      <h2>Pompei, Costiera, Reggia: al tuo passo, con qualcuno che ti dà il braccio</h2>
-      <p>Chi cammina poco e chi usa la carrozzina hanno lo stesso problema con un pullman: l'orario è di tutti tranne che suo. Qui l'autista entra nei siti con te, tiene il tuo passo e aspetta quando ti siedi. Si parte dal porto, dall'aeroporto o dall'hotel.</p>
+      <h2 data-hydrate="text" data-key="turismo_title">Pompei, Costiera, Reggia: al tuo passo, con qualcuno che ti dà il braccio</h2>
+      <p data-hydrate="text" data-key="turismo_text">Chi cammina poco e chi usa la carrozzina hanno lo stesso problema con un pullman: l&#039;orario è di tutti tranne che suo. Qui l&#039;autista entra nei siti con te, tiene il tuo passo e aspetta quando ti siedi. Si parte dal porto, dall&#039;aeroporto o dall&#039;hotel.</p>
       <p><a class="btn" data-hydrate="cta-service" data-slug="tour" href="/hehecar/preventivo/?service_id=4">Preventivo per una giornata</a></p>
     </div>
     <div>
@@ -239,7 +239,7 @@
     <div>
       <div class="card">
         <h3>Dove operiamo</h3>
-        <p><span data-hydrate="text" data-key="service_area">Napoli, Caserta, Salerno, Costiera, isole del Golfo</span>. Per tratte fuori Campania il preventivo lo prepariamo a mano, con chilometri e pedaggi contati.</p>
+        <p><span data-hydrate="text" data-key="service_area">Napoli, Caserta, Salerno, Costiera, isole del Golfo</span>. <span data-hydrate="text" data-key="area_note">Per tratte fuori Campania il preventivo lo prepariamo a mano, con chilometri e pedaggi contati.</span></p>
         <h3 style="margin-top:1rem">Orari</h3>
         <p>Tutti i giorni, anche notte e festivi, con le tariffe indicate nella pagina <a href="/hehecar/prezzi/">Prezzi</a>. Preavviso minimo 3 ore; per urgenze chiama.</p>
       </div>
@@ -271,6 +271,7 @@
       <b>Prenotazioni</b><br>
       <a href="/hehecar/preventivo/">Calcola il prezzo</a><br>
       <a href="/hehecar/prezzi/">Tariffe e fasce orarie</a><br>
+      <a href="/hehecar/admin/">Area riservata</a>
       <p class="small" style="margin-top:.6rem">Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio. Annullamento gratuito fino a 12 ore prima del servizio.</p>
     </div>
   </div>

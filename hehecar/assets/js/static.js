@@ -30,6 +30,7 @@
     $all('[data-hydrate="whatsapp-stick"]').forEach(function (a) { a.href = 'https://wa.me/' + String(S.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent('Ciao ' + (S.site_name || 'HEHE CAR') + ', vorrei un preventivo per un trasporto.'); });
     $all('[data-hydrate="email"]').forEach(function (a) { a.textContent = S.email; a.href = 'mailto:' + S.email; });
     $all('[data-hydrate="text"]').forEach(function (el) { var k = el.getAttribute('data-key'); if (S[k]) el.textContent = S[k]; });
+    $all('[data-hydrate="ph"]').forEach(function (el) { var k = el.getAttribute('data-key'); if (S[k]) el.placeholder = S[k]; });
     $all('[data-hydrate="site-name"]').forEach(function (el) { var parts = String(S.site_name || '').split(' '); el.innerHTML = esc(parts[0]) + (parts[1] ? ' <b>' + esc(parts.slice(1).join(' ')) + '</b>' : ''); });
     document.title = document.title.replace(/HEHE CAR/g, S.site_name || 'HEHE CAR');
 

@@ -25,7 +25,16 @@
   "font_titoli": "Nunito",
   "font_testo": "Source Sans 3",
   "logo": "",
-  "logo_alt": ""
+  "logo_alt": "",
+  "meta_description": "Autista-accompagnatore per anziani, persone con mobilità ridotta e turisti: visite mediche, aeroporto, Pompei e Costiera. Prezzo fisso prima di partire, nessun pagamento anticipato.",
+  "hero_eyebrow": "Trasporto privato con autista-accompagnatore · Campania",
+  "turismo_title": "Pompei, Costiera, Reggia: al tuo passo, con qualcuno che ti dà il braccio",
+  "turismo_text": "Chi cammina poco e chi usa la carrozzina hanno lo stesso problema con un pullman: l'orario è di tutti tranne che suo. Qui l'autista entra nei siti con te, tiene il tuo passo e aspetta quando ti siedi. Si parte dal porto, dall'aeroporto o dall'hotel.",
+  "area_note": "Per tratte fuori Campania il preventivo lo prepariamo a mano, con chilometri e pedaggi contati.",
+  "placeholder_pickup": "Via, città o struttura (es. Aversa, via Roma 10)",
+  "placeholder_dropoff": "Ospedale, aeroporto, indirizzo (es. Ospedale Cardarelli, Napoli)",
+  "video_guida": "sfondo-guida",
+  "video_turismo": "sfondo-costiera"
  },
  "services": [
   {
