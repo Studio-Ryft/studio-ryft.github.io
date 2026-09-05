@@ -135,6 +135,20 @@
     var distP = dropoff ? distance(rules, pickup, dropoff) : Promise.resolve({ km: 0, minutes: 0, source: 'n/a' });
     return distP.then(function (dist) {
       var legKm = dist.km, km = mode === 'roundtrip' ? legKm * 2 : legKm;
+
+      // Veicoli a quotazione personalizzata (van): niente calcolo automatico, si contatta il cliente.
+      if (Number(vehicle.custom_quote) === 1) {
+        var extraNamesCq = (rules.extras || []).filter(function (x) { return Number(x.active) === 1 && extraIds.indexOf(Number(x.id)) >= 0; }).map(function (x) { return x.name; });
+        return {
+          service: service, vehicle: vehicle, band: bandFor(rules, date, time), holiday: holidayFor(rules, date),
+          pickup: pickup, dropoff: dropoff, date: date, time: time, hours: hours, passengers: passengers,
+          extras: extraIds, extras_names: extraNamesCq, leg_km: legKm, distance_km: Math.round(km * 10) / 10,
+          duration_min: dist.minutes, distance_source: dist.source, lines: [], subtotal: null, min_fare: null,
+          min_applied: false, total: null, custom_quote: true,
+          custom_quote_note: rules.settings.custom_quote_note || 'Per questo veicolo prepariamo una quotazione su misura: ti contattiamo entro poche ore con il prezzo.'
+        };
+      }
+
       var band = bandFor(rules, date, time), holiday = holidayFor(rules, date);
       var kmMult = parseFloat(band.km_multiplier) || 1, hourMult = parseFloat(band.hour_multiplier) || 1, bandSur = parseFloat(band.surcharge) || 0;
       var holMult = holiday ? parseFloat(holiday.km_multiplier) || 1 : 1, holSur = holiday ? parseFloat(holiday.surcharge) || 0 : 0;
@@ -178,7 +192,7 @@
       var total = Math.max(subtotal, minFare);
       var minApplied = total > subtotal;
       total = roundTotal(rules, total);
-      return { service: service, vehicle: vehicle, band: band, holiday: holiday, pickup: pickup, dropoff: dropoff, date: date, time: time, hours: hours, passengers: passengers, extras: extraIds, extras_names: extraNames, leg_km: legKm, distance_km: Math.round(km * 10) / 10, duration_min: dist.minutes, distance_source: dist.source, lines: lines, subtotal: Math.round(subtotal * 100) / 100, min_fare: minFare, min_applied: minApplied, total: total };
+      return { service: service, vehicle: vehicle, band: band, holiday: holiday, pickup: pickup, dropoff: dropoff, date: date, time: time, hours: hours, passengers: passengers, extras: extraIds, extras_names: extraNames, leg_km: legKm, distance_km: Math.round(km * 10) / 10, duration_min: dist.minutes, distance_source: dist.source, lines: lines, subtotal: Math.round(subtotal * 100) / 100, min_fare: minFare, min_applied: minApplied, total: total, custom_quote: false };
     });
   }
 

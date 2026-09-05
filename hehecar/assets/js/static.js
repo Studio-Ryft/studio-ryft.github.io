@@ -47,7 +47,7 @@
         }).join('');
       }
       var vsel = $('select[name="vehicle_id"]', form);
-      if (vsel) { var vcur = vsel.value; vsel.innerHTML = vehicles.map(function (v) { return '<option value="' + v.id + '"' + (String(v.id) === String(vcur) ? ' selected' : '') + '>' + esc(v.name) + (Number(v.wheelchair) ? ' · rampa carrozzina' : '') + '</option>'; }).join(''); }
+      if (vsel) { var vcur = vsel.value; vsel.innerHTML = vehicles.map(function (v) { return '<option value="' + v.id + '"' + (String(v.id) === String(vcur) ? ' selected' : '') + '>' + esc(v.name) + (Number(v.wheelchair) ? ' · rampa carrozzina' : '') + (Number(v.custom_quote) === 1 ? ' · prezzo su richiesta' : '') + '</option>'; }).join(''); }
       var xwrap = $('[data-hydrate="extras"]', form);
       if (xwrap) {
         xwrap.innerHTML = '<span class="lbl">Serve altro?</span>' + extras.map(function (x) {
@@ -110,7 +110,7 @@
         var days = String(b.weekdays).split(',').map(Number);
         return '<tr>' + td('<b>' + esc(b.name) + '</b>') + td(esc(b.start_time) + ' – ' + esc(b.end_time)) + td(days.length === 7 ? 'tutti' : days.map(function (d) { return GG[d] || d; }).join(', ')) + td('× ' + fmt(b.km_multiplier), 1) + td('× ' + fmt(b.hour_multiplier), 1) + td(fmt(b.surcharge) + ' €', 1) + '</tr>';
       }).join('')); },
-      'prices-vehicles': function () { return t([{ l: 'Veicolo' }, { l: 'Posti', num: 1 }, { l: 'Chilometrico', num: 1 }, { l: 'Supplemento', num: 1 }], vehicles.map(function (v) { return '<tr>' + td('<b>' + esc(v.name) + '</b>' + (Number(v.wheelchair) ? '<br><span class="small muted">rampa carrozzina</span>' : '')) + td(parseInt(v.seats, 10), 1) + td('× ' + fmt(v.multiplier), 1) + td(fmt(v.surcharge) + ' €', 1) + '</tr>'; }).join('')); },
+      'prices-vehicles': function () { return t([{ l: 'Veicolo' }, { l: 'Posti', num: 1 }, { l: 'Chilometrico', num: 1 }, { l: 'Supplemento', num: 1 }], vehicles.map(function (v) { return '<tr>' + td('<b>' + esc(v.name) + '</b>' + (Number(v.wheelchair) ? '<br><span class="small muted">rampa carrozzina</span>' : '')) + td(parseInt(v.seats, 10), 1) + (Number(v.custom_quote) === 1 ? '<td class="num" colspan="2">Prezzo su richiesta</td>' : td('× ' + fmt(v.multiplier), 1) + td(fmt(v.surcharge) + ' €', 1)) + '</tr>'; }).join('')); },
       'prices-extras': function () { return '<table><tbody>' + extras.map(function (x) { return '<tr>' + td('<b>' + esc(x.name) + '</b><br><span class="small muted">' + esc(x.description) + '</span>') + td(fmt(x.price) + ' €' + (x.unit === 'hour' ? '/ora' : x.unit === 'km' ? '/km' : ''), 1) + '</tr>'; }).join('') + '</tbody></table>'; },
       'prices-holidays': function () { return t([{ l: 'Giorno' }, { l: 'Chilometrico', num: 1 }, { l: 'Supplemento', num: 1 }], active(R.holidays).sort(function (a, b) { return String(a.day).localeCompare(b.day); }).map(function (h) { return '<tr>' + td(esc(h.name) + ' <span class="small muted">(' + esc(h.day) + ')</span>') + td('× ' + fmt(h.km_multiplier), 1) + td(fmt(h.surcharge) + ' €', 1) + '</tr>'; }).join('')); },
       'prices-zones': function () { return '<table><tbody>' + active(R.zone_rules).map(function (z) { return '<tr>' + td('<b>' + esc(z.name) + '</b>' + (z.note ? '<br><span class="small muted">' + esc(z.note) + '</span>' : '')) + td(fmt(z.surcharge) + ' €', 1) + '</tr>'; }).join('') + '</tbody></table>'; }
@@ -129,6 +129,7 @@
         var mode = (form.querySelector('input[name="service_id"]:checked') || {}).getAttribute ? form.querySelector('input[name="service_id"]:checked').getAttribute('data-mode') : 'oneway';
         if (String(body.pickup || '').trim().length < 3 || (mode !== 'hourly' && String(body.dropoff || '').trim().length < 3)) { live.classList.add('hidden'); return; }
         HCPricing.quote(R, body).then(function (q) {
+          if (q.custom_quote) { live.innerHTML = '<div class="meta">Prezzo su richiesta</div><div class="meta">' + esc(q.custom_quote_note) + '</div>'; live.classList.remove('hidden'); return; }
           var meta = [];
           if (q.distance_km > 0) meta.push(String(q.distance_km).replace('.', ',') + ' km' + (q.distance_source === 'stima' ? ' (stima)' : q.distance_source === 'da confermare' ? ' (località da confermare)' : ''));
           meta.push('fascia ' + q.band.name.toLowerCase());
@@ -164,25 +165,38 @@
 
     HCPricing.quote(R, body).then(function (q) {
       var qcode = code();
-      var lines = q.lines.map(function (l) { return '<li><span>' + esc(l.label) + '</span><span>' + money(l.amount) + '</span></li>'; }).join('');
       var needs = ["Aiuto a salire e scendere dall'auto", 'Accompagnamento dentro la struttura', 'Deambulatore o bastone', 'Carrozzina pieghevole', 'Resta in carrozzina (serve rampa)', 'Difficoltà di udito o vista', 'Parla solo inglese'];
-      column.innerHTML =
-        '<div class="quote-box" id="risultato"><div class="eyebrow">Il tuo preventivo · ' + qcode + '</div><h2 style="font-size:1.4rem">' + esc(q.service.name) + '</h2>' +
-        '<p class="muted">' + esc(itDate(q.date)) + ' alle ' + esc(q.time) + ' · ' + esc(q.vehicle.name) + ' · ' + q.passengers + ' passegger' + (q.passengers > 1 ? 'i' : 'o') + '</p>' +
-        '<p><b>Da</b> ' + esc(q.pickup) + (q.dropoff ? '<br><b>A</b> ' + esc(q.dropoff) : '') +
-        (q.distance_km > 0 ? '<br><span class="small muted">' + String(q.distance_km).replace('.', ',') + ' km' + (q.service.mode === 'roundtrip' ? ' andata e ritorno' : '') + (q.distance_source === 'google' ? ' (percorso stradale)' : q.distance_source === 'stima' ? ' (stima)' : ' (località non riconosciuta: confermeremo i km)') + (q.duration_min ? ', circa ' + q.duration_min + ' min di viaggio' : '') + '</span>' : '') + '</p>' +
-        '<ul class="lines">' + lines + (q.min_applied ? '<li><span>Prezzo minimo del servizio</span><span>' + money(q.min_fare) + '</span></li>' : '') + '</ul>' +
-        '<div class="total"><span>Totale, tutto incluso</span><span class="amt">' + money(q.total) + '</span></div>' +
-        '<p class="small muted" style="margin-top:.4rem">' + esc(S.vat_note || '') + '</p>' +
-        (q.distance_source === 'da confermare' ? '<div class="note warn">Non riconosciamo una delle località: il prezzo usa una distanza indicativa. Confermeremo il totale prima del servizio.</div>' : '') + '</div>' +
-        '<form class="quote-box" id="prenota" style="margin-top:1.2rem"><h2 style="font-size:1.3rem">Prenota senza pagare nulla ora</h2>' +
+      var routeInfo = '<p><b>Da</b> ' + esc(q.pickup) + (q.dropoff ? '<br><b>A</b> ' + esc(q.dropoff) : '') +
+        (q.distance_km > 0 ? '<br><span class="small muted">' + String(q.distance_km).replace('.', ',') + ' km' + (q.service.mode === 'roundtrip' ? ' andata e ritorno' : '') + (q.distance_source === 'google' ? ' (percorso stradale)' : q.distance_source === 'stima' ? ' (stima)' : ' (località non riconosciuta: confermeremo i km)') + (q.duration_min ? ', circa ' + q.duration_min + ' min di viaggio' : '') + '</span>' : '') + '</p>';
+
+      var priceBox;
+      if (q.custom_quote) {
+        priceBox =
+          '<div class="quote-box" id="risultato"><div class="eyebrow">La tua richiesta · ' + qcode + '</div><h2 style="font-size:1.4rem">' + esc(q.service.name) + '</h2>' +
+          '<p class="muted">' + esc(itDate(q.date)) + ' alle ' + esc(q.time) + ' · ' + esc(q.vehicle.name) + ' · ' + q.passengers + ' passegger' + (q.passengers > 1 ? 'i' : 'o') + '</p>' +
+          routeInfo +
+          '<div class="note info"><b>Prezzo su richiesta.</b> ' + esc(q.custom_quote_note) + '</div></div>';
+      } else {
+        var lines = q.lines.map(function (l) { return '<li><span>' + esc(l.label) + '</span><span>' + money(l.amount) + '</span></li>'; }).join('');
+        priceBox =
+          '<div class="quote-box" id="risultato"><div class="eyebrow">Il tuo preventivo · ' + qcode + '</div><h2 style="font-size:1.4rem">' + esc(q.service.name) + '</h2>' +
+          '<p class="muted">' + esc(itDate(q.date)) + ' alle ' + esc(q.time) + ' · ' + esc(q.vehicle.name) + ' · ' + q.passengers + ' passegger' + (q.passengers > 1 ? 'i' : 'o') + '</p>' +
+          routeInfo +
+          '<ul class="lines">' + lines + (q.min_applied ? '<li><span>Prezzo minimo del servizio</span><span>' + money(q.min_fare) + '</span></li>' : '') + '</ul>' +
+          '<div class="total"><span>Totale, tutto incluso</span><span class="amt">' + money(q.total) + '</span></div>' +
+          '<p class="small muted" style="margin-top:.4rem">' + esc(S.vat_note || '') + '</p>' +
+          (q.distance_source === 'da confermare' ? '<div class="note warn">Non riconosciamo una delle località: il prezzo usa una distanza indicativa. Confermeremo il totale prima del servizio.</div>' : '') + '</div>';
+      }
+
+      column.innerHTML = priceBox +
+        '<form class="quote-box" id="prenota" style="margin-top:1.2rem"><h2 style="font-size:1.3rem">' + (q.custom_quote ? 'Richiedi la quotazione' : 'Prenota senza pagare nulla ora') + '</h2>' +
         '<div class="row2"><div class="field"><label for="bn">Il tuo nome</label><input id="bn" name="booker_name" required></div><div class="field"><label for="bp">Il tuo telefono</label><input id="bp" name="booker_phone" type="tel" required></div></div>' +
         '<div class="field"><label for="be">La tua email</label><input id="be" name="booker_email" type="email"><span class="hint">Facoltativa: per ricevere la conferma scritta.</span></div>' +
         '<div class="row2"><div class="field"><label for="pn">Chi viaggia (se non sei tu)</label><input id="pn" name="passenger_name" placeholder="Nome del passeggero"></div><div class="field"><label for="pp">Telefono del passeggero</label><input id="pp" name="passenger_phone" type="tel"></div></div>' +
         '<div class="field"><span class="lbl">Di cosa ha bisogno il passeggero</span>' + needs.map(function (t) { return '<label class="check"><input type="checkbox" name="needs[]" value="' + esc(t) + '"><span>' + esc(t) + '</span></label>'; }).join('') + '</div>' +
         '<div class="field"><label for="notes">Note per l\'autista</label><textarea id="notes" name="notes" placeholder="Piano, citofono, numero di volo, reparto, orario della visita…"></textarea></div>' +
-        '<button class="btn amber block" type="submit">Invia la richiesta su WhatsApp</button>' +
-        '<p class="small muted" style="margin:.6rem 0 0">Si apre WhatsApp con il riepilogo già scritto: basta premere invio. Ti confermiamo entro poche ore con il nome dell\'autista. ' + esc(S.cancellation_text || '') + '</p></form>';
+        '<button class="btn amber block" type="submit">' + (q.custom_quote ? 'Richiedi il prezzo su WhatsApp' : 'Invia la richiesta su WhatsApp') + '</button>' +
+        '<p class="small muted" style="margin:.6rem 0 0">' + (q.custom_quote ? 'Si apre WhatsApp con i dettagli del viaggio già scritti: ti rispondiamo con il prezzo entro poche ore.' : 'Si apre WhatsApp con il riepilogo già scritto: basta premere invio. Ti confermiamo entro poche ore con il nome dell\'autista.') + ' ' + esc(S.cancellation_text || '') + '</p></form>';
       if (window.innerWidth < 900) column.scrollIntoView({ behavior: 'smooth' });
 
       $('#prenota').addEventListener('submit', function (e) {
@@ -190,27 +204,30 @@
         var fd = new FormData(e.target), d = {}, needsSel = [];
         fd.forEach(function (v, k) { if (k === 'needs[]') needsSel.push(v); else d[k] = v; });
         var msg = [
-          'Richiesta ' + qcode + ' · ' + (S.site_name || 'HEHE CAR'),
+          (q.custom_quote ? 'Richiesta di quotazione ' : 'Richiesta ') + qcode + ' · ' + (S.site_name || 'HEHE CAR'),
           'Servizio: ' + q.service.name,
           'Quando: ' + itDate(q.date) + ' alle ' + q.time,
           'Da: ' + q.pickup, q.dropoff ? 'A: ' + q.dropoff : null,
           q.hours > 0 ? 'Durata/attesa: ' + fmt(q.hours, 1) + ' ore' : null,
           'Veicolo: ' + q.vehicle.name + ' · ' + q.passengers + ' passegger' + (q.passengers > 1 ? 'i' : 'o'),
           q.extras_names.length ? 'Extra: ' + q.extras_names.join(', ') : null,
-          'Prezzo preventivato: ' + money(q.total) + ' (' + (S.vat_note || '') + ')',
+          q.custom_quote ? 'Prezzo: su richiesta, vi chiedo una quotazione per questo veicolo e percorso' : 'Prezzo preventivato: ' + money(q.total) + ' (' + (S.vat_note || '') + ')',
           'Passeggero: ' + (d.passenger_name || d.booker_name) + (d.passenger_phone ? ' · ' + d.passenger_phone : '') + (needsSel.length ? ' · ' + needsSel.join(', ') : ''),
           'Prenotato da: ' + d.booker_name + ' · ' + d.booker_phone + (d.booker_email ? ' · ' + d.booker_email : ''),
           d.notes ? 'Note: ' + d.notes : null
         ].filter(Boolean).join('\n');
         try {
           var mine = JSON.parse(localStorage.getItem('hc_richieste') || '[]');
-          mine.unshift({ code: qcode, when: new Date().toISOString(), date: q.date, time: q.time, service: q.service.name, pickup: q.pickup, dropoff: q.dropoff, total: q.total, text: msg });
+          mine.unshift({ code: qcode, when: new Date().toISOString(), date: q.date, time: q.time, service: q.service.name, pickup: q.pickup, dropoff: q.dropoff, total: q.custom_quote ? null : q.total, custom_quote: !!q.custom_quote, text: msg });
           localStorage.setItem('hc_richieste', JSON.stringify(mine.slice(0, 20)));
         } catch (err) { /* memoria locale non disponibile */ }
         var wa = 'https://wa.me/' + String(S.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(msg);
-        var mail = 'mailto:' + encodeURIComponent(S.email || '') + '?subject=' + encodeURIComponent('Richiesta ' + qcode) + '&body=' + encodeURIComponent(msg);
-        column.innerHTML = '<div class="quote-box"><div class="eyebrow">Richiesta ' + qcode + '</div><h2 style="font-size:1.6rem">Grazie, ' + esc(String(d.booker_name).split(' ')[0]) + '. Manda il riepilogo e ci pensiamo noi.</h2>' +
-          '<div class="note info">Il riepilogo qui sotto è pronto: inviacelo su WhatsApp (consigliato) o via email. Ti confermiamo entro poche ore con il nome dell\'autista. Nessun pagamento anticipato: prezzo preventivato <b>' + money(q.total) + '</b>.</div>' +
+        var mail = 'mailto:' + encodeURIComponent(S.email || '') + '?subject=' + encodeURIComponent((q.custom_quote ? 'Richiesta di quotazione ' : 'Richiesta ') + qcode) + '&body=' + encodeURIComponent(msg);
+        var doneNote = q.custom_quote
+          ? 'Il riepilogo qui sotto è pronto: inviacelo su WhatsApp (consigliato) o via email. Ti prepariamo una quotazione su misura per ' + esc(q.vehicle.name).toLowerCase() + ' e ti richiamiamo entro poche ore con il prezzo.'
+          : 'Il riepilogo qui sotto è pronto: inviacelo su WhatsApp (consigliato) o via email. Ti confermiamo entro poche ore con il nome dell\'autista. Nessun pagamento anticipato: prezzo preventivato <b>' + money(q.total) + '</b>.';
+        column.innerHTML = '<div class="quote-box"><div class="eyebrow">' + (q.custom_quote ? 'Richiesta di quotazione ' : 'Richiesta ') + qcode + '</div><h2 style="font-size:1.6rem">Grazie, ' + esc(String(d.booker_name).split(' ')[0]) + '. Manda il riepilogo e ci pensiamo noi.</h2>' +
+          '<div class="note info">' + doneNote + '</div>' +
           '<p><a class="btn amber block" href="' + wa + '" target="_blank" rel="noopener">Invia su WhatsApp</a></p><p><a class="btn ghost block" href="' + mail + '">Invia via email</a></p>' +
           '<details style="margin-top:1rem"><summary class="small">Vedi il testo del riepilogo</summary><pre style="white-space:pre-wrap;font:inherit;font-size:.92rem;background:var(--ground);padding:.8rem;border-radius:8px">' + esc(msg) + '</pre></details>' +
           '<p class="small muted" style="margin-top:1rem">Oppure chiama il <a href="' + telHref(S.phone) + '">' + esc(S.phone) + '</a> citando il codice ' + qcode + '. ' + esc(S.cancellation_text || '') + '</p>' +

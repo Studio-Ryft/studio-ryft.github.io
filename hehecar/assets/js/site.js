@@ -63,6 +63,7 @@
         .then(function (j) {
           live.classList.remove('hidden');
           if (!j.ok) { live.innerHTML = '<div class="meta">' + escapeHtml(j.error || 'Impossibile calcolare.') + '</div>'; return; }
+          if (j.custom_quote) { live.innerHTML = '<div class="meta">Prezzo su richiesta</div><div class="meta">' + escapeHtml(j.custom_quote_note || 'Ti contattiamo con una quotazione su misura.') + '</div>'; return; }
           var meta = [];
           if (j.distance_km > 0) meta.push(j.distance_km.toString().replace('.', ',') + ' km' + (j.source === 'stima' ? ' (stima)' : j.source === 'da confermare' ? ' (località da confermare)' : ''));
           meta.push('fascia ' + j.band.toLowerCase());

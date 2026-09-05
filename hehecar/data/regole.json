@@ -17,7 +17,8 @@
     "vat_note": "Prezzi IVA inclusa. Nessun pagamento anticipato: si paga a fine servizio.",
     "min_lead_hours": "3",
     "max_advance_days": "180",
-    "cancellation_text": "Annullamento gratuito fino a 12 ore prima del servizio."
+    "cancellation_text": "Annullamento gratuito fino a 12 ore prima del servizio.",
+    "custom_quote_note": "Per questo veicolo prepariamo una quotazione su misura in base al percorso e alle esigenze del servizio: ti richiamiamo entro poche ore con il prezzo."
   },
   "services": [
     {
@@ -259,6 +260,18 @@
   ],
   "vehicles": [
     {
+      "id": 4,
+      "name": "City car",
+      "description": "Utilitaria compatta, per una o due persone con pochi bagagli. Ideale in città, tariffa più leggera.",
+      "seats": 3,
+      "wheelchair": 0,
+      "multiplier": 0.85,
+      "surcharge": 0,
+      "custom_quote": 0,
+      "sort_order": 1,
+      "active": 1
+    },
+    {
       "id": 1,
       "name": "Berlina comfort",
       "description": "Fino a 3 passeggeri, bagagliaio per deambulatore o carrozzina pieghevole.",
@@ -266,8 +279,9 @@
       "wheelchair": 0,
       "multiplier": 1,
       "surcharge": 0,
-      "sort_order": 1,
-      "active": 1
+      "sort_order": 2,
+      "active": 1,
+      "custom_quote": 0
     },
     {
       "id": 2,
@@ -277,8 +291,9 @@
       "wheelchair": 0,
       "multiplier": 1.25,
       "surcharge": 10,
-      "sort_order": 2,
-      "active": 1
+      "sort_order": 3,
+      "active": 1,
+      "custom_quote": 1
     },
     {
       "id": 3,
@@ -288,8 +303,9 @@
       "wheelchair": 1,
       "multiplier": 1.35,
       "surcharge": 15,
-      "sort_order": 3,
-      "active": 1
+      "sort_order": 4,
+      "active": 1,
+      "custom_quote": 1
     }
   ],
   "extras": [
