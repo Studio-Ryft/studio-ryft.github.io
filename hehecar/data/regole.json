@@ -658,10 +658,11 @@
       "bio": "Ex militare dell'Esercito Italiano (in servizio fino all'estate 2026) ed esperto di arti marziali e autodifesa: cintura nera di Kickboxing e cintura nera di Taekwondo. Dalla divisa ha preso disciplina, puntualità e lucidità sotto pressione; dal tatami autocontrollo e capacità di gestire con calma qualsiasi situazione di tensione, per garantire sicurezza a chi accompagna. Di Aversa, appassionato ed esperto di auto. Prima della divisa ha lavorato per anni nell'accoglienza, come responsabile di sala e bartender: sa mettere a proprio agio le persone, ascoltare e tenere il ritmo anche quando c'è fretta. Disponibile di giorno, di notte, nei weekend e nei giorni festivi.",
       "badges": "Ex militare Esercito Italiano|Cintura nera Kickboxing|Cintura nera Taekwondo|Esperto di autodifesa|Esperienza in accoglienza|Turni notturni e festivi|Patente B, automunito",
       "languages": "Italiano madrelingua, Inglese base",
-      "photo": "salvatore.jpg",
+      "photo": "salvatore-ritratto.jpg",
       "featured": 1,
       "active": 1,
-      "sort_order": 1
+      "sort_order": 1,
+      "photos": "salvatore-ritratto.jpg|salvatore.jpg|salvatore-alt.jpg"
     }
   ]
 }

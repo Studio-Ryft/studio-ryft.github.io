@@ -141,6 +141,23 @@
     });
   }
 
+  // Galleria foto dell'autista: la miniatura cliccata diventa la foto grande.
+  // Delegato sul documento perché nella versione statica la galleria viene creata dopo.
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('.photo-gallery .thumb') : null;
+    if (!t) return;
+    var gal = t.closest('.photo-gallery');
+    var main = gal && gal.querySelector('[data-main]');
+    var src = t.getAttribute('data-src');
+    if (!main || !src || main.getAttribute('src') === src) return;
+    var pre = new Image();
+    pre.onload = function () { main.src = src; main.classList.remove('swapping'); };
+    pre.onerror = function () { main.classList.remove('swapping'); };
+    main.classList.add('swapping');
+    pre.src = src;
+    gal.querySelectorAll('.thumb').forEach(function (x) { x.classList.toggle('is-on', x === t); });
+  });
+
   // Stick WhatsApp: si nasconde in cima alla pagina, torna dopo un piccolo scroll
   var waStick = document.getElementById('waStick');
   if (waStick) {

@@ -47,7 +47,12 @@
         }).join('');
       }
       var vsel = $('select[name="vehicle_id"]', form);
-      if (vsel) { var vcur = vsel.value; vsel.innerHTML = vehicles.map(function (v) { return '<option value="' + v.id + '"' + (String(v.id) === String(vcur) ? ' selected' : '') + '>' + esc(v.name) + (Number(v.wheelchair) ? ' · rampa carrozzina' : '') + (Number(v.custom_quote) === 1 ? ' · prezzo su richiesta' : '') + '</option>'; }).join(''); }
+      if (vsel) {
+        // Gli id nell'HTML statico possono non corrispondere a quelli delle regole: si parte sempre dal primo
+        // veicolo dell'elenco. L'eventuale veicolo scelto nell'indirizzo viene applicato dopo, dalla pagina preventivo.
+        var vcur = vehicles.length ? vehicles[0].id : '';
+        vsel.innerHTML = vehicles.map(function (v) { return '<option value="' + v.id + '"' + (String(v.id) === String(vcur) ? ' selected' : '') + '>' + esc(v.name) + (Number(v.wheelchair) ? ' · rampa carrozzina' : '') + (Number(v.custom_quote) === 1 ? ' · prezzo su richiesta' : '') + '</option>'; }).join('');
+      }
       var xwrap = $('[data-hydrate="extras"]', form);
       if (xwrap) {
         xwrap.innerHTML = '<span class="lbl">Serve altro?</span>' + extras.map(function (x) {
@@ -87,8 +92,19 @@
     // autisti
     function driverHtml(d, home) {
       var badges = String(d.badges || '').split('|').map(function (b) { return b.trim(); }).filter(Boolean).map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('');
-      var photo = d.photo ? '<img src="' + BASE + '/assets/img/' + esc(d.photo) + '" alt="' + esc(d.name) + ', ' + esc(d.role) + '">' : esc(String(d.name).charAt(0));
-      return '<div class="photo">' + photo + '</div><div>' + (home ? '<div class="eyebrow">Chi guida</div>' : '') + '<h2>' + esc(d.name) + '</h2><p class="muted" style="margin-top:-.3rem">' + esc(d.role) + ' · ' + esc(d.languages) + '</p><ul class="badges">' + badges + '</ul><p>' + nl2br(d.bio) + '</p>' + (home ? '<a class="btn ghost" href="' + BASE + '/autisti/">Conosci il team</a>' : '') + '</div>';
+      var alt = esc(d.name) + (d.role ? ', ' + esc(d.role) : '');
+      var lista = String(d.photos || '').split('|').map(function (f) { return f.trim(); }).filter(Boolean);
+      if (d.photo) { lista = [d.photo].concat(lista.filter(function (f) { return f !== d.photo; })); }
+      var photo;
+      if (lista.length > 1) {
+        photo = '<div class="photo-gallery" data-gallery><div class="photo"><img data-main src="' + BASE + '/assets/img/' + esc(lista[0]) + '" alt="' + alt + '"></div>' +
+          '<div class="thumbs" role="group" aria-label="Altre foto di ' + esc(d.name) + '">' + lista.map(function (f, i) {
+            return '<button type="button" class="thumb' + (i === 0 ? ' is-on' : '') + '" data-src="' + BASE + '/assets/img/' + esc(f) + '" aria-label="Foto ' + (i + 1) + ' di ' + esc(d.name) + '"><img src="' + BASE + '/assets/img/' + esc(f) + '" alt="" loading="lazy"></button>';
+          }).join('') + '</div></div>';
+      } else {
+        photo = '<div class="photo">' + (lista.length ? '<img src="' + BASE + '/assets/img/' + esc(lista[0]) + '" alt="' + alt + '">' : esc(String(d.name).charAt(0))) + '</div>';
+      }
+      return photo + '<div>' + (home ? '<div class="eyebrow">Chi guida</div>' : '') + '<h2>' + esc(d.name) + '</h2><p class="muted" style="margin-top:-.3rem">' + esc(d.role) + ' · ' + esc(d.languages) + '</p><ul class="badges">' + badges + '</ul><p>' + nl2br(d.bio) + '</p>' + (home ? '<a class="btn ghost" href="' + BASE + '/autisti/">Conosci il team</a>' : '') + '</div>';
     }
     var drivers = active(R.drivers).sort(function (a, b) { return Number(b.featured) - Number(a.featured) || byOrder(a, b); });
     $all('[data-hydrate="driver-featured"]').forEach(function (el) { if (drivers[0]) el.innerHTML = driverHtml(drivers[0], true); });
