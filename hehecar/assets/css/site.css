@@ -42,7 +42,7 @@ nav.main a:hover{color:var(--brand-dark)}
 .top .call{display:flex;align-items:center;gap:.6rem}
 .top .call a.phone{font-weight:800;color:var(--ink);text-decoration:none;font-size:1.05rem}
 .menu-toggle{display:none;background:none;border:0;font:inherit;font-size:1.6rem;cursor:pointer}
-@media(max-width:900px){nav.main{display:none;position:absolute;top:72px;left:0;right:0;background:var(--surface);flex-direction:column;align-items:stretch;padding:1rem;border-bottom:1px solid var(--line);gap:.8rem}nav.main.open{display:flex}.menu-toggle{display:block}.top .call .phone{display:none}}
+@media(max-width:1100px){nav.main{display:none;position:absolute;top:72px;left:0;right:0;background:var(--surface);flex-direction:column;align-items:stretch;padding:1rem;border-bottom:1px solid var(--line);gap:.8rem}nav.main.open{display:flex}.menu-toggle{display:block}.top .call .phone{display:none}}
 
 /* hero */
 .hero{background:linear-gradient(160deg,var(--brand-dark) 0%,var(--brand) 70%,#2A8A96 100%);color:#fff;padding:3rem 0 3.5rem}
@@ -326,18 +326,21 @@ td .btn.sm,td form.inline .btn.sm{vertical-align:middle}
 /* Il ritratto è agganciato alla colonna del testo, non al bordo dello schermo, e sfuma su due lati:
    così non resta un ritaglio netto sospeso nel margine. */
 .hero>.wrap>div:first-child{position:relative}
+/* Il ritratto riempie tutta la colonna del testo: resta dietro, tenue e sfumato ai bordi. */
 .hero>.wrap>div:first-child::before{
   content:"";position:absolute;z-index:-1;pointer-events:none;
-  left:50%;transform:translateX(-50%);bottom:-3.5rem;
-  width:min(86%,460px);height:calc(100% + 3.5rem);
-  background:url("../img/salvatore-hero.webp") center bottom/contain no-repeat;
-  opacity:.12;filter:grayscale(.55) contrast(1.05);
-  -webkit-mask-image:linear-gradient(to top,#000 34%,rgba(0,0,0,.35) 76%,transparent 96%);
-          mask-image:linear-gradient(to top,#000 34%,rgba(0,0,0,.35) 76%,transparent 96%);
+  left:50%;transform:translateX(-50%);top:-1.5rem;
+  width:min(130%,820px);height:clamp(360px,66vh,680px);
+  background:url("../img/salvatore-hero.webp") center bottom/auto 100% no-repeat;
+  opacity:.11;filter:grayscale(.55) contrast(1.05);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 74%,transparent 99%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 74%,transparent 99%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  mask-composite:intersect;
 }
 @media(max-width:959px){
   .hero>.wrap>div:first-child::before{
-    width:min(92%,340px);bottom:-2rem;height:calc(100% + 2rem);opacity:.10;
+    width:132%;height:clamp(320px,52vh,520px);opacity:.10;
   }
   .photo-gallery .thumb{width:52px;height:65px}
 }
@@ -403,11 +406,12 @@ td .btn.sm,td form.inline .btn.sm{vertical-align:middle}
 .service-hero .lede{font-size:1.15rem;color:#E4F1F2;max-width:60ch;margin-bottom:0}
 .service-hero .eyebrow{color:var(--amber)}
 .service-photo{position:absolute;inset:0;z-index:0}
-.service-photo img{width:100%;height:100%;object-fit:cover;opacity:.38;filter:grayscale(.3)}
-.service-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(11,85,96,.9) 0%,rgba(11,85,96,.62) 50%,rgba(11,85,96,.3) 100%)}
+.service-photo img{width:100%;height:100%;object-fit:cover;opacity:.52;filter:grayscale(.2) contrast(1.03)}
+.service-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(11,85,96,.92) 0%,rgba(11,85,96,.66) 46%,rgba(11,85,96,.2) 100%)}
 .service-facts{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1.1rem;padding:0;list-style:none;color:#E4F1F2;font-weight:600}
 .service-facts li::before{content:"• ";color:var(--amber)}
 .numbered{list-style:none;padding:0;margin:0;counter-reset:pass;display:flex;flex-direction:column;gap:.8rem}
 .numbered li{counter-increment:pass;display:flex;gap:.8rem;color:var(--ink-2);line-height:1.5}
 .numbered li::before{content:counter(pass);flex:none;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-family:Nunito,sans-serif;font-weight:900;font-size:.9rem}
 @media(prefers-reduced-motion:reduce){.scroll-video video{display:none}.scroll-video{opacity:1}}
+.service-credits{padding:1.2rem 0 0;font-size:.8rem;line-height:1.5}

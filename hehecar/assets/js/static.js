@@ -140,6 +140,8 @@
         if (inc) { inc.hidden = !sv.included; if (sv.included) inc.innerHTML = '<h3>Cosa è compreso</h3><ul class="ticks">' + pnt(sv.included).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'; }
         var nts = $('[data-hydrate="service-notes"]');
         if (nts) { nts.hidden = !sv.notes; if (sv.notes) nts.innerHTML = '<h3>Da sapere prima</h3><ul class="dashes">' + pnt(sv.notes).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'; }
+        var cred = $('.service-credits');
+        if (cred) { cred.textContent = sv.image_credits || ''; cred.parentElement.hidden = !sv.image_credits; }
         var scl = $('[data-hydrate="service-closing"]');
         if (scl && sv.page_closing) scl.textContent = sv.page_closing;
         var soth = $('[data-hydrate="service-others"]');
