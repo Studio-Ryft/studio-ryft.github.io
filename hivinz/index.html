@@ -555,10 +555,10 @@
             <div class="pane on" data-step="1"><h3>Che tipo di dispositivo è?</h3><p class="hint">Seleziona la categoria: adatteremo domande e listino.</p><div class="grid-cat" id="cats" role="list"></div></div>
             <div class="pane" data-step="2"><h3>Di che marca?</h3><p class="hint">Il costo dei ricambi cambia in base al produttore.</p><div class="chips" id="brands"></div></div>
             <div class="pane" data-step="3"><h3>Quale modello?</h3><p class="hint">Scrivi il modello esatto, oppure scegli tra i suggerimenti.</p><label class="f" for="model">Modello</label><input class="f" id="model" list="models" placeholder="es. iPhone 13, Galaxy S23, ThinkPad T14…" autocomplete="off"><datalist id="models"></datalist><div class="help">Non lo conosci? Guarda in Impostazioni → Info, oppure sull'etichetta sul retro.</div><div class="err" id="err3">Inserisci il modello per continuare.</div></div>
-            <div class="pane" data-step="4"><h3>Che difetto hai riscontrato?</h3><p class="hint">Scegli uno o più sintomi e aggiungi i dettagli: più informazioni, più precisa la diagnosi.</p><div class="chips" id="defects"></div><label class="f" for="detail">Descrivi cosa succede</label><textarea class="f" id="detail" placeholder="es. Da ieri lo schermo mostra righe verdi dopo una caduta, il touch funziona a tratti…"></textarea><div class="err" id="err4">Seleziona almeno un sintomo o descrivi il problema.</div></div>
+            <div class="pane" data-step="4"><h3>Che difetto hai riscontrato?</h3><p class="hint">Scegli uno o più sintomi e aggiungi i dettagli: più informazioni, più precisa la diagnosi.</p><div class="chips" id="defects"></div><label class="f">Cosa è successo prima? <span style="font-weight:400;color:var(--ink-3)">(facoltativo, ma rende la diagnosi molto più precisa)</span></label><div class="chips" id="ctxs"></div><label class="f" for="detail">Descrivi cosa succede</label><textarea class="f" id="detail" placeholder="Scrivi con parole tue: quando succede, in quali condizioni, cosa hai notato. Es. Da ieri si carica solo se tengo il cavo piegato, e la batteria dura due ore."></textarea><div class="err" id="err4">Seleziona almeno un sintomo o descrivi il problema.</div></div>
             <div class="pane" data-step="5">
               <div id="analyzing" class="analyzing"><div class="an" id="an1"><span class="sp"></span>Lettura dei sintomi e del modello</div><div class="an" id="an2"><span class="sp"></span>Confronto con la casistica del laboratorio</div><div class="an" id="an3"><span class="sp"></span>Interrogazione listino HV_CMR: ricambi e accordo di servizio</div></div>
-              <div class="offline" id="offline">Modalità dimostrativa: motore AI non disponibile in questa vista, diagnosi basata su regole locali.</div>
+              <div class="offline" id="offline">Diagnosi elaborata dal motore diagnostico Hi,Vinz (analisi dei sintomi in locale).</div>
               <div id="resultwrap" style="display:none">
                 <div class="result">
                   <div class="card"><h4>Diagnosi probabile <span class="tag" id="urg"></span></h4><p class="sintesi" id="sintesi"></p><div id="hyps"></div><div id="advice" style="margin-top:12px; font-size:13.5px; color:var(--ink-2)"></div></div>
@@ -755,10 +755,196 @@ const CATS = [
 const BRAND_MULT = {Apple:1.6,Samsung:1.3,Google:1.3,Microsoft:1.4,Dell:1.15,Lenovo:1.1,Sony:1.2,LG:1.15,'Sony PlayStation':1.1,'Microsoft Xbox':1.1};
 const INT = {SCR:{n:'Sostituzione display',p:[60,180],h:1.0},BAT:{n:'Sostituzione batteria',p:[25,70],h:0.7},CHG:{n:'Connettore di ricarica',p:[15,45],h:1.0},CAM:{n:'Modulo fotocamera',p:[30,110],h:0.9},AUD:{n:'Altoparlante / microfono',p:[12,40],h:0.8},BTN:{n:'Tasti e flat',p:[10,35],h:0.8},BRD:{n:'Riparazione scheda madre (microsaldatura)',p:[20,90],h:2.5},SW:{n:'Ripristino software / sistema',p:[0,0],h:1.0},LIQ:{n:'Trattamento danno da liquidi',p:[10,40],h:2.0},STO:{n:'Sostituzione storage / recupero dati',p:[40,160],h:1.5},KEY:{n:'Sostituzione tastiera',p:[35,120],h:1.0},THM:{n:'Pulizia termica, ventola e pasta',p:[10,45],h:1.0},PSU:{n:'Alimentatore / circuito di alimentazione',p:[25,110],h:1.2},STK:{n:'Sostituzione stick analogico',p:[8,25],h:0.8},TRG:{n:'Grilletto / tasto dorsale',p:[6,20],h:0.7},PRH:{n:'Testina / gruppo meccanico',p:[30,140],h:1.2},BLT:{n:'Retroilluminazione (barre LED)',p:[40,150],h:2.0},PNL:{n:'Sostituzione pannello',p:[120,480],h:1.8},BCK:{n:'Vetro posteriore / scocca',p:[30,90],h:1.0},HNG:{n:'Cerniera',p:[20,60],h:1.2},DIA:{n:'Diagnosi approfondita in laboratorio',p:[0,0],h:0.7}};
 const RATE = 35;
-const RULES = [[/schermo|vetro|display|righe|linee|touch|nero con audio|sfarfall|macchi|pixel|immagine/i,'SCR'],[/batteria|dura poco|autonomia/i,'BAT'],[/carica|caric|connettore/i,'CHG'],[/acqua|liquid|bagnat/i,'LIQ'],[/accende|avvia|spento|morto/i,'BRD'],[/lento|software|virus|malware|riavvia|blocc/i,'SW'],[/audio assente|senza audio|no audio|altoparlante|microfono|suono|non si sente/i,'AUD'],[/fotocamera|camera/i,'CAM'],[/tastiera/i,'KEY'],[/surriscald|ventola|rumor/i,'THM'],[/cerniera/i,'HNG'],[/drift|stick/i,'STK'],[/grilletto|dorsale|tasto/i,'TRG'],[/retroillumin/i,'BLT'],[/click|non riconosciut|corrott|recupero|disco/i,'STO'],[/inceppa|testina|strisce|cartuccia|meccanic/i,'PRH'],[/hdmi|segnale|ingresso|collega|connette/i,'PSU'],[/alimenta|spegne da solo/i,'PSU']];
-const CAT_FIX = {monitor:{SCR:'PNL',BRD:'PSU'},tv:{SCR:'PNL',BRD:'PSU'},hdd:{SCR:'STO',BRD:'STO',BAT:'STO',CHG:'STO'},printer:{SCR:'PRH',BRD:'PSU',BAT:'PRH'},pad:{SCR:'BTN',BRD:'BRD'},desktop:{SCR:'PSU',BAT:'PSU'},watch:{BRD:'BRD'}};
+/* ===== MOTORE DIAGNOSTICO LOCALE "AI Vinz" =====================================
+   Classificatore di sintomi in italiano: lessico pesato, contesto dell'evento,
+   negazioni, regole per categoria. Attivo quando il modello AI non e' raggiungibile
+   (sito pubblico, file locale). Il modello AI, quando c'e', ha la precedenza. */
+const NORM = t => (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9%\s]/g,' ').replace(/\s+/g,' ').trim();
 
-const S = {step:1,cat:null,brand:null,model:'',defects:new Set(),detail:'',result:null,quote:null,sample:undefined};
+/* Ogni segnale: espressione, punteggi per intervento, etichetta mostrata al cliente. */
+const SIG = [
+  // --- schermo
+  {re:/(vetro|schermo|display) (rotto|crepato|spaccato|frantumato|scheggiato)|crepe|crepato|spaccato|frantumato/, sc:{SCR:6}, t:"vetro rotto"},
+  {re:/righe|linee|strisce|bande (verticali|orizzontali)|meta schermo/, sc:{SCR:4}, t:"righe sul display"},
+  {re:/macchi|aloni|alone|pixel (morti|bruciati)|puntini (neri|colorati)|zone (scure|nere)/, sc:{SCR:4}, t:"macchie o pixel difettosi"},
+  {re:/touch|tocco|non risponde al (tocco|dito)|scrive da sol|tocca da sol|clicca da sol/, sc:{SCR:4,BTN:1}, t:"touch che non risponde"},
+  {re:/schermo nero|schermo (che )?(diventa|va|resta|rimane|si fa|e) ?(tutto )?ner|diventa ner|va in nero|nero per (un|qualche) (secondo|attimo|istante)|nessuna immagine|non si vede (niente|nulla)|buio|no signal|nessun segnale video|si spegne lo schermo/, sc:{SCR:3,BRD:3,BLT:2}, t:"schermo che diventa nero"},
+  {re:/(si sente|c e|ce) ?(l )?audio ma non si vede|nero (ma|con) (l )?audio|si sente ma non si vede/, sc:{SCR:4,BLT:3}, t:"audio presente ma immagine assente"},
+  {re:/sfarfall|tremola|lampeggia|flicker|sfarfallio/, sc:{SCR:3,BLT:2,PSU:2}, t:"immagine che sfarfalla"},
+  {re:/retroillumin|si vede (solo )?(con|contro) la luce|si (vede|intravede) (solo )?(con|puntando|usando) (una |la )?(torcia|luce|flash)|torcia|controluce|immagine (debole|scura)|schermo scuro|poca luminosita/, sc:{BLT:6,SCR:1}, t:"immagine visibile solo in controluce"},
+  {re:/vetro (posteriore|di dietro|dietro)|scocca|retro (rotto|crepato)|back cover/, sc:{BCK:5}, t:"scocca o vetro posteriore danneggiato"},
+  // --- batteria e ricarica
+  {re:/batteria|accumulatore/, sc:{BAT:3}, t:"batteria"},
+  {re:/dura poco|si scarica (subito|in fretta|velocemente|troppo)|non tiene la carica|autonomia|scende (in fretta|di colpo)|poche ore/, sc:{BAT:5}, t:"autonomia crollata"},
+  {re:/si spegne (da sol|improvvis|all improvviso)|si spegne al \d+|si spegne quando|si spegne al freddo|si spegne sotto/, sc:{BAT:4,BRD:1}, t:"spegnimenti improvvisi"},
+  {re:/gonfia|rigonfia|si e alzato lo schermo|si stacca lo schermo|deformat/, sc:{BAT:7}, t:"batteria rigonfia"},
+  {re:/non (si )?caric|non prende (la )?carica|non si ricarica|non parte la ricarica|rimane a \d+%/, sc:{CHG:5,BAT:3}, t:"non si carica"},
+  {re:/(carica|funziona) (solo )?(se|quando|mentre) (muovo|piego|tengo|premo|giro)|connettore|porta (di )?ricarica|ingresso (di )?ricarica|entrata (del )?cavo|jack|presa (del )?carica/, sc:{CHG:6}, t:"connettore di ricarica ballerino"},
+  {re:/carica (lentamente|piano|adagio)|ci mette (tanto|ore|una vita) a caric/, sc:{CHG:3,BAT:3}, t:"ricarica lenta"},
+  // --- accensione, scheda, alimentazione
+  {re:/non si accende|non (si )?(avvia|accende)|non parte|non da segni di vita|(e |resta )?mort|non fa (niente|nulla)|schermo spento e basta/, sc:{BRD:5,PSU:3,BAT:2}, t:"non si accende"},
+  {re:/si (riavvia|spegne e si accende|accende e si spegne)|bootloop|si riavvia (da sol|in continuazione|sempre)|ciclo continuo/, sc:{SW:4,BRD:3}, t:"riavvii continui"},
+  {re:/(resta|rimane|si blocca) (sul|al) logo|mela (fissa|che lampeggia)|logo (fisso|che lampeggia)|schermata (iniziale|di avvio)/, sc:{SW:5,BRD:2}, t:"blocco alla schermata di avvio"},
+  {re:/alimentatore|trasformatore|cavo di (alimentazione|corrente)|non arriva corrente|spia (rossa|lampeggia)|led (rosso|lampeggia)|standby|resta in standby/, sc:{PSU:5}, t:"alimentazione"},
+  {re:/fumo|bruciat|puzza|odore (strano|di bruciato)|scintill/, sc:{BRD:5,PSU:4}, t:"segni di bruciato"},
+  // --- software
+  {re:/lent|si blocca|freeze|impall|si pianta|non risponde piu|va a scatti|si inchioda/, sc:{SW:4,STO:2,THM:1}, t:"lentezza o blocchi"},
+  {re:/virus|malware|pubblicita|popup|pop up|spam|estensioni strane|si apre da solo il browser/, sc:{SW:6}, t:"software malevolo"},
+  {re:/password|dimenticat|bloccat (fuori|dal)|icloud|account|codice di sblocco|pin/, sc:{SW:5}, t:"blocco account o password"},
+  {re:/app (si chiudono|crashano|non si aprono)|crash|errore di sistema|schermata blu|bsod/, sc:{SW:4}, t:"applicazioni instabili"},
+  {re:/memoria piena|spazio (esaurito|finito)|non ho piu spazio/, sc:{SW:3,STO:2}, t:"memoria piena"},
+  // --- audio, fotocamera, tasti
+  {re:/audio|altoparlante|casse|non si sente|volume|gracchia|distorto|suono/, not:/(si sente|sento|c e|ce|funziona|va) ?(l |il )?(audio|suono|sonoro)( ma| pero| ma non)|audio (ok|regolare|normale|c e)|ma (lo )?schermo/, sc:{AUD:5}, t:"audio"},
+  {re:/microfono|non mi sentono|non si sente la mia voce/, sc:{AUD:5}, t:"microfono"},
+  {re:/fotocamera|camera|foto (sfocate|nere|scure)|selfie|obiettivo|flash|non mette a fuoco/, sc:{CAM:5}, t:"fotocamera"},
+  {re:/tastiera|tasti|tasto|scriv(e|ono|endo) (doppio|due volte|da sol)|non scriv|saltano (le|i|alcune) (lettere|tasti)|barra spaziatrice|si ripetono le lettere/, sc:{KEY:5,BTN:2}, t:"tastiera"},
+  {re:/pulsante|tasto (accensione|volume|home)|bottone/, sc:{BTN:4}, t:"tasti fisici"},
+  // --- termico
+  {re:/si surriscalda|surriscald|scalda (tanto|troppo|molto)|bollente|scotta|caldissim/, sc:{THM:5,BAT:2}, t:"surriscaldamento"},
+  {re:/ventola|ventole|rumore (di )?ventola|rumoros|fa rumore|ronza|fischia|polvere/, sc:{THM:5}, t:"ventola rumorosa"},
+  // --- storage e dati
+  {re:/hard ?disk|hdd|ssd|disco (fisso|rigido)|non (vede|riconosce) il disco|unita non riconosciuta/, sc:{STO:5}, t:"disco non riconosciuto"},
+  {re:/click|ticchett|tic tic|rumore (metallico|strano) (dal|del) disco|grattare/, sc:{STO:7}, t:"rumore meccanico del disco"},
+  {re:/recuper|dati (persi|importanti)|file (persi|spariti|corrotti|illeggibili)|foto (perse|sparite)|formattato per errore|cancellat/, sc:{STO:6}, t:"recupero dati"},
+  // --- rete
+  {re:/wifi|wi fi|bluetooth|non si connette|non prende (la )?(linea|rete)|segnale (assente|debole)|sim non|rete mobile/, sc:{BRD:3,SW:3}, t:"connettivita"},
+  {re:/hdmi|usb|porta (usb|hdmi)|ingresso|presa (usb|hdmi)|non legge (la )?(chiavetta|pennetta)/, sc:{PSU:3,BRD:3}, t:"porte e ingressi"},
+  // --- controller
+  {re:/drift|si muove da sol|va da sol|deriva|stick|analogico|levetta|leva/, sc:{STK:7}, t:"stick che va da solo"},
+  {re:/grillett|dorsale|trigger|l2|r2|zr|zl/, sc:{TRG:6}, t:"grilletti"},
+  {re:/vibra|non vibra|vibrazione/, sc:{BTN:4}, t:"vibrazione"},
+  // --- stampante
+  {re:/non stampa|stampa (bianco|vuoto|nulla)|pagine bianche/, sc:{PRH:5,SW:2}, t:"non stampa"},
+  {re:/inceppa|carta (bloccata|si blocca|non entra)|non trascina|rulli/, sc:{PRH:6}, t:"inceppamento carta"},
+  {re:/cartucc|toner|inchiostro|testina|colori (sbagliati|non escono)|stampa (sbiadita|a strisce)/, sc:{PRH:5}, t:"gruppo di stampa o cartucce"},
+  {re:/driver|non (la )?(vede|trova) il (pc|computer)|non si collega al pc/, sc:{SW:4}, t:"collegamento al computer"},
+  // --- termini generici: indirizzano il sottosistema senza decidere da soli
+  {re:/schermo|display|monitor|immagine|video/, sc:{SCR:2}, t:"schermo"},
+  {re:/carica|ricarica|caricabatteri|alimentat|cavo/, sc:{CHG:2}, t:"ricarica"},
+  {re:/disco|memoria|archivio|file|dati/, sc:{STO:2}, t:"archiviazione"},
+  {re:/stampa|foglio|fogli|pagina/, sc:{PRH:2}, t:"stampa"},
+  {re:/sistema|windows|android|ios|programma|applicazione|app /, sc:{SW:2}, t:"software"},
+  // --- meccanica notebook
+  {re:/cerniera|si stacca lo schermo|non sta (aperto|in piedi)|schermo ballerin|scricchiol/, sc:{HNG:6}, t:"cerniera"},
+];
+
+/* Contesto dell'evento: pesa le cause e alza o abbassa l'urgenza. */
+const CTX = [
+  {id:'fall', label:"È caduto o ha preso un colpo", re:/cadut|caduta|colpo|urto|sbattut|per terra|mi e caduto|botta/, not:/cadut[oaie]? (nel|nella|in|dentro (al|il|la)?) ?(acqua|water|wc|mare|piscina|lavandino|vasca|bagno|fiume|secchio)/, sc:{SCR:4,BCK:2,BRD:2,HNG:2,CHG:1}, urg:'media', t:"caduta"},
+  {id:'liq',  label:"Contatto con liquidi",         re:/acqua|liquid|bagnat|caffe|birra|vino|pioggia|mare|piscina|umidit|versat|caduto nel|wc|lavandino/, sc:{LIQ:7,BRD:3,CHG:2}, urg:'alta', t:"contatto con liquidi"},
+  {id:'upd',  label:"Dopo un aggiornamento",        re:/aggiornament|update|dopo aver aggiornato|nuova versione|nuovo sistema/, sc:{SW:5}, urg:'bassa', t:"aggiornamento recente"},
+  {id:'pow',  label:"Sbalzo di corrente o fulmine", re:/sbalzo|fulmine|temporale|blackout|black out|salta(ta)? la corrente|scarica elettrica/, sc:{PSU:5,BRD:3}, urg:'media', t:"sbalzo di corrente"},
+  {id:'wear', label:"Peggiora con il tempo",        re:/(da|con gli|dopo) (mesi|anni|tempo)|sempre (piu|peggio)|piano piano|invecchia|usura/, sc:{BAT:3,THM:3,STO:2}, urg:'bassa', t:"degrado progressivo"},
+  {id:'none', label:"Niente di particolare",        re:/niente di particolare|dal nulla|all improvviso senza|non ho fatto niente/, sc:{}, urg:null, t:""},
+];
+const NEG = [/non (e|era) (mai )?cadut/, /mai cadut/, /non (ha preso|e andato in) acqua/, /niente acqua/, /non (e|era) bagnat/, /non ha preso colpi/, /senza (averlo )?(farlo )?cader/];
+
+/* Interventi ammessi per categoria e conversione di quelli non pertinenti. */
+const CAT_OK = {
+  phone:   ['SCR','BAT','CHG','CAM','AUD','BTN','BRD','SW','LIQ','BCK','STO'],
+  tablet:  ['SCR','BAT','CHG','CAM','AUD','BTN','BRD','SW','LIQ','BCK','STO'],
+  watch:   ['SCR','BAT','CHG','BTN','BRD','SW','LIQ','BCK'],
+  notebook:['SCR','BAT','CHG','KEY','THM','BRD','SW','LIQ','STO','HNG','PSU','AUD','CAM'],
+  desktop: ['PSU','THM','BRD','SW','STO','AUD'],
+  monitor: ['PNL','BLT','PSU','BRD'],
+  tv:      ['PNL','BLT','PSU','BRD','AUD','SW'],
+  hdd:     ['STO'],
+  printer: ['PRH','PSU','SW'],
+  pad:     ['STK','TRG','BTN','CHG','BRD','AUD'],
+};
+const CAT_MAP = {
+  monitor:{SCR:'PNL',BAT:'PSU',CHG:'PSU',KEY:'BRD',THM:'PSU',SW:'BRD',CAM:'BRD',AUD:'BRD',STO:'BRD',LIQ:'BRD',BCK:'PNL',HNG:'PNL',STK:'BRD',TRG:'BRD',PRH:'BRD',BTN:'BRD'},
+  tv:{SCR:'PNL',BAT:'PSU',CHG:'PSU',KEY:'BRD',THM:'PSU',CAM:'BRD',STO:'SW',LIQ:'BRD',BCK:'PNL',HNG:'PNL',STK:'BRD',TRG:'BRD',PRH:'BRD',BTN:'BRD'},
+  hdd:{SCR:'STO',BAT:'STO',CHG:'STO',BRD:'STO',SW:'STO',PSU:'STO',THM:'STO',AUD:'STO',CAM:'STO',KEY:'STO',BTN:'STO',LIQ:'STO',BCK:'STO',HNG:'STO',STK:'STO',TRG:'STO',PRH:'STO',BLT:'STO',PNL:'STO'},
+  printer:{SCR:'PRH',BAT:'PSU',CHG:'PSU',BRD:'PSU',THM:'PRH',AUD:'PRH',CAM:'PRH',KEY:'PRH',BTN:'PRH',STO:'SW',LIQ:'PSU',BCK:'PRH',HNG:'PRH',STK:'PRH',TRG:'PRH',BLT:'PRH',PNL:'PRH'},
+  pad:{SCR:'BTN',KEY:'BTN',THM:'BRD',SW:'BRD',STO:'BRD',CAM:'BRD',PSU:'CHG',BAT:'CHG',LIQ:'BRD',BCK:'BTN',HNG:'BTN',PRH:'BTN',BLT:'BTN',PNL:'BTN'},
+  desktop:{SCR:'BRD',BAT:'PSU',CHG:'PSU',KEY:'BRD',CAM:'BRD',BTN:'PSU',LIQ:'BRD',BCK:'BRD',HNG:'BRD',STK:'BRD',TRG:'BRD',PRH:'BRD',BLT:'BRD',PNL:'BRD'},
+  watch:{KEY:'BTN',THM:'BRD',STO:'SW',CAM:'BRD',PSU:'CHG',STK:'BTN',TRG:'BTN',PRH:'BTN',BLT:'SCR',PNL:'SCR',HNG:'BCK'},
+  notebook:{PNL:'SCR',BLT:'SCR',STK:'KEY',TRG:'KEY',PRH:'BRD',BTN:'KEY'},
+  phone:{PNL:'SCR',BLT:'SCR',KEY:'BTN',THM:'BRD',PSU:'CHG',HNG:'BCK',STK:'BTN',TRG:'BTN',PRH:'BRD'},
+  tablet:{PNL:'SCR',BLT:'SCR',KEY:'BTN',THM:'BRD',PSU:'CHG',HNG:'BCK',STK:'BTN',TRG:'BTN',PRH:'BRD'},
+};
+/* Consigli immediati per tipo di guasto e contesto. */
+const TIPS = {
+  LIQ:["Non accendere e non mettere in carica il dispositivo: e' il modo piu' rapido per perdere la scheda.","Niente phon, forno o riso: l'ossido continua a lavorare anche da spento, portalo il prima possibile."],
+  BAT:["Se la batteria e' gonfia non forarla e non caricarla: portala in laboratorio cosi' com'e'.","Evita di far scendere il dispositivo sotto il 10% fino alla sostituzione."],
+  STO:["Non usare piu' il disco e non installare programmi di recupero: ogni scrittura riduce le possibilita' di recuperare i dati.","Portacelo com'e', senza tentare formattazioni."],
+  SCR:["Se il vetro e' scheggiato evita di usare il touch a dita nude.","Un pezzo di pellicola trasparente tiene insieme le schegge fino alla riparazione."],
+  BRD:["Prova con un altro cavo e un'altra presa prima di portarlo: a volte il problema e' l'alimentatore.","Non insistere con accensioni ripetute se senti odore di bruciato."],
+  PSU:["Verifica presa e cavo con un altro apparecchio, cosi' escludiamo l'alimentazione esterna.","Se c'e' stato un temporale, stacca la spina fino al controllo."],
+  THM:["Usa il dispositivo su una superficie rigida, mai su letto o divano, fino alla pulizia.","Se si spegne per il calore, lascialo raffreddare prima di riaccenderlo."],
+  SW:["Se puoi ancora accenderlo, fai subito una copia delle foto e dei documenti.","Evita di installare programmi di pulizia scaricati a caso: spesso peggiorano la situazione."],
+  DEF:["Se il dispositivo si accende ancora, fai una copia dei dati prima di portarlo.","Annota quando e come si presenta il problema: ci aiuta a riprodurlo in laboratorio."],
+};
+const HIGH_URG = ['LIQ','STO'];
+
+function catCode(code){
+  const cat = S.cat.id, map = CAT_MAP[cat] || {}, ok = CAT_OK[cat] || null;
+  let c = map[code] || code;
+  if (ok && ok.indexOf(c) < 0) c = map[c] || (ok.indexOf('BRD') >= 0 ? 'BRD' : ok[0]);
+  return INT[c] ? c : 'DIA';
+}
+function localDiagnosis(){
+  const chips = [...S.defects].join('. ');
+  const free  = S.detail || '';
+  const ctxSel = [...(S.ctx||[])];
+  const txt = NORM(chips + '. ' + free + '. ' + ctxSel.map(id=>(CTX.find(c=>c.id===id)||{}).label||'').join('. '));
+  const scores = {}, why = {};
+  const add = (map, mult, tag) => { for (const k in map){ const c = catCode(k); if (c==='DIA') continue;
+      scores[c] = (scores[c]||0) + map[k]*mult; if (tag){ (why[c] = why[c]||[]); if (why[c].indexOf(tag)<0) why[c].push(tag); } } };
+  /* sintomi selezionati a click: piu' affidabili del testo libero */
+  const chipTxt = NORM(chips);
+  const hit = (g, str) => g.re.test(str) && !(g.not && g.not.test(str));
+  SIG.forEach(g => { if (hit(g, chipTxt)) add(g.sc, 1.35, g.t); });
+  const freeTxt = NORM(free);
+  SIG.forEach(g => { if (hit(g, freeTxt)) add(g.sc, 1.0, g.t); });
+  /* contesto: dai chip o riconosciuto nel testo, con negazioni */
+  let urg = null, ctxTags = [];
+  CTX.forEach(c => {
+    const picked = ctxSel.indexOf(c.id) >= 0;
+    const inText = c.re.test(txt) && !(c.not && c.not.test(txt)) && !NEG.some(n => n.test(txt));
+    if (!picked && !inText) return;
+    add(c.sc, picked ? 1.4 : 1.0, c.t);
+    if (c.t) ctxTags.push(c.t);
+    if (c.urg === 'alta') urg = 'alta';
+    else if (c.urg === 'media' && urg !== 'alta') urg = 'media';
+  });
+  /* dopo un contatto con liquidi il primo intervento e' sempre il trattamento dell'ossido */
+  if (scores.LIQ) { scores.LIQ *= 1.7; }
+  const ranked = Object.keys(scores).map(c => ({c, v: scores[c]})).sort((a,b) => b.v - a.v);
+  const top = ranked[0];
+  /* informazioni insufficienti: si dichiara, non si inventa */
+  if (!top || top.v < 3){
+    return {sintesi:"Le informazioni che abbiamo non bastano per indicare una causa affidabile: serve la diagnosi strumentale in laboratorio, che e' gratuita se poi procedi con la riparazione.",
+      ipotesi:[{codice:'DIA', titolo:INT.DIA.n, perche:"Aggiungi qualche dettaglio in piu' (quando succede, cosa hai notato, se e' caduto o ha preso liquidi) e la stima diventa molto piu' precisa.", probabilita:100}],
+      urgenza: urg || 'media', consigli: TIPS.DEF};
+  }
+  const keep = ranked.filter(r => r.v >= top.v*0.22).slice(0,3);
+  const tot = keep.reduce((a,r) => a + r.v, 0);
+  let probs = keep.map(r => Math.max(5, Math.round(r.v/tot*100)));
+  const diff = 100 - probs.reduce((a,b)=>a+b,0); probs[0] += diff;               /* somma esattamente 100 */
+  if (probs[0] > 92) probs[0] = 92;                                              /* mai certezze assolute */
+  const ipotesi = keep.map((r,i) => {
+    const tags = (why[r.c]||[]).slice(0,3).join(', ');
+    const perche = i === 0
+      ? (tags ? "Coerente con quanto descritto: " + tags + "." : "E' l'intervento piu' compatibile con i sintomi indicati.")
+      : (tags ? "Da escludere in laboratorio: i sintomi " + tags + " possono avere anche questa origine." : "Causa secondaria da verificare con la diagnosi strumentale.");
+    return {codice:r.c, titolo:INT[r.c].n, perche, probabilita:probs[i]};
+  });
+  if (!urg) urg = HIGH_URG.indexOf(ipotesi[0].codice) >= 0 ? 'alta' : (ipotesi[0].codice === 'SW' ? 'bassa' : 'media');
+  if (/gonfia|rigonfia/.test(txt)) urg = 'alta';
+  const dev = (S.brand ? S.brand + ' ' : '') + (S.model || S.cat.label);
+  const causa = INT[ipotesi[0].codice].n.toLowerCase();
+  const ctxFrase = ctxTags.length ? " Abbiamo tenuto conto di un elemento importante: " + ctxTags.join(' e ') + "." : "";
+  const sintesi = "Sul tuo " + dev + " il quadro piu' probabile e' " + causa + " (" + ipotesi[0].probabilita + "%)." + ctxFrase +
+    " La conferma arriva dalla diagnosi strumentale in laboratorio, gratuita se procedi con la riparazione.";
+  const tips = (TIPS[ipotesi[0].codice] || TIPS.DEF).slice();
+  if (ctxTags.indexOf("contatto con liquidi") >= 0 && ipotesi[0].codice !== 'LIQ') tips.unshift(TIPS.LIQ[0]);
+  return {sintesi, ipotesi, urgenza:urg, consigli:tips.slice(0,2)};
+}
+
+const S = {step:1,cat:null,brand:null,model:'',defects:new Set(),ctx:new Set(),detail:'',result:null,quote:null,sample:undefined};
 const $ = (id)=>document.getElementById(id);
 const esc = (s)=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const eur = (n)=>'€ '+Math.round(n).toLocaleString('it-IT');
@@ -804,7 +990,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeDD(); if(dra
 CATS.forEach(c=>{
   const b=document.createElement('button'); b.type='button'; b.className='cat'; b.setAttribute('role','listitem'); b.dataset.id=c.id;
   b.innerHTML=`<svg><use href="#${c.icon}"/></svg><span>${c.label}</span>`;
-  b.onclick=()=>{S.cat=c; S.brand=null; S.model=''; S.defects.clear(); document.querySelectorAll('.cat').forEach(x=>x.classList.toggle('sel',x===b)); refresh();};
+  b.onclick=()=>{S.cat=c; S.brand=null; S.model=''; S.defects.clear(); S.ctx.clear(); document.querySelectorAll('.cat').forEach(x=>x.classList.toggle('sel',x===b)); refresh();};
   $('cats').appendChild(b);
   const s=document.createElement('button'); s.type='button'; s.className='sv';
   s.innerHTML=`<svg><use href="#${c.icon}"/></svg><b>${c.label}</b><span>Diagnosi, ricambi originali o compatibili, garanzia 12 mesi</span><span class="from">da ${eur(c.from)}</span>`;
@@ -813,22 +999,44 @@ CATS.forEach(c=>{
 });
 function renderBrands(){ const h=$('brands'); h.innerHTML=''; S.cat.brands.forEach(br=>{ const c=document.createElement('button'); c.type='button'; c.className='chip'+(S.brand===br?' sel':''); c.textContent=br; c.onclick=()=>{S.brand=br; renderBrands(); refresh();}; h.appendChild(c); }); }
 function renderModels(){ const d=$('models'); d.innerHTML=''; ((S.cat.models||{})[S.brand]||[]).forEach(m=>{const o=document.createElement('option'); o.value=m; d.appendChild(o);}); $('model').value=S.model; }
+function renderCtx(){ const h=$('ctxs'); h.innerHTML=''; CTX.forEach(c=>{ const b=document.createElement('button'); b.type='button'; b.className='chip'+(S.ctx.has(c.id)?' sel':''); b.textContent=c.label; b.onclick=()=>{ if(c.id==='none'){ S.ctx.clear(); S.ctx.add('none'); } else { S.ctx.delete('none'); S.ctx.has(c.id)?S.ctx.delete(c.id):S.ctx.add(c.id); } renderCtx(); refresh(); }; h.appendChild(b); }); }
 function renderDefects(){ const h=$('defects'); h.innerHTML=''; S.cat.defects.forEach(df=>{ const c=document.createElement('button'); c.type='button'; c.className='chip'+(S.defects.has(df)?' sel':''); c.textContent=df; c.onclick=()=>{S.defects.has(df)?S.defects.delete(df):S.defects.add(df); renderDefects(); refresh();}; h.appendChild(c); }); }
 $('model').addEventListener('input',e=>{S.model=e.target.value.trim(); $('err3').classList.remove('on'); refresh();});
 $('detail').addEventListener('input',e=>{S.detail=e.target.value.trim(); $('err4').classList.remove('on'); refresh();});
 function canNext(){ if(S.step===1) return !!S.cat; if(S.step===2) return !!S.brand; if(S.step===3) return S.model.length>1; if(S.step===4) return S.defects.size>0 || S.detail.length>5; return false; }
 function refresh(){ $('next').disabled=!canNext(); const parts=[S.cat&&S.cat.label,S.brand,S.model,S.defects.size?[...S.defects].join(', '):null].filter(Boolean); $('sum').textContent=parts.length?parts.join(' · '):'Nessuna selezione'; }
-function go(n){ S.step=n; document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n)); [...$('prog').children].forEach((i,k)=>i.classList.toggle('on',k<n)); $('back').hidden=n===1||n===5; $('next').style.display=n===5?'none':''; if(n===2) renderBrands(); if(n===3) renderModels(); if(n===4) renderDefects(); if(n===5) analyze(); refresh(); const el=$('wiz'); if(el.getBoundingClientRect().top<0) el.scrollIntoView({block:'start'}); }
+function go(n){ S.step=n; document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n)); [...$('prog').children].forEach((i,k)=>i.classList.toggle('on',k<n)); $('back').hidden=n===1||n===5; $('next').style.display=n===5?'none':''; if(n===2) renderBrands(); if(n===3) renderModels(); if(n===4){ renderDefects(); renderCtx(); } if(n===5) analyze(); refresh(); const el=$('wiz'); if(el.getBoundingClientRect().top<0) el.scrollIntoView({block:'start'}); }
 $('next').onclick=()=>{ if(S.step===3 && !canNext()){$('err3').classList.add('on'); return;} if(S.step===4 && !canNext()){$('err4').classList.add('on'); return;} if(canNext()) go(S.step+1); };
 $('back').onclick=()=>go(S.step-1);
-$('restart').onclick=()=>{S.result=null; S.quote=null; S.defects.clear(); S.detail=''; $('detail').value=''; $('resultwrap').style.display='none'; $('analyzing').style.display=''; $('sent').classList.remove('on'); $('gate').style.display=''; $('quote').classList.add('locked'); go(1);};
+$('restart').onclick=()=>{S.result=null; S.quote=null; S.defects.clear(); S.ctx.clear(); S.detail=''; $('detail').value=''; $('resultwrap').style.display='none'; $('analyzing').style.display=''; $('sent').classList.remove('on'); $('gate').style.display=''; $('quote').classList.add('locked'); go(1);};
 async function getSample(){ if(S.sample!==undefined) return S.sample; try{ S.sample=(window.claude && typeof window.claude.use==='function') ? await window.claude.use('sample') : null; }catch(e){ S.sample=null; } return S.sample; }
-function codeFix(code){ const f=CAT_FIX[S.cat.id]; return (f&&f[code])||code; }
-function localDiagnosis(){ const text=[...S.defects].join('. ')+'. '+S.detail; const found=[]; RULES.forEach(([re,code])=>{ if(re.test(text)){ const c=codeFix(code); if(!found.includes(c)) found.push(c);} }); if(!found.length) found.push('DIA'); const hyp=found.slice(0,3).map((c,i)=>({codice:c,titolo:INT[c].n,perche:i===0?'È l\'intervento più coerente con i sintomi descritti per questa categoria.':'Possibile causa secondaria da verificare in laboratorio.',probabilita:i===0?65:(i===1?25:10)})); return {sintesi:`Dai sintomi indicati su ${S.brand} ${S.model} il quadro più probabile è: ${INT[found[0]].n.toLowerCase()}. La conferma avviene con la diagnosi strumentale in laboratorio.`,ipotesi:hyp,urgenza:/acqua|liquid|accende/i.test(text)?'alta':'media',consigli:['Non tentare accensioni ripetute se il dispositivo è entrato in contatto con liquidi.','Fai un backup dei dati se il dispositivo è ancora utilizzabile.']}; }
-function buildPrompt(){ const codes=Object.entries(INT).map(([k,v])=>`${k}=${v.n}`).join('; '); return `Sei AI Vinz, il motore diagnostico del laboratorio di riparazioni Hi,Vinz Assistenza Informatica (Teverola, Italia). Un cliente descrive un guasto. Ragiona come un tecnico esperto e restituisci SOLO un oggetto JSON, senza testo prima o dopo, con questa forma esatta:
-{"sintesi":"2 frasi in italiano, chiare, rivolte al cliente","ipotesi":[{"codice":"SCR","titolo":"nome breve del guasto","perche":"1 frase sul perché è probabile","probabilita":70}],"urgenza":"bassa|media|alta","consigli":["consiglio immediato 1","consiglio 2"]}
-Regole: da 1 a 3 ipotesi ordinate per probabilità decrescente, probabilità in percentuale intere che sommate non superino 100; "codice" DEVE essere uno di questi codici di intervento del listino: ${codes}. Scegli il codice più adatto alla categoria del dispositivo (es. per TV/monitor usa PNL/BLT/PSU, per storage STO, per stampanti PRH/PSU, per controller STK/TRG/BTN/CHG). Non promettere prezzi. Non usare markdown.
-DATI CLIENTE — Categoria: ${S.cat.label}. Marca: ${S.brand}. Modello: ${S.model}. Sintomi selezionati: ${[...S.defects].join(', ')||'nessuno'}. Descrizione libera: ${S.detail||'nessuna'}.`; }
+function buildPrompt(){
+  const cat=S.cat, ok=(CAT_OK[cat.id]||Object.keys(INT));
+  const codes=ok.map(k=>k+"="+INT[k].n).join('; ');
+  const ctxSel=[...(S.ctx||[])].map(id=>(CTX.find(c=>c.id===id)||{}).label).filter(Boolean).join(', ');
+  return `Sei AI Vinz, il tecnico diagnostico del laboratorio Hi,Vinz Assistenza Informatica (Teverola, Italia). Un cliente descrive un guasto con parole sue: interpreta il linguaggio comune, non solo le parole chiave.
+
+METODO
+1. Leggi i sintomi selezionati E la descrizione libera: la descrizione libera ha la precedenza quando aggiunge dettagli (quando succede, in quali condizioni, cosa ha notato).
+2. Considera l'evento scatenante (caduta, liquidi, aggiornamento, sbalzo di corrente, degrado nel tempo): cambia la causa piu' probabile.
+3. Distingui i casi vicini: "non si carica" vs "carica solo muovendo il cavo" (connettore), "schermo nero" con audio presente (pannello o retroilluminazione) vs senza segni di vita (scheda o alimentazione), "lento" da software vs disco che sta cedendo.
+4. Se le informazioni sono davvero insufficienti, restituisci una sola ipotesi con codice DIA e spiega quale dettaglio manca. Non inventare.
+5. Le probabilita' riflettono l'incertezza reale: usa 90 o piu' solo con sintomi inequivocabili.
+
+RISPOSTA: SOLO un oggetto JSON, senza testo prima o dopo, senza markdown:
+{"sintesi":"2 frasi in italiano rivolte al cliente, che citano il sintomo e la causa","ipotesi":[{"codice":"SCR","titolo":"nome breve del guasto","perche":"1 frase che spiega quale sintomo porta a questa causa","probabilita":70}],"urgenza":"bassa|media|alta","consigli":["cosa fare o non fare subito","secondo consiglio"]}
+
+VINCOLI
+- Da 1 a 3 ipotesi, ordinate per probabilita' decrescente, numeri interi con somma 100.
+- "codice" DEVE essere uno di questi codici del listino, gia' filtrati per la categoria ${cat.label}: ${codes}; oppure DIA=${INT.DIA.n}.
+- Urgenza alta per liquidi, batteria rigonfia, odore di bruciato, dati da recuperare.
+- Consigli concreti e prudenti, mai promesse di prezzo o di tempi.
+
+DATI CLIENTE
+Categoria: ${cat.label}. Marca: ${S.brand}. Modello: ${S.model}.
+Sintomi selezionati: ${[...S.defects].join(', ')||'nessuno'}.
+Evento indicato: ${ctxSel||'non indicato'}.
+Descrizione del cliente: "${S.detail||'nessuna'}"`; }
 async function analyze(){ $('analyzing').style.display=''; $('resultwrap').style.display='none'; $('offline').classList.remove('on'); ['an1','an2','an3'].forEach(i=>$(i).classList.remove('done')); const tick=(id)=>new Promise(r=>setTimeout(()=>{$(id).classList.add('done'); r();},id==='an1'?500:900)); await tick('an1'); let data=null; const sample=await getSample(); if(sample){ try{ data=await sample.json(buildPrompt(),{modelTier:'quick'}); }catch(e){ if(e&&e.code==='not_granted'){ $('offline').classList.add('on'); } data=null; } } else { $('offline').classList.add('on'); } if(!data||!Array.isArray(data.ipotesi)||!data.ipotesi.length) data=localDiagnosis(); data.ipotesi=data.ipotesi.filter(h=>INT[h.codice]).slice(0,3); if(!data.ipotesi.length) data=localDiagnosis(); await tick('an2'); await tick('an3'); S.result=data; S.quote=computeQuote(data); renderResult(); }
 function computeQuote(d){ const top=d.ipotesi[0]; const it=INT[top.codice]; const mult=(BRAND_MULT[S.brand]||1)*S.cat.mult; const pmin=it.p[0]*mult, pmax=it.p[1]*mult, lab=it.h*RATE; const rows=[[`Ricambio · ${it.n}`, pmin===0&&pmax===0?'incluso':`${eur(pmin)} – ${eur(pmax)}`],[`Manodopera · ${it.h.toString().replace('.',',')} h × ${eur(RATE)}/h`, eur(lab)],['Diagnosi strumentale','gratis se si procede']]; let extra=null; const sec=d.ipotesi[1]; if(sec && sec.probabilita>=25){ const s=INT[sec.codice]; extra=`Se confermata anche "${s.n}": +${eur(s.p[0]*mult+s.h*RATE)} – ${eur(s.p[1]*mult+s.h*RATE)}`; } return {rows,min:pmin+lab,max:pmax+lab,extra,top:it.n}; }
 function renderResult(){ const d=S.result, q=S.quote; $('analyzing').style.display='none'; $('resultwrap').style.display=''; const u=(d.urgenza||'media').toLowerCase(); $('urg').textContent='urgenza '+u; $('urg').className='tag '+(u==='alta'?'bad':u==='bassa'?'ok':'warn'); $('sintesi').textContent=d.sintesi||''; $('hyps').innerHTML=d.ipotesi.map(h=>`<div class="hyp"><div class="t"><b>${esc(h.titolo||INT[h.codice].n)}</b><span class="p">${Math.max(0,Math.min(100,+h.probabilita||0))}%</span></div><p>${esc(h.perche||'')} <span class="tag">${esc(h.codice)}</span></p><div class="bar"><i data-w="${Math.max(0,Math.min(100,+h.probabilita||0))}"></i></div></div>`).join(''); requestAnimationFrame(()=>document.querySelectorAll('.bar i').forEach(i=>i.style.width=i.dataset.w+'%')); $('advice').innerHTML=(d.consigli||[]).length?'<b style="color:var(--ink)">Nel frattempo:</b> '+d.consigli.map(esc).join(' · '):''; $('qrows').innerHTML=q.rows.map(r=>`<div class="r"><span>${esc(r[0])}</span><span>${esc(r[1])}</span></div>`).join('')+(q.extra?`<div class="r"><span style="color:var(--ink-3)">${esc(q.extra)}</span></div>`:''); $('qtot').textContent=`${eur(q.min)} – ${eur(q.max)}`; $('quote').classList.add('locked'); $('gate').style.display=''; $('sent').classList.remove('on'); }
